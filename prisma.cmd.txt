@@ -2,7 +2,7 @@ npx prisma migrate dev --name init
 
 npx prisma db seed
 
-npx prisma reset migrate  dev --name init
+npx prisma reset
 
 npx prisma generate
 
@@ -13,9 +13,12 @@ nest generate resource value
 npm run start 
 
 
-excel проблемы:
-1 - shared formula
-2 - раздвигать диапазоны при вставке наборов строк
+excel edit cells:
 
-возможное решение:
-1-  вводить формулы как текст типа '=SUM(A1:A100) и при генерации подменять value={formula:....}
+{"type":"numeric", "range":{"min":0, "max":100}, "cell":55.5, "save":{"ent":1, "att":1, "ts":"2025-12-11T22:00:00Z"}}
+{"type":"dropdown", "source": ["yellow", "red", "orange", "green"], "cell":"red", "save":{"ent":1, "att":2, "ts":"2025-12-11T22:00:00Z"}}
+{"type":"checkbox", "cell": true, "save":{"ent":3, "att":4, "ts":"2025-12-11T22:00:00Z"}}
+{"type":"formula", "cell":"=SUM(D3:D12)", "save":{"ent":5, "att":3, "ts":"2025-12-11T22:00:00Z"}}
+{"type":"datetime", "cell":"01.12.2025 08:00", "save":{"ent":4, "att":3, "ts":"2025-12-11T22:00:00Z"}}
+{"type":"date", "cell":"15.11.2025", "save":{"ent":1, "att":5, "ts":"2025-12-11T22:00:00Z"}}
+{"type":"time", "cell":"08:00", "save":{"ent":5, "att":3, "ts":"2025-12-11T22:00:00Z"}}

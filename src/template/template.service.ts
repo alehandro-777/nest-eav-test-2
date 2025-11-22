@@ -3,12 +3,12 @@ import { CreateTemplateDto } from './dto/create-template.dto';
 import { UpdateTemplateDto } from './dto/update-template.dto';
 import { prisma } from '../prisma';
 import { QueryService } from '../query/query.service';
-import fs from "fs";
 
+import fs from "fs";
 import { readFile } from 'fs/promises';
 import * as path from 'path';
 import * as ExcelJS from 'exceljs';
-import { startWith } from 'rxjs';
+
 
 
 @Injectable()
@@ -133,7 +133,7 @@ export class TemplateService {
           //select rowset row
           let dsKeyRow = this.getEntryByIndex(ds, +bind.ds, +bind.id);//map Entry [key, value]
 
-          this.setCellValue(bind, cell, dsKeyRow);
+          this.setCellValue(bind, cell, dsKeyRow);//значение -> в ячейку или генерирует JSON для Edit
         }
 
         //ENGLISCH text formula =SUM(**)
@@ -158,6 +158,14 @@ export class TemplateService {
     }
   }
 
+  //{"type":"numeric", "range":{"min":0, "max":100}, "cell":55.5, "save":{"ent":1, "att":1, "ts":"2025-12-11T22:00:00Z"}}
+  //{"type":"dropdown", "source": ["yellow", "red", "orange", "green"], "cell":"red", "save":{"ent":1, "att":2, "ts":"2025-12-11T22:00:00Z"}}
+  //{"type":"checkbox", "cell": true, "save":{"ent":3, "att":4, "ts":"2025-12-11T22:00:00Z"}}
+  //{"type":"formula", "cell":"=SUM(D3:D12)", "save":{"ent":5, "att":3, "ts":"2025-12-11T22:00:00Z"}}
+  //{"type":"datetime", "cell":"01.12.2025 08:00", "save":{"ent":4, "att":3, "ts":"2025-12-11T22:00:00Z"}}
+  //{"type":"date", "cell":"15.11.2025", "save":{"ent":1, "att":5, "ts":"2025-12-11T22:00:00Z"}}
+  //{"type":"time", "cell":"08:00", "save":{"ent":5, "att":3, "ts":"2025-12-11T22:00:00Z"}}
+  //анализ привязки 
   setCellValue(bind: { ds: string; id: string; key: string; }, cell: ExcelJS.Cell, dsKeyRow: any[] | undefined) {
     //dsKeyRow - map Entry (dataset row) [key, value]
     if (bind.key == "key") {
