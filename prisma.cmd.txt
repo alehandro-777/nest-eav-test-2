@@ -1,0 +1,21 @@
+npx prisma migrate dev --name init
+
+npx prisma db seed
+
+npx prisma reset migrate  dev --name init
+
+npx prisma generate
+
+
+
+nest generate resource value
+
+npm run start 
+
+
+excel проблемы:
+1 - shared formula
+2 - раздвигать диапазоны при вставке наборов строк
+
+возможное решение:
+1-  вводить формулы как текст типа '=SUM(A1:A100) и при генерации подменять value={formula:....}

@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/!generated/prisma" // Required
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+//-------------------------------- MODELS
+
+model Entity {
+  id        Int      @id @default(autoincrement())
+  name      String
+  values    Value[]
+  createdAt DateTime @default(now())
+}
+
+model Attribute {
+  id      Int      @id @default(autoincrement())
+  name    String
+  typeId  Int
+  rangeId Int?
+  KVSetId Int?
+  value   Value[]
+  type    AttrType @relation(fields: [typeId], references: [id], onDelete: Cascade)
+  range   Range?   @relation(fields: [rangeId], references: [id])
+  kVSet   KVSet?   @relation(fields: [KVSetId], references: [id])
+}
+
+model Value {
+  id          Int       @id @default(autoincrement())
+  ts          DateTime
+  entityId    Int
+  attributeId Int
+  stringVal   String
+  numberVal   Float?
+  boolVal     Boolean?
+  dateVal     DateTime?
+  entity      Entity    @relation(fields: [entityId], references: [id], onDelete: Cascade)
+  attribute   Attribute @relation(fields: [attributeId], references: [id], onDelete: Cascade)
+
+  @@unique([entityId, attributeId, ts])
+}
+
+model KVSet {
+  id         Int         @id @default(autoincrement())
+  name       String
+  values     KV[]
+  attributes Attribute[]
+}
+
+model KV {
+  id    Int    @id @default(autoincrement())
+  setId Int
+  key   Int
+  value String
+  set   KVSet  @relation(fields: [setId], references: [id], onDelete: Cascade)
+
+  @@unique([setId, key])
+}
+
+model Range {
+  id         Int         @id @default(autoincrement())
+  min        Float?
+  max        Float?
+  attributes Attribute[]
+}
+
+model AttrType {
+  id         Int         @id @default(autoincrement())
+  name       String
+  attributes Attribute[]
+}
+
+model Template {
+  id   Int    @id @default(autoincrement())
+  name String
+}
+
+model Query {
+  id     Int    @id @default(autoincrement())
+  name   String
+  params String
+}

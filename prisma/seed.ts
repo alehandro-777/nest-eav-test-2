@@ -1,0 +1,241 @@
+console.log("SEED START");
+import { prisma } from '../src/prisma';
+
+
+async function main() {
+  
+  //  ----   QUERYES
+    const q1 = await prisma.query.upsert({
+    where: { id: 1 },
+    update: {},
+    create: {
+      name: 'query1',
+      params: '{"o":[1,2,3,4,5], "p":[1,2,3]}',
+    },
+  });
+    const q2 = await prisma.query.upsert({
+    where: { id: 2 },
+    update: {},
+    create: {
+      name: 'query1',
+      params: '{"o":[1,2,3,4,5], "p":[1,2,3]}',
+    },
+  });
+
+  //  ----   TEMPLATES
+    const tm1 = await prisma.template.upsert({
+    where: { id: 1 },
+    update: {},
+    create: {
+      name: '/templates/template1.xltx',
+    },
+  });
+    const tm2 = await prisma.template.upsert({
+    where: { id: 2 },
+    update: {},
+    create: {
+      name: '/templates/template2.xltx',
+    },
+  });
+    const tm3 = await prisma.template.upsert({
+    where: { id: 3 },
+    update: {},
+    create: {
+      name: '/templates/template3.xltx',
+    },
+  });
+
+  //  ----   RANGE TYPES
+    const r1 = await prisma.range.upsert({
+    where: { id: 1 },
+    update: {},
+    create: {
+      min: 0,
+      max:100,
+    },
+  });
+    const r2 = await prisma.range.upsert({
+    where: { id: 2 },
+    update: {},
+    create: {
+      min: 0,
+      max:1000,
+    },
+  });  
+
+  //------------------------------------------------------
+  //  ----   ATTR TYPES
+    const t1 = await prisma.attrType.upsert({
+    where: { id: 1 },
+    update: {},
+    create: {
+      name: 'numeric',
+    },
+  });
+    const t2 = await prisma.attrType.upsert({
+    where: { id: 2 },
+    update: {},
+    create: {
+      name: 'string',
+    },
+  });
+    const t3 = await prisma.attrType.upsert({
+    where: { id: 3 },
+    update: {},
+    create: {
+      name: 'datetime',
+    },
+  });
+    const t4 = await prisma.attrType.upsert({
+    where: { id: 4 },
+    update: {},
+    create: {
+      name: 'bool',
+    },
+  });
+//----------------------------------------------------
+  //  ----   KV SET
+    const s1 = await prisma.kVSet.upsert({
+    where: { id: 1 },
+    update: {},
+    create: {
+      name: 'Кран',
+    },
+  });
+    const s2 = await prisma.kVSet.upsert({
+    where: { id: 2 },
+    update: {},
+    create: {
+      name: 'ГПА',
+    },
+  });
+//----------------------------------------------------
+  //  ----   KV 
+    const k1 = await prisma.kV.upsert({
+    where: { id:1 },
+    update: {},
+    create: {
+      setId: 1, 
+      key:1,
+      value: 'Состояние 1.1',
+    },
+  });
+    const k2 = await prisma.kV.upsert({
+    where: { id: 2 },
+    update: {},
+    create: {
+      setId: 1, 
+      key:  2,
+      value: 'Состояние 1.2',
+    },
+  });
+    const k3 = await prisma.kV.upsert({
+    where: { id: 3 },
+    update: {},
+    create: {
+      setId: 1, 
+      key:  3,
+      value: 'Состояние 1.3',
+    },
+  });
+    const k4 = await prisma.kV.upsert({
+    where: { id:4 },
+    update: {},
+    create: {
+      setId: 2, 
+      key:1,
+      value: 'Состояние 2.1',
+    },
+  });
+    const k5 = await prisma.kV.upsert({
+    where: { id: 5 },
+    update: {},
+    create: {
+      setId: 2, 
+      key:  2,
+      value: 'Состояние 2.2',
+    },
+  });
+    const k6 = await prisma.kV.upsert({
+    where: { id: 6 },
+    update: {},
+    create: {
+      setId: 2, 
+      key:  3,
+      value: 'Состояние 2.3',
+    },
+  });
+//--------------------------------------------------------------------------
+
+  for (let i = 1; i < 100; i++) {
+      const e = await prisma.entity.upsert({
+        where: { id: i },
+        update: {},
+        create: {
+          name: 'entity ' + i,
+        },
+      });      
+  }
+
+//--------------------------------------------------------------------
+
+  for (let i = 1; i < 100; i++) {
+    const a2 = await prisma.attribute.upsert({
+      where: { id: i },
+      update: {},
+      create: {
+        typeId: i % 2 +1,
+        name: 'attr '+i,
+        rangeId: i % 2 +1,
+        KVSetId: i % 2 +1,
+      },
+    });      
+  }
+
+  for (let k = 0; k < 100; k++) {
+
+    let ts = new Date("2025-01-01");
+        ts.setHours(ts.getHours() + k); // +1 час
+    for (let j = 1; j < 10; j++) {
+      for (let i = 1; i < 10; i++) {
+        let v = Math.random()*100;
+        //console.log(i,j,k)
+        const a2 = await prisma.value.upsert({
+          where: { entityId_attributeId_ts: {  // составной уникальный ключ
+                  entityId: i,
+                  attributeId: j,
+                  ts: ts, 
+                } },
+          update: {},
+          create: {
+            ts: ts,
+            entityId: i,
+            attributeId: j,
+            numberVal: v,
+            stringVal: v.toString(),
+          },
+        });      
+      }
+    }
+  }
+
+
+  //console.log(a1);
+}
+
+// execute the main function
+main()
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    // close Prisma Client at the end
+    await prisma.$disconnect();
+  });
+
+
+
+
+
+  
