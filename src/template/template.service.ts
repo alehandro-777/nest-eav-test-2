@@ -147,13 +147,36 @@ export class TemplateService {
 
     //
   }
-  
+  //{"type":"formula", "cell":"=SUM(D3:D12)", "save":{"ent":5, "att":3, "ts":"2025-12-11T22:00:00Z"}}
   //replace ENG =formula -> Excel format
   setCellFormulaValue(cell: ExcelJS.Cell, rowId: number) {
     if(cell && typeof cell.value == "string" && cell.value.startsWith("="))  {
-        cell.value = cell.value.replaceAll("*", `${rowId}`);
+        cell.value = cell.value.replaceAll("*", `${rowId}`);  //подстановка в размноженную строку
+        //1 - результаты формулы сохранить ?
+        const parts = cell.value.split(".");  
+        const cellObj = {
+            for: parts[0],
+            typ: parts[1],
+            ent: parts[2],
+            att: parts[3],            
+        }
+        if (cellObj.typ)  {
+          //cell with DB save
+          const tmp = {
+            type: "formula", 
+            cell: cellObj.for, 
+            save:{
+              ent:  cellObj.ent, 
+              att:  cellObj.att, 
+              ts:"2025-12-11T22:00:00Z" // temp ???
+            },
+          }
+          cell.value = JSON.stringify(tmp);
+          return; //end 1
+        }
+
         //console.log(rowId, cell.value)
-        //  remove '='
+        //2 - simple cell  remove '='
         cell.value = { formula: cell.value.substring(1), };//excel standart
     }
   }
@@ -161,18 +184,35 @@ export class TemplateService {
   //{"type":"numeric", "range":{"min":0, "max":100}, "cell":55.5, "save":{"ent":1, "att":1, "ts":"2025-12-11T22:00:00Z"}}
   //{"type":"dropdown", "source": ["yellow", "red", "orange", "green"], "cell":"red", "save":{"ent":1, "att":2, "ts":"2025-12-11T22:00:00Z"}}
   //{"type":"checkbox", "cell": true, "save":{"ent":3, "att":4, "ts":"2025-12-11T22:00:00Z"}}
-  //{"type":"formula", "cell":"=SUM(D3:D12)", "save":{"ent":5, "att":3, "ts":"2025-12-11T22:00:00Z"}}
   //{"type":"datetime", "cell":"01.12.2025 08:00", "save":{"ent":4, "att":3, "ts":"2025-12-11T22:00:00Z"}}
   //{"type":"date", "cell":"15.11.2025", "save":{"ent":1, "att":5, "ts":"2025-12-11T22:00:00Z"}}
   //{"type":"time", "cell":"08:00", "save":{"ent":5, "att":3, "ts":"2025-12-11T22:00:00Z"}}
   //анализ привязки 
-  setCellValue(bind: { ds: string; id: string; key: string; }, cell: ExcelJS.Cell, dsKeyRow: any[] | undefined) {
+  setCellValue(bind: any, cell: ExcelJS.Cell, dsKeyRow: any[] | undefined) {
     //dsKeyRow - map Entry (dataset row) [key, value]
     if (bind.key == "key") {
       //dsKeyRow[0] - Map key, [1] - Value
       cell.value = dsKeyRow != undefined ? dsKeyRow[0] : ""; //display "key" test temp
     } else {
 
+      //editable cell
+/*
+        if (bind.typ)  {
+          //cell with DB save
+          const tmp = {
+            type: "number", 
+            cell: bind.for, 
+            save:{
+              ent:  bind.ent, 
+              att:  bind.att, 
+              ts:"2025-12-11T22:00:00Z" // temp ???
+            },
+          }
+          cell.value = JSON.stringify(tmp);
+          return; //end 1
+        }
+*/
+      //simple cell
       let fieldKey = bind.key;
       //dsKeyRow[0] - Map key, [1] - Value
       if (dsKeyRow && dsKeyRow[1] && dsKeyRow[1][fieldKey]) {
@@ -263,16 +303,6 @@ export class TemplateService {
         //const buffer = await this.workbook.xlsx.writeBuffer();
         //saveAs(new Blob([buffer]), 'edited.xlsx');
   }
-  /*
-  [..  "B1", // match[0] — полное совпадение
-  "B",  // match[1] — буквы (колонка)
-  "1"   // match[2] — цифры (строка)   ..]
-  */
-  parseCellRef(ref: string): { col: string; row: number } {
-    const match = ref.match(/\$?([A-Z]{1,3})\$?(\d+)/);
-    return match ? { col: match[1], row: parseInt(match[2], 10) } : { col: "", row: 0 };
-  }
-
   //#0.*.key
   parseCellBinding(bind: string)  {
     const delim = ".";
@@ -283,6 +313,9 @@ export class TemplateService {
             ds: parts[0].substring(1), 
             id:  parts[1],
             key: parts[2],
+            typ: parts[3],
+            ent: parts[4],
+            att: parts[5],            
     }
   }
 
