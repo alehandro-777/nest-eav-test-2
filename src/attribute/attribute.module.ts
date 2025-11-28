@@ -7,5 +7,6 @@ import { AttributeController } from './attribute.controller';
   controllers: [AttributeController],
   providers: [AttributeService],
   imports: [],
+  exports:[AttributeService]
 })
 export class AttributeModule {}

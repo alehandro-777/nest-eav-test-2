@@ -16,7 +16,7 @@ export class AttributeService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} attribute`;
+    return prisma.attribute.findFirst({ include:{ kVSet:{include:{values:true}}, range:true }});
   }
 
   update(id: number, updateAttributeDto: UpdateAttributeDto) {

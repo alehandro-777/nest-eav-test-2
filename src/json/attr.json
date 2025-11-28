@@ -1,0 +1,36 @@
+{
+    "id": 1,
+    "name": "attr 1",
+    "typeId": 2,
+    "rangeId": 2,
+    "KVSetId": 2,
+    "kVSet": {
+        "id": 2,
+        "name": "ГПА",
+        "values": [
+            {
+                "id": 4,
+                "setId": 2,
+                "key": 1,
+                "value": "Состояние 2.1"
+            },
+            {
+                "id": 5,
+                "setId": 2,
+                "key": 2,
+                "value": "Состояние 2.2"
+            },
+            {
+                "id": 6,
+                "setId": 2,
+                "key": 3,
+                "value": "Состояние 2.3"
+            }
+        ]
+    },
+    "range": {
+        "id": 2,
+        "min": 0,
+        "max": 1000
+    }
+}

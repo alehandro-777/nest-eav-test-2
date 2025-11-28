@@ -8,13 +8,14 @@ import fs from "fs";
 import { readFile } from 'fs/promises';
 import * as path from 'path';
 import * as ExcelJS from 'exceljs';
+import { AttributeService } from 'src/attribute/attribute.service';
 
 
 
 @Injectable()
 export class TemplateService {
 
-  constructor(private query: QueryService) {}
+  constructor(private querySrv: QueryService, private attrSrv: AttributeService, ) {}
 
   create(createTemplateDto: CreateTemplateDto) {
     return prisma.template.create({data:createTemplateDto})
@@ -62,7 +63,7 @@ export class TemplateService {
     await workbook.xlsx.readFile(excelTemplatePath);
     const worksheet = workbook.worksheets[0];
     
-    this.processJson(worksheet, json);
+    await this.processJson(worksheet, json);
    
     await workbook.xlsx.writeFile(outExcelPath);
 
@@ -100,7 +101,7 @@ export class TemplateService {
   }
 
   //insert json - excel table
-  processJson(sheet: ExcelJS.Worksheet, ds: Map<string, any>[]) {
+  async processJson(sheet: ExcelJS.Worksheet, ds: Map<string, any>[]) {
     const startSym = "#";
   
     for (let rowId = 1; rowId <= sheet.rowCount; rowId++) {
@@ -133,7 +134,7 @@ export class TemplateService {
           //select rowset row
           let dsKeyRow = this.getEntryByIndex(ds, +bind.ds, +bind.id);//map Entry [key, value]
 
-          this.setCellValue(bind, cell, dsKeyRow);//значение -> в ячейку или генерирует JSON для Edit
+          await this.setCellValue(bind, cell, dsKeyRow);//значение -> в ячейку или генерирует JSON для Edit
         }
 
         //ENGLISCH text formula =SUM(**)
@@ -187,44 +188,177 @@ export class TemplateService {
   //{"type":"datetime", "cell":"01.12.2025 08:00", "save":{"ent":4, "att":3, "ts":"2025-12-11T22:00:00Z"}}
   //{"type":"date", "cell":"15.11.2025", "save":{"ent":1, "att":5, "ts":"2025-12-11T22:00:00Z"}}
   //{"type":"time", "cell":"08:00", "save":{"ent":5, "att":3, "ts":"2025-12-11T22:00:00Z"}}
-  //анализ привязки 
-  setCellValue(bind: any, cell: ExcelJS.Cell, dsKeyRow: any[] | undefined) {
+  //1 анализ привязки 
+  async setCellValue(bind: any, cell: ExcelJS.Cell, dsKeyRow: any[] | undefined) {
     //dsKeyRow - map Entry (dataset row) [key, value]
     if (bind.key == "key") {
       //dsKeyRow[0] - Map key, [1] - Value
-      cell.value = dsKeyRow != undefined ? dsKeyRow[0] : ""; //display "key" test temp
-    } else {
-
-      //editable cell
-/*
-        if (bind.typ)  {
-          //cell with DB save
-          const tmp = {
-            type: "number", 
-            cell: bind.for, 
-            save:{
-              ent:  bind.ent, 
-              att:  bind.att, 
-              ts:"2025-12-11T22:00:00Z" // temp ???
-            },
-          }
-          cell.value = JSON.stringify(tmp);
-          return; //end 1
-        }
-*/
-      //simple cell
-      let fieldKey = bind.key;
+      cell.value = dsKeyRow != undefined ? dsKeyRow[0] : ""; //display "key" поле,  test temp временно ???
+      return;
+    } 
+      const fieldKey = bind.key;
+      let dbVal = null;
+      let dbTs = null
       //dsKeyRow[0] - Map key, [1] - Value
       if (dsKeyRow && dsKeyRow[1] && dsKeyRow[1][fieldKey]) {
         //dsKeyRow[0] - Map key, [1] - Value
-        let newVal = dsKeyRow[1][fieldKey].numberVal; //temp  numberVal  !
+        dbVal = dsKeyRow[1][fieldKey];  //??? временно
+        dbTs = dsKeyRow[1][fieldKey].ts;//??? временно
+      }
 
-        cell.value = newVal; //dsKeys[i]
+    //2 editable cell
+
+      switch (bind.typ) {
+        case "C1":
+          cell.value = await this.setTextCellValue(bind, dbVal, dbTs);      
+          return;
+        case "C2":
+          cell.value = await this.setNumberCellValue(bind, dbVal, dbTs);      
+          return;  
+        case "C3":
+          cell.value = await this.setDateCellValue(bind, dbVal, dbTs);      
+          return;            
+        case "C4":
+          cell.value = await this.setTimeCellValue(bind, dbVal, dbTs);      
+          return;            
+        case "C5":
+          cell.value = await this.setDateTimeCellValue(bind, dbVal, dbTs);      
+          return;  
+        case "C6":
+          cell.value = await this.setCheckBoxCellValue(bind, dbVal, dbTs);      
+          return;  
+        case "C7":
+          cell.value = await this.setDropBownCellValue(bind, dbVal, dbTs);      
+          return;  
+
+        //default:
+        //  break;
+      }
+      //3 simple cell value
+      cell.value = this.setDevaultValue(dbVal);
+  }
+
+  setDevaultValue(dbVal: any) {
+    if(dbVal !== null) {
+      if(dbVal.numberVal !== undefined && dbVal.numberVal !== null) {
+        return dbVal.numberVal;
       } else {
-        cell.value = "";
+        return dbVal.stringVal;
       }
     }
+    return "";
+  }
 
+  async setNumberCellValue(bind: any, dbVal: any, dbTs:any) {
+
+      const attId = +bind.att;  //range froom DB
+      const att = await this.attrSrv.findOne(attId);
+
+      const tmp = {
+        type: "numeric", 
+        cell: dbVal?.numberVal, 
+        range: att?.range,
+        save: {
+          ent:  bind.ent, 
+          att:  bind.att, 
+          ts:   dbTs // temp ???
+        },
+      };
+
+      return JSON.stringify(tmp);
+  }
+  async setTextCellValue(bind: any, dbVal: any, dbTs:any) {
+
+      const tmp = {
+        type: "text", 
+        cell: dbVal?.stringVal, 
+        save: {
+          ent:  bind.ent, 
+          att:  bind.att, 
+          ts:   dbTs // temp ???
+        },
+      };
+
+      return JSON.stringify(tmp);
+  }
+  async setDateCellValue(bind: any, dbVal: any, dbTs:any) {
+
+      const tmp = {
+        type: "date", 
+        cell: dbVal?.stringVal, 
+        save: {
+          ent:  bind.ent, 
+          att:  bind.att, 
+          ts:   dbTs // temp ???
+        },
+      };
+
+      return JSON.stringify(tmp);
+  }
+  async setTimeCellValue(bind: any, dbVal: any, dbTs:any) {
+
+      const tmp = {
+        type: "time", 
+        cell: dbVal?.stringVal, 
+        save: {
+          ent:  bind.ent, 
+          att:  bind.att, 
+          ts:   dbTs // temp ???
+        },
+      };
+
+      return JSON.stringify(tmp);
+  }
+  async setDateTimeCellValue(bind: any, dbVal: any, dbTs:any) {
+
+      const tmp = {
+        type: "datetime", 
+        cell: dbVal?.stringVal, 
+        save: {
+          ent:  bind.ent, 
+          att:  bind.att, 
+          ts:   dbTs // temp ???
+        },
+      };
+
+      return JSON.stringify(tmp);
+  }
+  async setCheckBoxCellValue(bind: any, dbVal: any, dbTs:any) {
+
+      const tmp = {
+        type: "checkbox", 
+        cell: dbVal?.stringVal, 
+        save: {
+          ent:  bind.ent, 
+          att:  bind.att, 
+          ts:   dbTs // temp ???
+        },
+      };
+
+      return JSON.stringify(tmp);
+  }
+  async setDropBownCellValue(bind: any, dbVal: any, dbTs:any) {
+
+      const attId = +bind.att;  //range froom DB
+      const att = await this.attrSrv.findOne(attId);
+      let setKv: string[] = [];
+
+      if(att && att.kVSet && att.kVSet.values) {
+        setKv = att.kVSet.values.map(kv=> kv.value);
+      }
+
+      const tmp = {
+        type: "dropdown", 
+        cell: dbVal?.stringVal, 
+        source: setKv,
+        save: {
+          ent:  bind.ent, 
+          att:  bind.att, 
+          ts:   dbTs // temp ???
+        },
+      };
+
+      return JSON.stringify(tmp);
   }
 
   getEntryByIndex(arr: Map<string, any>[], dsId: number, rowId: number) {
