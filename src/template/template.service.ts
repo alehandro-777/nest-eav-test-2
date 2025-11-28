@@ -63,7 +63,7 @@ export class TemplateService {
     await workbook.xlsx.readFile(excelTemplatePath);
     const worksheet = workbook.worksheets[0];
     
-    await this.processJson(worksheet, json);
+    await this.processJson(worksheet, json, ts, from, to);
    
     await workbook.xlsx.writeFile(outExcelPath);
 
@@ -101,7 +101,7 @@ export class TemplateService {
   }
 
   //insert json - excel table
-  async processJson(sheet: ExcelJS.Worksheet, ds: Map<string, any>[]) {
+  async processJson(sheet: ExcelJS.Worksheet, ds: Map<string, any>[], ts:string, from:string, to:string) {
     const startSym = "#";
   
     for (let rowId = 1; rowId <= sheet.rowCount; rowId++) {
@@ -134,12 +134,12 @@ export class TemplateService {
           //select rowset row
           let dsKeyRow = this.getEntryByIndex(ds, +bind.ds, +bind.id);//map Entry [key, value]
 
-          await this.setCellValue(bind, cell, dsKeyRow);//значение -> в ячейку или генерирует JSON для Edit
+          await this.setCellValue(bind, cell, dsKeyRow, ts, from, to);//значение -> в ячейку или генерирует JSON для Edit
         }
 
         //ENGLISCH text formula =SUM(**)
         if(cell && typeof cell.value == "string" && cell.value.startsWith("="))  {
-          this.setCellFormulaValue(cell, rowId);  //ENG formula -> Excel formula
+          this.setCellFormulaValue(cell, rowId, ts, from, to);  //ENG formula -> Excel formula
         }
 
       }//end columns for
@@ -150,7 +150,7 @@ export class TemplateService {
   }
   //{"type":"formula", "cell":"=SUM(D3:D12)", "save":{"ent":5, "att":3, "ts":"2025-12-11T22:00:00Z"}}
   //replace ENG =formula -> Excel format
-  setCellFormulaValue(cell: ExcelJS.Cell, rowId: number) {
+  setCellFormulaValue(cell: ExcelJS.Cell, rowId: number, ts:string, from:string, to:string) {
     if(cell && typeof cell.value == "string" && cell.value.startsWith("="))  {
         cell.value = cell.value.replaceAll("*", `${rowId}`);  //подстановка в размноженную строку
         //1 - результаты формулы сохранить ?
@@ -169,7 +169,7 @@ export class TemplateService {
             save:{
               ent:  cellObj.ent, 
               att:  cellObj.att, 
-              ts:"2025-12-11T22:00:00Z" // temp ???
+              ts: ts // temp ???
             },
           }
           cell.value = JSON.stringify(tmp);
@@ -182,14 +182,8 @@ export class TemplateService {
     }
   }
 
-  //{"type":"numeric", "range":{"min":0, "max":100}, "cell":55.5, "save":{"ent":1, "att":1, "ts":"2025-12-11T22:00:00Z"}}
-  //{"type":"dropdown", "source": ["yellow", "red", "orange", "green"], "cell":"red", "save":{"ent":1, "att":2, "ts":"2025-12-11T22:00:00Z"}}
-  //{"type":"checkbox", "cell": true, "save":{"ent":3, "att":4, "ts":"2025-12-11T22:00:00Z"}}
-  //{"type":"datetime", "cell":"01.12.2025 08:00", "save":{"ent":4, "att":3, "ts":"2025-12-11T22:00:00Z"}}
-  //{"type":"date", "cell":"15.11.2025", "save":{"ent":1, "att":5, "ts":"2025-12-11T22:00:00Z"}}
-  //{"type":"time", "cell":"08:00", "save":{"ent":5, "att":3, "ts":"2025-12-11T22:00:00Z"}}
   //1 анализ привязки 
-  async setCellValue(bind: any, cell: ExcelJS.Cell, dsKeyRow: any[] | undefined) {
+  async setCellValue(bind: any, cell: ExcelJS.Cell, dsKeyRow: any[] | undefined, ts:string, from:string, to:string) {
     //dsKeyRow - map Entry (dataset row) [key, value]
     if (bind.key == "key") {
       //dsKeyRow[0] - Map key, [1] - Value
@@ -198,12 +192,12 @@ export class TemplateService {
     } 
       const fieldKey = bind.key;
       let dbVal = null;
-      let dbTs = null
+      let dbTs = ts;
       //dsKeyRow[0] - Map key, [1] - Value
       if (dsKeyRow && dsKeyRow[1] && dsKeyRow[1][fieldKey]) {
         //dsKeyRow[0] - Map key, [1] - Value
-        dbVal = dsKeyRow[1][fieldKey];  //??? временно
-        dbTs = dsKeyRow[1][fieldKey].ts;//??? временно
+        dbVal = dsKeyRow[1][fieldKey];    //??? временно
+        dbTs = dsKeyRow[1][fieldKey].ts;  //??? временно
       }
 
     //2 editable cell

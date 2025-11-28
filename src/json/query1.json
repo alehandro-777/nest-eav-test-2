@@ -9,6 +9,7 @@
           "entityId": true,
           "attributeId": true,
           "numberVal": true,
+          "stringVal": true,
           "id": true
         },
         "orderBy":  {

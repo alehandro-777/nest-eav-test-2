@@ -38,6 +38,7 @@ export class QueryController {
         @Query('ts') ts: string, 
         @Query('from') from:string, 
         @Query('to') to:string, @Query('o') o:string,@Query('p') p:string, ) {
+
     return this.queryService.exec(id, ts, from, to, o, p, );
   }
 

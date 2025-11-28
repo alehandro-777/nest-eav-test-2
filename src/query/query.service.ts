@@ -58,9 +58,10 @@ export class QueryService {
     console.log(djs, _from, _to, ent, att,  )
 
     let res = await this.query7(_from, _to, ent, att);
+    //return res;
 
-    //let trans = this.transform1(res); 
-    return res;  
+    let trans = this.transform1(res); 
+    return Object.fromEntries(trans); 
   }
 
   query1(ts: Date)  {
@@ -95,6 +96,7 @@ export class QueryService {
           entityId: true,
           attributeId: true,
           numberVal: true,
+          stringVal: true,
           id: true,
         },
         orderBy:  {
@@ -176,7 +178,6 @@ export class QueryService {
       let editableObject = map.get(key);  //редактируемый объект
       let objKey = currValue.entityId +"_"+ currValue.attributeId;  //key внутри строки
       editableObject[objKey] = currValue; 
-
       return map;
     }, new Map<string, any>());
   }
