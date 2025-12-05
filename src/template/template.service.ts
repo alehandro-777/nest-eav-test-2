@@ -43,11 +43,11 @@ export class TemplateService {
 
   download(id: number) {
 
-    const filePath = path.resolve(__dirname, '../json/template1.xlsx'); //temp
+    const filePath = path.resolve(__dirname, '../json/data1.xlsx'); //temp
     const stat = fs.statSync(filePath);
     const readStream = fs.createReadStream(filePath);
 
-    return {readStream, stat, name:"template1.xlsx"};
+    return {readStream, stat, name:"data1.xlsx"};
   }
 
   //--------------------------------------------------------------------
@@ -279,7 +279,8 @@ export class TemplateService {
 
       const tmp = {
         type: "date", 
-        cell: dbVal?.stringVal, 
+        //cell: dbVal?.stringVal, 
+        cell: "25.12.2025",
         save: {
           ent:  bind.ent, 
           att:  bind.att, 
@@ -293,7 +294,8 @@ export class TemplateService {
 
       const tmp = {
         type: "time", 
-        cell: dbVal?.stringVal, 
+        //cell: dbVal?.stringVal, 
+        cell: "08:00:00",
         save: {
           ent:  bind.ent, 
           att:  bind.att, 
@@ -307,7 +309,8 @@ export class TemplateService {
 
       const tmp = {
         type: "datetime", 
-        cell: dbVal?.stringVal, 
+        //cell: dbVal?.stringVal, //temp test
+        cell: "25.12.2025 08:00:00",
         save: {
           ent:  bind.ent, 
           att:  bind.att, 
@@ -321,7 +324,8 @@ export class TemplateService {
 
       const tmp = {
         type: "checkbox", 
-        cell: dbVal?.stringVal, 
+        //cell: dbVal?.stringVal, // test temp
+        cell: true, 
         save: {
           ent:  bind.ent, 
           att:  bind.att, 
@@ -343,7 +347,8 @@ export class TemplateService {
 
       const tmp = {
         type: "dropdown", 
-        cell: dbVal?.stringVal, 
+        //cell: dbVal?.stringVal,
+        cell: "ZXY", 
         source: setKv,
         save: {
           ent:  bind.ent, 

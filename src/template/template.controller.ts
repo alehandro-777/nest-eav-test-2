@@ -48,7 +48,7 @@ export class TemplateController {
     
     res.setHeader("Content-Type", 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     res.setHeader("Content-Length", f.stat.size); // обязательно ?
-    res.setHeader("Content-Disposition", 'attachment; filename="template1.xlsx"');
+    res.setHeader("Content-Disposition", `attachment; filename='${f.name}'`);
 
     f.readStream.pipe(res);
 

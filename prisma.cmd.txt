@@ -22,3 +22,13 @@ excel edit cells:
 {"type":"datetime", "cell":"01.12.2025 08:00", "save":{"ent":4, "att":3, "ts":"2025-12-11T22:00:00Z"}}
 {"type":"date", "cell":"15.11.2025", "save":{"ent":1, "att":5, "ts":"2025-12-11T22:00:00Z"}}
 {"type":"time", "cell":"08:00", "save":{"ent":5, "att":3, "ts":"2025-12-11T22:00:00Z"}}
+
+C#.1.1 - cell type.ent.att	Cell Type
+1	text
+2	numeric
+3	date
+4	time
+5	datetime
+6	checkbox
+7	dropdown
+	
