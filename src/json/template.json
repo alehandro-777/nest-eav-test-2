@@ -1,0 +1,11 @@
+{
+    "id": 1,
+    "name": "template1.xltx",
+    "queries": [
+        {
+            "id": 1,
+            "name": "query1",
+            "params": "      {\n        \"where\":{\n          \"entityId\": { \"in\": [1,2,3,4,5  ] },\n          \"attributeId\": { \"in\": [1,2,3,4,5 ] },\n          \"ts\": { \"gte\": \"\", \"lt\": \"\"  }\n        }, \n        \"select\": {\n          \"ts\": true,\n          \"entityId\": true,\n          \"attributeId\": true,\n          \"numberVal\": true,\n          \"stringVal\": true,\n          \"boolVal\": true,\n          \"dateVal\": true,\n          \"id\": true\n        },\n        \"orderBy\":  {\n          \"ts\": \"asc\"\n        },\n        \"take\": 1000 \n    }"
+        }
+    ]
+}

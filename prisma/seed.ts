@@ -4,21 +4,61 @@ import { prisma } from '../src/prisma';
 
 async function main() {
   
-  //  ----   QUERYES
+  //  ----   QUEryes
     const q1 = await prisma.query.upsert({
     where: { id: 1 },
     update: {},
     create: {
       name: 'query1',
-      params: '{"o":[1,2,3,4,5], "p":[1,2,3]}',
+      params: `      {
+        "where":{
+          "entityId": { "in": [1,2,3,4,5  ] },
+          "attributeId": { "in": [1,2,3,4,5 ] },
+          "ts": { "gte": "", "lt": ""  }
+        }, 
+        "select": {
+          "ts": true,
+          "entityId": true,
+          "attributeId": true,
+          "numberVal": true,
+          "stringVal": true,
+          "boolVal": true,
+          "dateVal": true,
+          "id": true
+        },
+        "orderBy":  {
+          "ts": "asc"
+        },
+        "take": 1000 
+    }`,
     },
   });
     const q2 = await prisma.query.upsert({
     where: { id: 2 },
     update: {},
     create: {
-      name: 'query1',
-      params: '{"o":[1,2,3,4,5], "p":[1,2,3]}',
+      name: 'query2',
+      params: `      {
+        "where":{
+          "entityId": { "in": [1,2,3,4,5  ] },
+          "attributeId": { "in": [1,2,3,4,5 ] },
+          "ts": { "gte": "", "lt": ""  }
+        }, 
+        "select": {
+          "ts": true,
+          "entityId": true,
+          "attributeId": true,
+          "numberVal": true,
+          "stringVal": true,
+          "boolVal": true,
+          "dateVal": true,
+          "id": true
+        },
+        "orderBy":  {
+          "ts": "asc"
+        },
+        "take": 1000 
+    }`,
     },
   });
 
@@ -27,21 +67,22 @@ async function main() {
     where: { id: 1 },
     update: {},
     create: {
-      name: '/templates/template1.xltx',
+      name: 'template1.xltx',
+      queries: {connect:{id:1}}
     },
   });
     const tm2 = await prisma.template.upsert({
     where: { id: 2 },
     update: {},
     create: {
-      name: '/templates/template2.xltx',
+      name: 'template2.xltx',
     },
   });
     const tm3 = await prisma.template.upsert({
     where: { id: 3 },
     update: {},
     create: {
-      name: '/templates/template3.xltx',
+      name: 'template3.xltx',
     },
   });
 
@@ -213,6 +254,8 @@ async function main() {
             attributeId: j,
             numberVal: v,
             stringVal: v.toString(),
+            dateVal: ts,
+            boolVal: true,
           },
         });      
       }

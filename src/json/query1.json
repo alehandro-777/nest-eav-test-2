@@ -1,7 +1,7 @@
       {
         "where":{
           "entityId": { "in": [1,2,3,4,5  ] },
-          "attributeId": { "in": [1,2,3,4 ] },
+          "attributeId": { "in": [1,2,3,4,5 ] },
           "ts": { "gte": "", "lt": ""  }
         }, 
         "select": {
@@ -10,6 +10,8 @@
           "attributeId": true,
           "numberVal": true,
           "stringVal": true,
+          "boolVal": true,
+          "dateVal": true,
           "id": true
         },
         "orderBy":  {

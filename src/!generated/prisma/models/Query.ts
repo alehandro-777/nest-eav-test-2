@@ -200,12 +200,14 @@ export type QueryWhereInput = {
   id?: Prisma.IntFilter<"Query"> | number
   name?: Prisma.StringFilter<"Query"> | string
   params?: Prisma.StringFilter<"Query"> | string
+  templates?: Prisma.TemplateListRelationFilter
 }
 
 export type QueryOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   params?: Prisma.SortOrder
+  templates?: Prisma.TemplateOrderByRelationAggregateInput
 }
 
 export type QueryWhereUniqueInput = Prisma.AtLeast<{
@@ -215,6 +217,7 @@ export type QueryWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.QueryWhereInput | Prisma.QueryWhereInput[]
   name?: Prisma.StringFilter<"Query"> | string
   params?: Prisma.StringFilter<"Query"> | string
+  templates?: Prisma.TemplateListRelationFilter
 }, "id">
 
 export type QueryOrderByWithAggregationInput = {
@@ -240,23 +243,27 @@ export type QueryScalarWhereWithAggregatesInput = {
 export type QueryCreateInput = {
   name: string
   params: string
+  templates?: Prisma.TemplateCreateNestedManyWithoutQueriesInput
 }
 
 export type QueryUncheckedCreateInput = {
   id?: number
   name: string
   params: string
+  templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutQueriesInput
 }
 
 export type QueryUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   params?: Prisma.StringFieldUpdateOperationsInput | string
+  templates?: Prisma.TemplateUpdateManyWithoutQueriesNestedInput
 }
 
 export type QueryUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   params?: Prisma.StringFieldUpdateOperationsInput | string
+  templates?: Prisma.TemplateUncheckedUpdateManyWithoutQueriesNestedInput
 }
 
 export type QueryCreateManyInput = {
@@ -274,6 +281,16 @@ export type QueryUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   params?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type QueryListRelationFilter = {
+  every?: Prisma.QueryWhereInput
+  some?: Prisma.QueryWhereInput
+  none?: Prisma.QueryWhereInput
+}
+
+export type QueryOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type QueryCountOrderByAggregateInput = {
@@ -302,12 +319,139 @@ export type QuerySumOrderByAggregateInput = {
   id?: Prisma.SortOrder
 }
 
+export type QueryCreateNestedManyWithoutTemplatesInput = {
+  create?: Prisma.XOR<Prisma.QueryCreateWithoutTemplatesInput, Prisma.QueryUncheckedCreateWithoutTemplatesInput> | Prisma.QueryCreateWithoutTemplatesInput[] | Prisma.QueryUncheckedCreateWithoutTemplatesInput[]
+  connectOrCreate?: Prisma.QueryCreateOrConnectWithoutTemplatesInput | Prisma.QueryCreateOrConnectWithoutTemplatesInput[]
+  connect?: Prisma.QueryWhereUniqueInput | Prisma.QueryWhereUniqueInput[]
+}
+
+export type QueryUncheckedCreateNestedManyWithoutTemplatesInput = {
+  create?: Prisma.XOR<Prisma.QueryCreateWithoutTemplatesInput, Prisma.QueryUncheckedCreateWithoutTemplatesInput> | Prisma.QueryCreateWithoutTemplatesInput[] | Prisma.QueryUncheckedCreateWithoutTemplatesInput[]
+  connectOrCreate?: Prisma.QueryCreateOrConnectWithoutTemplatesInput | Prisma.QueryCreateOrConnectWithoutTemplatesInput[]
+  connect?: Prisma.QueryWhereUniqueInput | Prisma.QueryWhereUniqueInput[]
+}
+
+export type QueryUpdateManyWithoutTemplatesNestedInput = {
+  create?: Prisma.XOR<Prisma.QueryCreateWithoutTemplatesInput, Prisma.QueryUncheckedCreateWithoutTemplatesInput> | Prisma.QueryCreateWithoutTemplatesInput[] | Prisma.QueryUncheckedCreateWithoutTemplatesInput[]
+  connectOrCreate?: Prisma.QueryCreateOrConnectWithoutTemplatesInput | Prisma.QueryCreateOrConnectWithoutTemplatesInput[]
+  upsert?: Prisma.QueryUpsertWithWhereUniqueWithoutTemplatesInput | Prisma.QueryUpsertWithWhereUniqueWithoutTemplatesInput[]
+  set?: Prisma.QueryWhereUniqueInput | Prisma.QueryWhereUniqueInput[]
+  disconnect?: Prisma.QueryWhereUniqueInput | Prisma.QueryWhereUniqueInput[]
+  delete?: Prisma.QueryWhereUniqueInput | Prisma.QueryWhereUniqueInput[]
+  connect?: Prisma.QueryWhereUniqueInput | Prisma.QueryWhereUniqueInput[]
+  update?: Prisma.QueryUpdateWithWhereUniqueWithoutTemplatesInput | Prisma.QueryUpdateWithWhereUniqueWithoutTemplatesInput[]
+  updateMany?: Prisma.QueryUpdateManyWithWhereWithoutTemplatesInput | Prisma.QueryUpdateManyWithWhereWithoutTemplatesInput[]
+  deleteMany?: Prisma.QueryScalarWhereInput | Prisma.QueryScalarWhereInput[]
+}
+
+export type QueryUncheckedUpdateManyWithoutTemplatesNestedInput = {
+  create?: Prisma.XOR<Prisma.QueryCreateWithoutTemplatesInput, Prisma.QueryUncheckedCreateWithoutTemplatesInput> | Prisma.QueryCreateWithoutTemplatesInput[] | Prisma.QueryUncheckedCreateWithoutTemplatesInput[]
+  connectOrCreate?: Prisma.QueryCreateOrConnectWithoutTemplatesInput | Prisma.QueryCreateOrConnectWithoutTemplatesInput[]
+  upsert?: Prisma.QueryUpsertWithWhereUniqueWithoutTemplatesInput | Prisma.QueryUpsertWithWhereUniqueWithoutTemplatesInput[]
+  set?: Prisma.QueryWhereUniqueInput | Prisma.QueryWhereUniqueInput[]
+  disconnect?: Prisma.QueryWhereUniqueInput | Prisma.QueryWhereUniqueInput[]
+  delete?: Prisma.QueryWhereUniqueInput | Prisma.QueryWhereUniqueInput[]
+  connect?: Prisma.QueryWhereUniqueInput | Prisma.QueryWhereUniqueInput[]
+  update?: Prisma.QueryUpdateWithWhereUniqueWithoutTemplatesInput | Prisma.QueryUpdateWithWhereUniqueWithoutTemplatesInput[]
+  updateMany?: Prisma.QueryUpdateManyWithWhereWithoutTemplatesInput | Prisma.QueryUpdateManyWithWhereWithoutTemplatesInput[]
+  deleteMany?: Prisma.QueryScalarWhereInput | Prisma.QueryScalarWhereInput[]
+}
+
+export type QueryCreateWithoutTemplatesInput = {
+  name: string
+  params: string
+}
+
+export type QueryUncheckedCreateWithoutTemplatesInput = {
+  id?: number
+  name: string
+  params: string
+}
+
+export type QueryCreateOrConnectWithoutTemplatesInput = {
+  where: Prisma.QueryWhereUniqueInput
+  create: Prisma.XOR<Prisma.QueryCreateWithoutTemplatesInput, Prisma.QueryUncheckedCreateWithoutTemplatesInput>
+}
+
+export type QueryUpsertWithWhereUniqueWithoutTemplatesInput = {
+  where: Prisma.QueryWhereUniqueInput
+  update: Prisma.XOR<Prisma.QueryUpdateWithoutTemplatesInput, Prisma.QueryUncheckedUpdateWithoutTemplatesInput>
+  create: Prisma.XOR<Prisma.QueryCreateWithoutTemplatesInput, Prisma.QueryUncheckedCreateWithoutTemplatesInput>
+}
+
+export type QueryUpdateWithWhereUniqueWithoutTemplatesInput = {
+  where: Prisma.QueryWhereUniqueInput
+  data: Prisma.XOR<Prisma.QueryUpdateWithoutTemplatesInput, Prisma.QueryUncheckedUpdateWithoutTemplatesInput>
+}
+
+export type QueryUpdateManyWithWhereWithoutTemplatesInput = {
+  where: Prisma.QueryScalarWhereInput
+  data: Prisma.XOR<Prisma.QueryUpdateManyMutationInput, Prisma.QueryUncheckedUpdateManyWithoutTemplatesInput>
+}
+
+export type QueryScalarWhereInput = {
+  AND?: Prisma.QueryScalarWhereInput | Prisma.QueryScalarWhereInput[]
+  OR?: Prisma.QueryScalarWhereInput[]
+  NOT?: Prisma.QueryScalarWhereInput | Prisma.QueryScalarWhereInput[]
+  id?: Prisma.IntFilter<"Query"> | number
+  name?: Prisma.StringFilter<"Query"> | string
+  params?: Prisma.StringFilter<"Query"> | string
+}
+
+export type QueryUpdateWithoutTemplatesInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  params?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type QueryUncheckedUpdateWithoutTemplatesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  params?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type QueryUncheckedUpdateManyWithoutTemplatesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  params?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+
+/**
+ * Count Type QueryCountOutputType
+ */
+
+export type QueryCountOutputType = {
+  templates: number
+}
+
+export type QueryCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  templates?: boolean | QueryCountOutputTypeCountTemplatesArgs
+}
+
+/**
+ * QueryCountOutputType without action
+ */
+export type QueryCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the QueryCountOutputType
+   */
+  select?: Prisma.QueryCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * QueryCountOutputType without action
+ */
+export type QueryCountOutputTypeCountTemplatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TemplateWhereInput
+}
 
 
 export type QuerySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   params?: boolean
+  templates?: boolean | Prisma.Query$templatesArgs<ExtArgs>
+  _count?: boolean | Prisma.QueryCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["query"]>
 
 export type QuerySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -329,10 +473,18 @@ export type QuerySelectScalar = {
 }
 
 export type QueryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "params", ExtArgs["result"]["query"]>
+export type QueryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  templates?: boolean | Prisma.Query$templatesArgs<ExtArgs>
+  _count?: boolean | Prisma.QueryCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type QueryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type QueryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $QueryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Query"
-  objects: {}
+  objects: {
+    templates: Prisma.$TemplatePayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string
@@ -731,6 +883,7 @@ readonly fields: QueryFieldRefs;
  */
 export interface Prisma__QueryClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  templates<T extends Prisma.Query$templatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Query$templatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -780,6 +933,10 @@ export type QueryFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   omit?: Prisma.QueryOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QueryInclude<ExtArgs> | null
+  /**
    * Filter, which Query to fetch.
    */
   where: Prisma.QueryWhereUniqueInput
@@ -798,6 +955,10 @@ export type QueryFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.
    */
   omit?: Prisma.QueryOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QueryInclude<ExtArgs> | null
+  /**
    * Filter, which Query to fetch.
    */
   where: Prisma.QueryWhereUniqueInput
@@ -815,6 +976,10 @@ export type QueryFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Query
    */
   omit?: Prisma.QueryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QueryInclude<ExtArgs> | null
   /**
    * Filter, which Query to fetch.
    */
@@ -864,6 +1029,10 @@ export type QueryFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   omit?: Prisma.QueryOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QueryInclude<ExtArgs> | null
+  /**
    * Filter, which Query to fetch.
    */
   where?: Prisma.QueryWhereInput
@@ -912,6 +1081,10 @@ export type QueryFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.QueryOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QueryInclude<ExtArgs> | null
+  /**
    * Filter, which Queries to fetch.
    */
   where?: Prisma.QueryWhereInput
@@ -954,6 +1127,10 @@ export type QueryCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    * Omit specific fields from the Query
    */
   omit?: Prisma.QueryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QueryInclude<ExtArgs> | null
   /**
    * The data needed to create a Query.
    */
@@ -1002,6 +1179,10 @@ export type QueryUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    * Omit specific fields from the Query
    */
   omit?: Prisma.QueryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QueryInclude<ExtArgs> | null
   /**
    * The data needed to update a Query.
    */
@@ -1069,6 +1250,10 @@ export type QueryUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    */
   omit?: Prisma.QueryOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QueryInclude<ExtArgs> | null
+  /**
    * The filter to search for the Query to update in case it exists.
    */
   where: Prisma.QueryWhereUniqueInput
@@ -1095,6 +1280,10 @@ export type QueryDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    */
   omit?: Prisma.QueryOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QueryInclude<ExtArgs> | null
+  /**
    * Filter which Query to delete.
    */
   where: Prisma.QueryWhereUniqueInput
@@ -1115,6 +1304,30 @@ export type QueryDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
+ * Query.templates
+ */
+export type Query$templatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Template
+   */
+  select?: Prisma.TemplateSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Template
+   */
+  omit?: Prisma.TemplateOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TemplateInclude<ExtArgs> | null
+  where?: Prisma.TemplateWhereInput
+  orderBy?: Prisma.TemplateOrderByWithRelationInput | Prisma.TemplateOrderByWithRelationInput[]
+  cursor?: Prisma.TemplateWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TemplateScalarFieldEnum | Prisma.TemplateScalarFieldEnum[]
+}
+
+/**
  * Query without action
  */
 export type QueryDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1126,4 +1339,8 @@ export type QueryDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    * Omit specific fields from the Query
    */
   omit?: Prisma.QueryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QueryInclude<ExtArgs> | null
 }

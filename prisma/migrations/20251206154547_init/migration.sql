@@ -84,11 +84,22 @@ CREATE TABLE "Query" (
     CONSTRAINT "Query_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "_QueryToTemplate" (
+    "A" INTEGER NOT NULL,
+    "B" INTEGER NOT NULL,
+
+    CONSTRAINT "_QueryToTemplate_AB_pkey" PRIMARY KEY ("A","B")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "Value_entityId_attributeId_ts_key" ON "Value"("entityId", "attributeId", "ts");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "KV_setId_key_key" ON "KV"("setId", "key");
+
+-- CreateIndex
+CREATE INDEX "_QueryToTemplate_B_index" ON "_QueryToTemplate"("B");
 
 -- AddForeignKey
 ALTER TABLE "Attribute" ADD CONSTRAINT "Attribute_typeId_fkey" FOREIGN KEY ("typeId") REFERENCES "AttrType"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -107,3 +118,9 @@ ALTER TABLE "Value" ADD CONSTRAINT "Value_attributeId_fkey" FOREIGN KEY ("attrib
 
 -- AddForeignKey
 ALTER TABLE "KV" ADD CONSTRAINT "KV_setId_fkey" FOREIGN KEY ("setId") REFERENCES "KVSet"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_QueryToTemplate" ADD CONSTRAINT "_QueryToTemplate_A_fkey" FOREIGN KEY ("A") REFERENCES "Query"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_QueryToTemplate" ADD CONSTRAINT "_QueryToTemplate_B_fkey" FOREIGN KEY ("B") REFERENCES "Template"("id") ON DELETE CASCADE ON UPDATE CASCADE;

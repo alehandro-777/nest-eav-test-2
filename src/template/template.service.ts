@@ -26,7 +26,10 @@ export class TemplateService {
   }
 
   findOne(id: number) {
-    return prisma.template.findFirst({ where:{id:id}});
+    return prisma.template.findFirst({ 
+      where:{id:id},
+      include:{queries:true}
+    });
   }
 
   update(id: number, updateTemplateDto: UpdateTemplateDto) {
@@ -67,12 +70,12 @@ export class TemplateService {
    
     await workbook.xlsx.writeFile(outExcelPath);
 
-    return "OK";
+    return {message: "OK"};
   }
 
   //temp temp 
   async processQuery(idsArr:string, ts:string, from:string, to:string, o:string, p:string) {
-  /*
+  
     let ids = [];
     let result: Map<string,any>[] = [];
 
@@ -82,22 +85,23 @@ export class TemplateService {
       console.error(e);
     }
 
-    console.log(ids  )
+    console.log(ids )
 
     for (let i = 0; i < ids.length; i++) {
       const id = ids[i];
-      let data = await this.query.exec(id, ts, from, to, o, p);
-      //result.push(data)     
+      let data = await this.querySrv.exec(id, ts, from, to, o, p);
+      result.push(new Map(Object.entries(data)));     
     }
 
     return result;
-*/
+/*
     // TEST TEST
     const testData1Map = path.resolve(__dirname, '../json/data2.json');
     const data = JSON.parse(await readFile(testData1Map, 'utf8'));
     const ds0: Map<string, any> = new Map(Object.entries(data)); //temp test
 
     return [ds0, ds0];  //test test
+*/
   }
 
   //insert json - excel table
@@ -279,8 +283,7 @@ export class TemplateService {
 
       const tmp = {
         type: "date", 
-        //cell: dbVal?.stringVal, 
-        cell: "25.12.2025",
+        cell: dbVal?.stringVal,
         save: {
           ent:  bind.ent, 
           att:  bind.att, 
@@ -294,8 +297,7 @@ export class TemplateService {
 
       const tmp = {
         type: "time", 
-        //cell: dbVal?.stringVal, 
-        cell: "08:00:00",
+        cell: dbVal?.stringVal, 
         save: {
           ent:  bind.ent, 
           att:  bind.att, 
@@ -309,8 +311,7 @@ export class TemplateService {
 
       const tmp = {
         type: "datetime", 
-        //cell: dbVal?.stringVal, //temp test
-        cell: "25.12.2025 08:00:00",
+        cell: dbVal?.stringVal, //temp test
         save: {
           ent:  bind.ent, 
           att:  bind.att, 
@@ -324,8 +325,7 @@ export class TemplateService {
 
       const tmp = {
         type: "checkbox", 
-        //cell: dbVal?.stringVal, // test temp
-        cell: true, 
+        cell: dbVal?.boolVal, // test temp
         save: {
           ent:  bind.ent, 
           att:  bind.att, 
@@ -347,8 +347,7 @@ export class TemplateService {
 
       const tmp = {
         type: "dropdown", 
-        //cell: dbVal?.stringVal,
-        cell: "ZXY", 
+        cell: dbVal?.stringVal,
         source: setKv,
         save: {
           ent:  bind.ent, 
