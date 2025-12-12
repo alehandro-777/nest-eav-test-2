@@ -1,0 +1,14 @@
+      {
+        "by": ["entityId"],
+        "where":{
+          "entityId": { "in": [] },
+          "attributeId": { "in": [] },
+          "ts": { "gte": "", "lt": ""  }
+        }, 
+          "_avg": { "numberVal": true },
+          "_sum": { "numberVal": true },
+          "_count": true,
+        "having": {
+            "numberVal": { "_avg": { "gt": 500 } }
+        }
+      }

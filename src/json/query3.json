@@ -1,0 +1,9 @@
+      {
+        "where":{
+          "entityId": { "in": [1,2,3,4,5] },
+          "attributeId": { "in": [1,2,3,4,5] },
+          "ts": { "gte": "", "lt": ""  }
+        }, 
+          "_avg": { "numberVal": true },
+          "_sum": { "numberVal": true }
+    }

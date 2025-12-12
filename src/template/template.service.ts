@@ -27,8 +27,10 @@ export class TemplateService {
 
   findOne(id: number) {
     return prisma.template.findFirst({ 
-      where:{id:id},
-      include:{queries:true}
+      where:  {id:id},
+      include:  { queries: {
+        select: { id: true }}  
+      }
     });
   }
 
@@ -44,52 +46,57 @@ export class TemplateService {
     return prisma.template.delete({ where:{id:id} });
   }
 
-  download(id: number) {
+  async download(id: number) {
+    const template = await this.findOne(id);
 
-    const filePath = path.resolve(__dirname, '../json/data1.xlsx'); //temp
+    if(!template) return null;
+
+    let fname = template.name + "_out" + ".xlsx";
+
+    const filePath = path.resolve(__dirname, '../json/'+fname); //temp
     const stat = fs.statSync(filePath);
     const readStream = fs.createReadStream(filePath);
 
-    return {readStream, stat, name:"data1.xlsx"};
+    return {readStream, stat, name: fname };
   }
 
   //--------------------------------------------------------------------
 
-  async exec(queryIds:string, ts:string, from:string, to:string, o:string, p:string) {
+  async exec(queryId:string, ts:string, from:string, to:string,) {
 
-    const json = await this.processQuery(queryIds, ts, from, to, o, p); // test test data
+    const template = await this.findOne(+queryId);
+    
+    //console.log(template);
 
-    const excelTemplatePath = path.resolve(__dirname, '../json/template1.xlsx');  //template
-    const outExcelPath = path.resolve(__dirname, '../json/data1.xlsx');         //output xlsx
+    if(!template) return null;
+
+    const json = await this.processQuery(template?.queries, ts, from, to); // test test data
+
+    const excelTemplatePath = path.resolve(__dirname, '../json/' + template.name + ".xlsx");    //template xlsx
+    const outExcelPath = path.resolve(__dirname, '../json/'+ template.name + "_out" + ".xlsx"); //output xlsx
 
     const workbook = new ExcelJS.Workbook();
     await workbook.xlsx.readFile(excelTemplatePath);
     const worksheet = workbook.worksheets[0];
-    
+  
     await this.processJson(worksheet, json, ts, from, to);
    
     await workbook.xlsx.writeFile(outExcelPath);
 
-    return {message: "OK"};
+    return {result: "Ok", ts:new Date().toISOString()};
   }
 
-  //temp temp 
-  async processQuery(idsArr:string, ts:string, from:string, to:string, o:string, p:string) {
+  //
+  async processQuery(idsArr:any[], ts:string, from:string, to:string) {
   
-    let ids = [];
+    let ids = idsArr.map(o=>o.id);
     let result: Map<string,any>[] = [];
 
-    try {
-      ids = JSON.parse(idsArr);
-    } catch (e) {
-      console.error(e);
-    }
-
-    console.log(ids )
+    //console.log(ids)
 
     for (let i = 0; i < ids.length; i++) {
       const id = ids[i];
-      let data = await this.querySrv.exec(id, ts, from, to, o, p);
+      let data = await this.querySrv.exec(id, ts, from, to);
       result.push(new Map(Object.entries(data)));     
     }
 

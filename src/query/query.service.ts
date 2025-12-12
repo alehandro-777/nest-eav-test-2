@@ -4,7 +4,7 @@ import { UpdateQueryDto } from './dto/update-query.dto';
 import { readFile } from 'fs/promises';
 import path from 'path';
 import { prisma } from '../prisma';
-import {ValueFindManyArgs} from '../!generated/prisma/models';
+import {ValueFindManyArgs, ValueGroupByArgs, ValueAggregateArgs, ValueOrderByWithAggregationInput} from '../!generated/prisma/models';
 
 
 @Injectable()
@@ -39,7 +39,7 @@ export class QueryService {
 
 
   //----------- TEST
-  async exec(queryId:string, ts:string, from:string, to:string, o:string, p:string) {
+  async exec(queryId:string, ts:string, from:string, to:string, ) {
 
     let djs = new Date(ts);
     let _from = new Date(from);
@@ -47,21 +47,41 @@ export class QueryService {
     
     let ent = [];
     let att = [];
+    let res:  any;
+    let trans:any; 
 
-    try {
-      ent = JSON.parse(o);
-      att = JSON.parse(p);
-    } catch (e) {
-      console.error(e);
-    }
+
   
     console.log(djs, _from, _to, ent, att,  )
 
-    let res = await this.query7(_from, _to, ent, att);
+    let q = await this.findOne(+queryId);
+
+    switch (q?.name) {
+      case "query1":  //findMany
+        res = await this.query8(q.params, _from, _to);
+        trans = this.transform1(res); 
+        return Object.fromEntries(trans);    
+
+      case "query2":  //groupBy
+        res = await this.query9(q.params, _from, _to);
+        console.log(res)
+        trans = this.transform2(res); 
+        return Object.fromEntries(trans);    
+
+      case "query3":  //aggregate
+        res = await this.query10(q.params, _from, _to);
+        console.log(res)
+        trans = this.transform3(res); 
+        return Object.fromEntries(trans); 
+    }
+
+    //res = await this.query4(_from, _to);
+    //console.log(res)
     //return res;
 
-    let trans = this.transform1(res); 
-    return Object.fromEntries(trans); 
+    //let trans = this.transform2(res); 
+    //return Object.fromEntries(trans);
+    return "";
   }
 
   query1(ts: Date)  {
@@ -105,13 +125,14 @@ export class QueryService {
         take:1000 
     });
   }
-  //aggregate func 
+
+  //aggregate func - по всей выборке целиком, без деления на группы. !!!
   query4(from:Date, to:Date,)  {
     return  prisma.value.aggregate(
       {
         where:{
-          "entityId": { in: [1] },
-          "attributeId": { in: [1] },
+          "entityId": { in: [1,2,3,4,5] },
+          "attributeId": { in: [1,2,3,4,5] },
           "ts": { gte: from, lt: to  }
         }, 
           _avg: { numberVal: true },
@@ -139,7 +160,7 @@ export class QueryService {
   query6(from:Date, to:Date,)  {
     return  prisma.value.groupBy(
       {
-        by: ['entityId'],
+        by: ['entityId','attributeId'],
         where:{
           "entityId": { in: [1,2,3,4,5] },
           "attributeId": { in: [1] },
@@ -149,7 +170,7 @@ export class QueryService {
           _sum: { numberVal: true },
           _count: true,
         having: {
-            numberVal: { _avg: { gt: 50 }, },
+            numberVal: { _avg: { gt: 0 }, },
         },
       });
   } 
@@ -166,7 +187,38 @@ export class QueryService {
 
     return  prisma.value.findMany(qArgs);
   }
-  
+  async query8(jArgs:string, from:Date, to:Date)  {
+    
+    const qArgs: ValueFindManyArgs = JSON.parse(jArgs);
+
+    if (qArgs.where) qArgs.where.ts =  { gte: from, lt: to  }
+
+    //console.log(qArgs)
+
+    return  prisma.value.findMany(qArgs);
+  }  
+  query9(jArgs:string, from:Date, to:Date)  {
+    
+    const qArgs = JSON.parse(jArgs);
+
+    if (qArgs.where) qArgs.where.ts =  { gte: from, lt: to  }
+
+    //console.log(qArgs)
+
+    return  prisma.value.groupBy(qArgs);
+  }
+  query10(jArgs:string, from:Date, to:Date)  {
+    
+    const qArgs = JSON.parse(jArgs);
+
+    if (qArgs.where) qArgs.where.ts =  { gte: from, lt: to  }
+
+    //console.log(qArgs)
+
+    return  prisma.value.aggregate(qArgs);
+  }
+
+
   // преобразование  в строки, группируем по времени: MAP -> key - ts, предполагаем, объект имеет одно значение атрибута
   transform1(eav: any[]): Map<string, any>  {
     return eav.reduce((map, currValue, currIndex) => {
@@ -181,4 +233,25 @@ export class QueryService {
       return map;
     }, new Map<string, any>());
   }
+  // преобразование  в строки, группируем в одну строку для универсальности привязки
+  transform2(eav: any[]): Map<string, any>  {
+    return eav.reduce((map, currValue, currIndex) => {
+      
+      let key = "1"; //ключ строки 1 
+
+      if (!map.has(key)) map.set(key, { }); //строки еще нет - начать с новой строки
+
+      let editableObject = map.get(key);  //редактируемый объект
+      let objKey = currValue.entityId +"_"+ currValue.attributeId;  //key внутри строки
+      editableObject[objKey] = currValue; 
+      return map;
+    }, new Map<string, any>());
+  }
+  // преобразование Map для универсальности привязки
+  transform3(eav: any): Map<string, any>  {
+        let trans = new Map<string, any>();
+        trans.set("1", eav);
+        return trans;
+  }
+
 }

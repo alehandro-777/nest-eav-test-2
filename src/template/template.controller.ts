@@ -33,19 +33,21 @@ export class TemplateController {
     return this.templateService.remove(+id);
   }
 
-  @Get('exec')
-  test( @Query('ids') ids: string, 
+  @Get('exec/:id')
+  exec( @Param('id') id: string,
         @Query('ts') ts: string, 
         @Query('from') from:string, 
-        @Query('to') to:string, @Query('o') o:string,@Query('p') p:string, ) {
-    return this.templateService.exec(ids, ts, from, to, o, p, );
+        @Query('to') to:string, ) {
+    return this.templateService.exec(id, ts, from, to, );
   }
 
   @Get('download/:id')
-  download( @Param('id') id: string, @Res() res: Response ) {
+  async download( @Param('id') id: string, @Res() res: Response ) {
 
-    let f = this.templateService.download(+id);
+    let f = await this.templateService.download(+id);
     
+    if (!f) return res.status(404).end();
+
     res.setHeader("Content-Type", 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     res.setHeader("Content-Length", f.stat.size); // обязательно ?
     res.setHeader("Content-Disposition", `attachment; filename='${f.name}'`);

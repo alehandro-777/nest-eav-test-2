@@ -37,9 +37,9 @@ export class QueryController {
   exec( @Param('id') id: string, 
         @Query('ts') ts: string, 
         @Query('from') from:string, 
-        @Query('to') to:string, @Query('o') o:string,@Query('p') p:string, ) {
+        @Query('to') to:string,  ) {
 
-    return this.queryService.exec(id, ts, from, to, o, p, );
+    return this.queryService.exec(id, ts, from, to, );
   }
 
 

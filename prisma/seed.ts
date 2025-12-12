@@ -10,7 +10,7 @@ async function main() {
     update: {},
     create: {
       name: 'query1',
-      params: `      {
+      params: `{
         "where":{
           "entityId": { "in": [1,2,3,4,5  ] },
           "attributeId": { "in": [1,2,3,4,5 ] },
@@ -38,26 +38,35 @@ async function main() {
     update: {},
     create: {
       name: 'query2',
-      params: `      {
+      params: `{
+        "by": ["entityId"],
         "where":{
-          "entityId": { "in": [1,2,3,4,5  ] },
-          "attributeId": { "in": [1,2,3,4,5 ] },
+          "entityId": { "in": [1,2,3,4,5] },
+          "attributeId": { "in": [1,2,3,4,5] },
           "ts": { "gte": "", "lt": ""  }
         }, 
-        "select": {
-          "ts": true,
-          "entityId": true,
-          "attributeId": true,
-          "numberVal": true,
-          "stringVal": true,
-          "boolVal": true,
-          "dateVal": true,
-          "id": true
-        },
-        "orderBy":  {
-          "ts": "asc"
-        },
-        "take": 1000 
+          "_avg": { "numberVal": true },
+          "_sum": { "numberVal": true },
+          "_count": true,
+        "having": {
+            "numberVal": { "_avg": { "gt": 0 } }
+        }
+      }`,
+    },
+  });
+    const q3 = await prisma.query.upsert({
+    where: { id: 3 },
+    update: {},
+    create: {
+      name: 'query3',
+      params: `{
+        "where":{
+          "entityId": { "in": [1,2,3,4,5] },
+          "attributeId": { "in": [1,2,3,4,5] },
+          "ts": { "gte": "", "lt": ""  }
+        }, 
+          "_avg": { "numberVal": true },
+          "_sum": { "numberVal": true }
     }`,
     },
   });
@@ -67,7 +76,7 @@ async function main() {
     where: { id: 1 },
     update: {},
     create: {
-      name: 'template1.xltx',
+      name: 'template1',
       queries: {connect:{id:1}}
     },
   });
@@ -75,14 +84,14 @@ async function main() {
     where: { id: 2 },
     update: {},
     create: {
-      name: 'template2.xltx',
+      name: 'template2',
     },
   });
     const tm3 = await prisma.template.upsert({
     where: { id: 3 },
     update: {},
     create: {
-      name: 'template3.xltx',
+      name: 'template3',
     },
   });
 
