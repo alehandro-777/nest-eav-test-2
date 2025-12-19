@@ -39,7 +39,7 @@ async function main() {
     create: {
       name: 'query2',
       params: `{
-        "by": ["entityId"],
+        "by": ["entityId","attributeId"],
         "where":{
           "entityId": { "in": [1,2,3,4,5] },
           "attributeId": { "in": [1,2,3,4,5] },
@@ -77,7 +77,7 @@ async function main() {
     update: {},
     create: {
       name: 'template1',
-      queries: {connect:{id:1}}
+      queries: {connect:[{id:1}, ]}
     },
   });
     const tm2 = await prisma.template.upsert({
@@ -85,6 +85,7 @@ async function main() {
     update: {},
     create: {
       name: 'template2',
+      queries: {connect:[{id:1}, {id:2}, {id:3}, ]}
     },
   });
     const tm3 = await prisma.template.upsert({
@@ -92,6 +93,7 @@ async function main() {
     update: {},
     create: {
       name: 'template3',
+      queries: {connect:[{id:1}, {id:2}, {id:3}, ]}
     },
   });
 

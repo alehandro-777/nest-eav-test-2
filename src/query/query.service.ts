@@ -57,21 +57,21 @@ export class QueryService {
     let q = await this.findOne(+queryId);
 
     switch (q?.name) {
-      case "query1":  //findMany
+      case "query1":  //findMany !
         res = await this.query8(q.params, _from, _to);
         trans = this.transform1(res); 
         return Object.fromEntries(trans);    
 
-      case "query2":  //groupBy
+      case "query2":  //groupBy !
         res = await this.query9(q.params, _from, _to);
-        console.log(res)
-        trans = this.transform2(res); 
+        //console.log(res)
+        trans = this.transform2(res, "_sum", ts); //"_sum", "_avg"
         return Object.fromEntries(trans);    
 
-      case "query3":  //aggregate
+      case "query3":  //aggregate !
         res = await this.query10(q.params, _from, _to);
-        console.log(res)
-        trans = this.transform3(res); 
+        //console.log(res)
+        trans = this.transform3(res, "_sum", ts); //"_sum", "_avg" не нужно ??
         return Object.fromEntries(trans); 
     }
 
@@ -219,6 +219,8 @@ export class QueryService {
   }
 
 
+
+
   // преобразование  в строки, группируем по времени: MAP -> key - ts, предполагаем, объект имеет одно значение атрибута
   transform1(eav: any[]): Map<string, any>  {
     return eav.reduce((map, currValue, currIndex) => {
@@ -229,29 +231,39 @@ export class QueryService {
 
       let editableObject = map.get(key);  //редактируемый объект
       let objKey = currValue.entityId +"_"+ currValue.attributeId;  //key внутри строки
-      editableObject[objKey] = currValue; 
+      editableObject[objKey] = currValue.stringVal; //always string
       return map;
     }, new Map<string, any>());
   }
-  // преобразование  в строки, группируем в одну строку для универсальности привязки
-  transform2(eav: any[]): Map<string, any>  {
+  // преобразование  в строки, группируем в одну строку для универсальности привязки. Значение берется по field !
+  transform2(eav: any[], field: string, ts:string): Map<string, any>  {
     return eav.reduce((map, currValue, currIndex) => {
       
-      let key = "1"; //ключ строки 1 
+      let key = ts; //ключ строки 1 
 
       if (!map.has(key)) map.set(key, { }); //строки еще нет - начать с новой строки
 
       let editableObject = map.get(key);  //редактируемый объект
       let objKey = currValue.entityId +"_"+ currValue.attributeId;  //key внутри строки
-      editableObject[objKey] = currValue; 
+      editableObject[objKey] = currValue[field].numberVal; 
       return map;
     }, new Map<string, any>());
   }
-  // преобразование Map для универсальности привязки
-  transform3(eav: any): Map<string, any>  {
-        let trans = new Map<string, any>();
-        trans.set("1", eav);
-        return trans;
+  // преобразование "Обект в Map" для универсальности привязки
+  transform3(eav: any, field: string, ts:string): Map<string, any>  {
+      return Object.keys(eav).reduce((map, objKey, currIndex) => {
+      
+      let key = ts; //ключ строки 1 
+
+      if (!map.has(key)) map.set(key, { }); //строки еще нет - начать с новой строки
+
+      let editableObject = map.get(key);  //редактируемый объект
+      
+      editableObject[objKey] = eav[objKey].numberVal;
+
+      return map;
+    }, new Map<string, any>());
+
   }
 
 }

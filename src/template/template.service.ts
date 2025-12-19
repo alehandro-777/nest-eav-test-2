@@ -29,7 +29,9 @@ export class TemplateService {
     return prisma.template.findFirst({ 
       where:  {id:id},
       include:  { queries: {
-        select: { id: true }}  
+        select: { id: true }, 
+        orderBy: { id: 'asc' }
+      }  
       }
     });
   }
@@ -97,6 +99,7 @@ export class TemplateService {
     for (let i = 0; i < ids.length; i++) {
       const id = ids[i];
       let data = await this.querySrv.exec(id, ts, from, to);
+      //console.log(data)
       result.push(new Map(Object.entries(data)));     
     }
 
@@ -207,8 +210,8 @@ export class TemplateService {
       //dsKeyRow[0] - Map key, [1] - Value
       if (dsKeyRow && dsKeyRow[1] && dsKeyRow[1][fieldKey]) {
         //dsKeyRow[0] - Map key, [1] - Value
-        dbVal = dsKeyRow[1][fieldKey];    //??? временно
-        dbTs = dsKeyRow[1][fieldKey].ts;  //??? временно
+        dbVal = dsKeyRow[1][fieldKey];  // значение
+        dbTs = dsKeyRow[0];  //row key ? ключ - метка времени 
       }
 
     //2 editable cell
@@ -244,24 +247,26 @@ export class TemplateService {
   }
 
   setDevaultValue(dbVal: any) {
-    if(dbVal !== null) {
-      if(dbVal.numberVal !== undefined && dbVal.numberVal !== null) {
-        return dbVal.numberVal;
-      } else {
-        return dbVal.stringVal;
-      }
-    }
-    return "";
+    
+    if (dbVal === null || dbVal === undefined) return "";
+
+    const tmpV = Number(dbVal);
+    //console.log("setDevaultValue dbVal, ",dbVal,tmpV)
+    let tmp = Number.isFinite(tmpV) ? tmpV : dbVal;  //all is via string
+    //console.log(dbVal, tmpV)
+    return tmp;
   }
 
   async setNumberCellValue(bind: any, dbVal: any, dbTs:any) {
 
       const attId = +bind.att;  //range froom DB
       const att = await this.attrSrv.findOne(attId);
-
+      let tmpV: string|number = "";
+      if (dbVal !== null && dbVal !== undefined) tmpV = Number(dbVal);
+      //console.log("setNumberCellValue dbVal ", dbVal, tmpV)
       const tmp = {
         type: "numeric", 
-        cell: dbVal?.numberVal, 
+        cell: Number.isFinite(tmpV) ? tmpV : "",  //all is via string
         range: att?.range,
         save: {
           ent:  bind.ent, 
@@ -276,7 +281,7 @@ export class TemplateService {
 
       const tmp = {
         type: "text", 
-        cell: dbVal?.stringVal, 
+        cell: dbVal, 
         save: {
           ent:  bind.ent, 
           att:  bind.att, 
@@ -290,7 +295,7 @@ export class TemplateService {
 
       const tmp = {
         type: "date", 
-        cell: dbVal?.stringVal,
+        cell: dbVal,
         save: {
           ent:  bind.ent, 
           att:  bind.att, 
@@ -304,7 +309,7 @@ export class TemplateService {
 
       const tmp = {
         type: "time", 
-        cell: dbVal?.stringVal, 
+        cell: dbVal, 
         save: {
           ent:  bind.ent, 
           att:  bind.att, 
@@ -318,7 +323,7 @@ export class TemplateService {
 
       const tmp = {
         type: "datetime", 
-        cell: dbVal?.stringVal, //temp test
+        cell: dbVal, //temp test
         save: {
           ent:  bind.ent, 
           att:  bind.att, 
@@ -329,10 +334,9 @@ export class TemplateService {
       return JSON.stringify(tmp);
   }
   async setCheckBoxCellValue(bind: any, dbVal: any, dbTs:any) {
-
       const tmp = {
         type: "checkbox", 
-        cell: dbVal?.boolVal, // test temp
+        cell: dbVal === "true",  // странное преобразование ?
         save: {
           ent:  bind.ent, 
           att:  bind.att, 
@@ -354,7 +358,7 @@ export class TemplateService {
 
       const tmp = {
         type: "dropdown", 
-        cell: dbVal?.stringVal,
+        cell: dbVal,
         source: setKv,
         save: {
           ent:  bind.ent, 
