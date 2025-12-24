@@ -3,29 +3,18 @@ import { ApiProperty } from '@nestjs/swagger';
 
 
 export class CreateValueDto {
-
   @ApiProperty()
   ts:Date;
-
-
   @ApiProperty()
-  entityId: number;
-
-
+  ent: number;
   @ApiProperty()
-  attributeId:  number;
-
-
+  att:  number;
   @ApiProperty()
-  stringVal:  string;
-
-
-  @ApiProperty()
-  numberVal:  number | null;
-
-  @ApiProperty()
-  boolVal: boolean | null;
-
-  @ApiProperty()
-  dateVal:  Date | null;    
+  strVal:  string;
+  @ApiProperty({ required: false, nullable: true })
+  numVal:  number | null;
+  @ApiProperty({ required: false, nullable: true })
+  dtVal:  Date | null;
+  @ApiProperty({ required: false, nullable: true })
+  blbVal: Uint8Array<ArrayBuffer> | null;
 }

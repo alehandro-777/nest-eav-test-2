@@ -8,15 +8,23 @@ export class ValueE implements Value {
   @ApiProperty()
   ts: Date;
   @ApiProperty()
-  entityId: number;
+  ent: number;
   @ApiProperty()
-  attributeId:  number
+  att:  number
+  
   @ApiProperty()
-  stringVal:  string;
-   @ApiProperty({ required: false, nullable: true })
-  numberVal: number  | null;
-   @ApiProperty({ required: false, nullable: true })
-  boolVal: boolean | null;
-   @ApiProperty({ required: false, nullable: true })
-  dateVal: Date | null;
+  strVal:  string;
+  @ApiProperty({ required: false, nullable: true })
+  numVal: number  | null;
+  @ApiProperty({ required: false, nullable: true })
+  dtVal: Date | null;
+  @ApiProperty({ required: false, nullable: true })
+  blbVal: Uint8Array<ArrayBuffer> | null;
+
+  @ApiProperty()
+  createdAt: Date;
+  @ApiProperty({ required: false, nullable: true })
+  updatedAt: Date | null;
+  @ApiProperty({ required: false, nullable: true })
+  deletedAt: Date | null;
 }

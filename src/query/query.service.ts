@@ -88,8 +88,8 @@ export class QueryService {
     return  prisma.value.findMany(
       {
         where:{
-          "entityId": { in: [1] },
-          "attributeId": { in: [1] },
+          "ent": { in: [1] },
+          "att": { in: [1] },
           "ts": ts
         }, 
         take:1000 
@@ -98,7 +98,7 @@ export class QueryService {
   //group 
   query2()  {
     return  prisma.value.groupBy({
-        by: ['entityId'],
+        by: ['ent'],
         _count: { _all: true },    
     });
   }
@@ -107,16 +107,16 @@ export class QueryService {
     return  prisma.value.findMany(
       {
         where:{
-          "entityId": { in: ent },
-          "attributeId": { in: att },
+          "ent": { in: ent },
+          "att": { in: att },
           "ts": { gte: from, lt: to  }
         }, 
         select: {
           ts: true,
-          entityId: true,
-          attributeId: true,
-          numberVal: true,
-          stringVal: true,
+          ent: true,
+          att: true,
+          numVal: true,
+          strVal: true,
           id: true,
         },
         orderBy:  {
@@ -131,26 +131,26 @@ export class QueryService {
     return  prisma.value.aggregate(
       {
         where:{
-          "entityId": { in: [1,2,3,4,5] },
-          "attributeId": { in: [1,2,3,4,5] },
+          "ent": { in: [1,2,3,4,5] },
+          "att": { in: [1,2,3,4,5] },
           "ts": { gte: from, lt: to  }
         }, 
-          _avg: { numberVal: true },
-          _sum: { numberVal: true },
+          _avg: { numVal: true },
+          _sum: { numVal: true },
     });
   } 
   //group + aggr func
   query5(from:Date, to:Date,  ent:number[], att:number[])  {
     return  prisma.value.groupBy(
       {
-        by: ['entityId', 'attributeId'],
+        by: ['ent', 'att'],
         where:{
-          "entityId": { in: ent },
-          "attributeId": { in: att },
+          "ent": { in: ent },
+          "att": { in: att },
           "ts": { gte: from, lt: to  }
         }, 
-          _avg: { numberVal: true },
-          _sum: { numberVal: true },
+          _avg: { numVal: true },
+          _sum: { numVal: true },
           _max: { ts: true },
           _min: { ts: true },
           _count: true,
@@ -160,17 +160,17 @@ export class QueryService {
   query6(from:Date, to:Date,)  {
     return  prisma.value.groupBy(
       {
-        by: ['entityId','attributeId'],
+        by: ['ent','att'],
         where:{
-          "entityId": { in: [1,2,3,4,5] },
-          "attributeId": { in: [1] },
+          "ent": { in: [1,2,3,4,5] },
+          "att": { in: [1] },
           "ts": { gte: from, lt: to  }
         }, 
-          _avg: { numberVal: true },
-          _sum: { numberVal: true },
+          _avg: { numVal: true },
+          _sum: { numVal: true },
           _count: true,
         having: {
-            numberVal: { _avg: { gt: 0 }, },
+            numVal: { _avg: { gt: 0 }, },
         },
       });
   } 
@@ -230,8 +230,8 @@ export class QueryService {
       if (!map.has(key)) map.set(key, { }); //строки еще нет - начать с новой строки
 
       let editableObject = map.get(key);  //редактируемый объект
-      let objKey = currValue.entityId +"_"+ currValue.attributeId;  //key внутри строки
-      editableObject[objKey] = currValue.stringVal; //always string
+      let objKey = currValue.ent +"_"+ currValue.att;  //key внутри строки
+      editableObject[objKey] = currValue.strVal; //always string
       return map;
     }, new Map<string, any>());
   }
@@ -244,8 +244,8 @@ export class QueryService {
       if (!map.has(key)) map.set(key, { }); //строки еще нет - начать с новой строки
 
       let editableObject = map.get(key);  //редактируемый объект
-      let objKey = currValue.entityId +"_"+ currValue.attributeId;  //key внутри строки
-      editableObject[objKey] = currValue[field].numberVal; 
+      let objKey = currValue.ent +"_"+ currValue.att;  //key внутри строки
+      editableObject[objKey] = currValue[field].numVal; 
       return map;
     }, new Map<string, any>());
   }
@@ -259,7 +259,7 @@ export class QueryService {
 
       let editableObject = map.get(key);  //редактируемый объект
       
-      editableObject[objKey] = eav[objKey].numberVal;
+      editableObject[objKey] = eav[objKey].numVal;
 
       return map;
     }, new Map<string, any>());

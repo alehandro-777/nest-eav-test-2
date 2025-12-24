@@ -5,5 +5,5 @@ import { ApiProperty } from '@nestjs/swagger';
 
 
 export class UpdateValueDto extends PartialType(CreateValueDto) {
-      id:number;
+
 }

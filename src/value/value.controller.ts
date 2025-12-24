@@ -3,6 +3,7 @@ import { ValueService } from './value.service';
 import { CreateValueDto } from './dto/create-value.dto';
 import { UpdateValueDto } from './dto/update-value.dto';
 import type { Request } from 'express';
+import { DeleteValueDto } from './dto/delete-value.dto';
 
 @Controller('value')
 export class ValueController {
@@ -28,11 +29,13 @@ export class ValueController {
     return this.valueService.update(createValueDto);
   }
 
+  @Patch('delete')
+  softdelete(@Body() deleteValueDto: DeleteValueDto[]) {
+    return this.valueService.softPacketDelete(deleteValueDto);  //soft delete
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.valueService.remove(+id);
   }
-
-  //--------------------------------------
-
 }

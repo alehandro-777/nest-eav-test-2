@@ -1,40 +1,24 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateValueDto } from './dto/create-value.dto';
-import { UpdateValueDto } from './dto/update-value.dto';
 import { prisma } from '../prisma';
+import { DeleteValueDto } from './dto/delete-value.dto';
 
 
 @Injectable()
 export class ValueService {
-  constructor() {}
 
   create(createValueDto: CreateValueDto) {
-
-    return prisma.value.upsert({
-            where: {
-              entityId_attributeId_ts: {                  // составной уникальный ключ
-                entityId: createValueDto.entityId,
-                attributeId: createValueDto.attributeId,
-                ts: createValueDto.ts
-              },
-            },
-            update: { 
-              stringVal: createValueDto.stringVal, 
-              numberVal:createValueDto.numberVal,
-              boolVal:createValueDto.boolVal,
-              dateVal:createValueDto.dateVal
-            },
-            create: {                   // создать, если нет
-              entityId: createValueDto.entityId,
-              attributeId: createValueDto.attributeId,
+    return prisma.value.create({
+            data: {
+              ent: createValueDto.ent,
+              att: createValueDto.att,
               ts: createValueDto.ts,
-              stringVal: createValueDto.stringVal,
-              numberVal:createValueDto.numberVal,
-              boolVal:createValueDto.boolVal,
-              dateVal:createValueDto.dateVal
+              strVal: createValueDto.strVal,
+              numVal: createValueDto.numVal,
+              dtVal: createValueDto.dtVal,
+              createdAt: new Date(),
             },
     });
-
   }
 
   findAll() {
@@ -44,48 +28,61 @@ export class ValueService {
   findOne(id: number) {
     return `This action returns a #${id} value`;
   }
-
+  //packet update
   update(createValueDto: CreateValueDto[]) {
-  /*
-    await prisma.$transaction([
-      prisma.attributeValue.deleteMany({ where: { entityId: 42 } }),
-      prisma.attributeValue.createMany({ data: [...] })
-    ]);
-  */
- 
     return prisma.$transaction(createValueDto.map(value=> {
         return prisma.value.upsert({
             where: {
-              entityId_attributeId_ts: {                  // составной уникальный ключ
-                entityId: value.entityId,
-                attributeId: value.attributeId,
+              ent_att_ts: {                  // составной уникальный ключ
+                ent: value.ent,
+                att: value.att,
                 ts: value.ts,
               },
             },
             update: { 
-              stringVal: value.stringVal, 
-              numberVal:value.numberVal,
-              boolVal:value.boolVal,
-              dateVal:value.dateVal
+              strVal: value.strVal, 
+              numVal: value.numVal,
+              dtVal:  value.dtVal,
+              deletedAt:  null,         //при обновлени сбрасыввается признан "удалено"
+              updatedAt:  new Date(),         
             },
             create: {                   // создать, если нет
-              entityId: value.entityId,
-              attributeId: value.attributeId,
+              ent: value.ent,
+              att: value.att,
               ts: value.ts,
-              stringVal: value.stringVal,
-              numberVal:value.numberVal,
-              boolVal:value.boolVal,
-              dateVal:value.dateVal
+
+              strVal: value.strVal,
+              numVal: value.numVal,
+              dtVal:  value.dtVal,
+
+              createdAt:  new Date(),
+              deletedAt:  null,         //при create сбрасыввается признак "удалено"
+              updatedAt:  null,         //при create сбрасыввается признак "редактирование"
             },
     });
     }));
   }
-
-  remove(id: number) {
-    return `This action removes a #${id} value`;
+  
+  // soft delete !
+  softPacketDelete(deleteValueDto: DeleteValueDto[]) {
+    return prisma.$transaction(deleteValueDto.map(value=> {
+        return prisma.value.update({
+            where: {
+              ent_att_ts: {                  // составной уникальный ключ
+                ent: value.ent,
+                att: value.att,
+                ts: value.ts,
+              },
+            },
+            data: { 
+              deletedAt:  new Date(),         //soft delete - set признак "удалено"        
+            }
+        });
+    }));
   }
 
-
-
+  remove(id: number) {
+    return prisma.value.delete({ where: { id: id } });
+  }
 
 }

@@ -38,16 +38,22 @@ model Attribute {
 model Value {
   id          Int       @id @default(autoincrement())
   ts          DateTime
-  entityId    Int
-  attributeId Int
-  stringVal   String
-  numberVal   Float?
-  boolVal     Boolean?
-  dateVal     DateTime?
-  entity      Entity    @relation(fields: [entityId], references: [id], onDelete: Cascade)
-  attribute   Attribute @relation(fields: [attributeId], references: [id], onDelete: Cascade)
+  ent         Int
+  att         Int
 
-  @@unique([entityId, attributeId, ts])
+  strVal      String
+  numVal      Float?
+  dtVal       DateTime?
+  blbVal      Bytes?      //PostGres @db.Bytea   //@db.LongBlob
+
+  createdAt   DateTime?
+  updatedAt   DateTime?
+  deletedAt   DateTime?
+
+  entity      Entity    @relation(fields: [ent], references: [id], onDelete: Cascade)
+  attribute   Attribute @relation(fields: [att], references: [id], onDelete: Cascade)
+
+  @@unique([ent, att, ts])
 }
 
 model KVSet {

@@ -12,19 +12,18 @@ async function main() {
       name: 'query1',
       params: `{
         "where":{
-          "entityId": { "in": [1,2,3,4,5  ] },
-          "attributeId": { "in": [1,2,3,4,5 ] },
-          "ts": { "gte": "", "lt": ""  }
+          "ent": { "in": [1,2,3,4,5  ] },
+          "att": { "in": [1,2,3,4,5 ] },
+          "ts": { "gte": "", "lt": ""  },
+          "deletedAt": null
         }, 
         "select": {
           "ts": true,
-          "entityId": true,
-          "attributeId": true,
-          "numberVal": true,
-          "stringVal": true,
-          "boolVal": true,
-          "dateVal": true,
-          "id": true
+          "ent": true,
+          "att": true,
+          "numVal": true,
+          "strVal": true,
+          "dtVal": true
         },
         "orderBy":  {
           "ts": "asc"
@@ -39,17 +38,18 @@ async function main() {
     create: {
       name: 'query2',
       params: `{
-        "by": ["entityId","attributeId"],
+        "by": ["ent","att"],
         "where":{
-          "entityId": { "in": [1,2,3,4,5] },
-          "attributeId": { "in": [1,2,3,4,5] },
-          "ts": { "gte": "", "lt": ""  }
+          "ent": { "in": [1,2,3,4,5] },
+          "att": { "in": [1,2,3,4,5] },
+          "ts": { "gte": "", "lt": ""  },
+          "deletedAt": null
         }, 
-          "_avg": { "numberVal": true },
-          "_sum": { "numberVal": true },
+          "_avg": { "numVal": true },
+          "_sum": { "numVal": true },
           "_count": true,
         "having": {
-            "numberVal": { "_avg": { "gt": 0 } }
+            "numVal": { "_avg": { "gt": 0 } }
         }
       }`,
     },
@@ -61,12 +61,13 @@ async function main() {
       name: 'query3',
       params: `{
         "where":{
-          "entityId": { "in": [1,2,3,4,5] },
-          "attributeId": { "in": [1,2,3,4,5] },
-          "ts": { "gte": "", "lt": ""  }
+          "ent": { "in": [1,2,3,4,5] },
+          "att": { "in": [1,2,3,4,5] },
+          "ts": { "gte": "", "lt": ""  },
+          "deletedAt": null
         }, 
-          "_avg": { "numberVal": true },
-          "_sum": { "numberVal": true }
+          "_avg": { "numVal": true },
+          "_sum": { "numVal": true }
     }`,
     },
   });
@@ -253,20 +254,20 @@ async function main() {
         let v = Math.random()*100;
         //console.log(i,j,k)
         const a2 = await prisma.value.upsert({
-          where: { entityId_attributeId_ts: {  // составной уникальный ключ
-                  entityId: i,
-                  attributeId: j,
+          where: { ent_att_ts: {  // составной уникальный ключ
+                  ent: i,
+                  att: j,
                   ts: ts, 
                 } },
           update: {},
           create: {
             ts: ts,
-            entityId: i,
-            attributeId: j,
-            numberVal: v,
-            stringVal: v.toString(),
-            dateVal: ts,
-            boolVal: true,
+            ent: i,
+            att: j,
+            numVal: v,
+            strVal: v.toString(),
+            dtVal: ts,
+            createdAt: new Date(),
           },
         });      
       }

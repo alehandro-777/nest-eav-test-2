@@ -22,12 +22,15 @@ CREATE TABLE "Attribute" (
 CREATE TABLE "Value" (
     "id" SERIAL NOT NULL,
     "ts" TIMESTAMP(3) NOT NULL,
-    "entityId" INTEGER NOT NULL,
-    "attributeId" INTEGER NOT NULL,
-    "stringVal" TEXT NOT NULL,
-    "numberVal" DOUBLE PRECISION,
-    "boolVal" BOOLEAN,
-    "dateVal" TIMESTAMP(3),
+    "ent" INTEGER NOT NULL,
+    "att" INTEGER NOT NULL,
+    "strVal" TEXT NOT NULL,
+    "numVal" DOUBLE PRECISION,
+    "dtVal" TIMESTAMP(3),
+    "blbVal" BYTEA,
+    "createdAt" TIMESTAMP(3),
+    "updatedAt" TIMESTAMP(3),
+    "deletedAt" TIMESTAMP(3),
 
     CONSTRAINT "Value_pkey" PRIMARY KEY ("id")
 );
@@ -93,7 +96,7 @@ CREATE TABLE "_QueryToTemplate" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Value_entityId_attributeId_ts_key" ON "Value"("entityId", "attributeId", "ts");
+CREATE UNIQUE INDEX "Value_ent_att_ts_key" ON "Value"("ent", "att", "ts");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "KV_setId_key_key" ON "KV"("setId", "key");
@@ -111,10 +114,10 @@ ALTER TABLE "Attribute" ADD CONSTRAINT "Attribute_rangeId_fkey" FOREIGN KEY ("ra
 ALTER TABLE "Attribute" ADD CONSTRAINT "Attribute_KVSetId_fkey" FOREIGN KEY ("KVSetId") REFERENCES "KVSet"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Value" ADD CONSTRAINT "Value_entityId_fkey" FOREIGN KEY ("entityId") REFERENCES "Entity"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Value" ADD CONSTRAINT "Value_ent_fkey" FOREIGN KEY ("ent") REFERENCES "Entity"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Value" ADD CONSTRAINT "Value_attributeId_fkey" FOREIGN KEY ("attributeId") REFERENCES "Attribute"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Value" ADD CONSTRAINT "Value_att_fkey" FOREIGN KEY ("att") REFERENCES "Attribute"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "KV" ADD CONSTRAINT "KV_setId_fkey" FOREIGN KEY ("setId") REFERENCES "KVSet"("id") ON DELETE CASCADE ON UPDATE CASCADE;

@@ -101,12 +101,15 @@ export type AttributeScalarFieldEnum = (typeof AttributeScalarFieldEnum)[keyof t
 export const ValueScalarFieldEnum = {
   id: 'id',
   ts: 'ts',
-  entityId: 'entityId',
-  attributeId: 'attributeId',
-  stringVal: 'stringVal',
-  numberVal: 'numberVal',
-  boolVal: 'boolVal',
-  dateVal: 'dateVal'
+  ent: 'ent',
+  att: 'att',
+  strVal: 'strVal',
+  numVal: 'numVal',
+  dtVal: 'dtVal',
+  blbVal: 'blbVal',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
 } as const
 
 export type ValueScalarFieldEnum = (typeof ValueScalarFieldEnum)[keyof typeof ValueScalarFieldEnum]

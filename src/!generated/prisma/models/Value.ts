@@ -28,98 +28,116 @@ export type AggregateValue = {
 
 export type ValueAvgAggregateOutputType = {
   id: number | null
-  entityId: number | null
-  attributeId: number | null
-  numberVal: number | null
+  ent: number | null
+  att: number | null
+  numVal: number | null
 }
 
 export type ValueSumAggregateOutputType = {
   id: number | null
-  entityId: number | null
-  attributeId: number | null
-  numberVal: number | null
+  ent: number | null
+  att: number | null
+  numVal: number | null
 }
 
 export type ValueMinAggregateOutputType = {
   id: number | null
   ts: Date | null
-  entityId: number | null
-  attributeId: number | null
-  stringVal: string | null
-  numberVal: number | null
-  boolVal: boolean | null
-  dateVal: Date | null
+  ent: number | null
+  att: number | null
+  strVal: string | null
+  numVal: number | null
+  dtVal: Date | null
+  blbVal: runtime.Bytes | null
+  createdAt: Date | null
+  updatedAt: Date | null
+  deletedAt: Date | null
 }
 
 export type ValueMaxAggregateOutputType = {
   id: number | null
   ts: Date | null
-  entityId: number | null
-  attributeId: number | null
-  stringVal: string | null
-  numberVal: number | null
-  boolVal: boolean | null
-  dateVal: Date | null
+  ent: number | null
+  att: number | null
+  strVal: string | null
+  numVal: number | null
+  dtVal: Date | null
+  blbVal: runtime.Bytes | null
+  createdAt: Date | null
+  updatedAt: Date | null
+  deletedAt: Date | null
 }
 
 export type ValueCountAggregateOutputType = {
   id: number
   ts: number
-  entityId: number
-  attributeId: number
-  stringVal: number
-  numberVal: number
-  boolVal: number
-  dateVal: number
+  ent: number
+  att: number
+  strVal: number
+  numVal: number
+  dtVal: number
+  blbVal: number
+  createdAt: number
+  updatedAt: number
+  deletedAt: number
   _all: number
 }
 
 
 export type ValueAvgAggregateInputType = {
   id?: true
-  entityId?: true
-  attributeId?: true
-  numberVal?: true
+  ent?: true
+  att?: true
+  numVal?: true
 }
 
 export type ValueSumAggregateInputType = {
   id?: true
-  entityId?: true
-  attributeId?: true
-  numberVal?: true
+  ent?: true
+  att?: true
+  numVal?: true
 }
 
 export type ValueMinAggregateInputType = {
   id?: true
   ts?: true
-  entityId?: true
-  attributeId?: true
-  stringVal?: true
-  numberVal?: true
-  boolVal?: true
-  dateVal?: true
+  ent?: true
+  att?: true
+  strVal?: true
+  numVal?: true
+  dtVal?: true
+  blbVal?: true
+  createdAt?: true
+  updatedAt?: true
+  deletedAt?: true
 }
 
 export type ValueMaxAggregateInputType = {
   id?: true
   ts?: true
-  entityId?: true
-  attributeId?: true
-  stringVal?: true
-  numberVal?: true
-  boolVal?: true
-  dateVal?: true
+  ent?: true
+  att?: true
+  strVal?: true
+  numVal?: true
+  dtVal?: true
+  blbVal?: true
+  createdAt?: true
+  updatedAt?: true
+  deletedAt?: true
 }
 
 export type ValueCountAggregateInputType = {
   id?: true
   ts?: true
-  entityId?: true
-  attributeId?: true
-  stringVal?: true
-  numberVal?: true
-  boolVal?: true
-  dateVal?: true
+  ent?: true
+  att?: true
+  strVal?: true
+  numVal?: true
+  dtVal?: true
+  blbVal?: true
+  createdAt?: true
+  updatedAt?: true
+  deletedAt?: true
   _all?: true
 }
 
@@ -212,12 +230,15 @@ export type ValueGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 export type ValueGroupByOutputType = {
   id: number
   ts: Date
-  entityId: number
-  attributeId: number
-  stringVal: string
-  numberVal: number | null
-  boolVal: boolean | null
-  dateVal: Date | null
+  ent: number
+  att: number
+  strVal: string
+  numVal: number | null
+  dtVal: Date | null
+  blbVal: runtime.Bytes | null
+  createdAt: Date | null
+  updatedAt: Date | null
+  deletedAt: Date | null
   _count: ValueCountAggregateOutputType | null
   _avg: ValueAvgAggregateOutputType | null
   _sum: ValueSumAggregateOutputType | null
@@ -246,12 +267,15 @@ export type ValueWhereInput = {
   NOT?: Prisma.ValueWhereInput | Prisma.ValueWhereInput[]
   id?: Prisma.IntFilter<"Value"> | number
   ts?: Prisma.DateTimeFilter<"Value"> | Date | string
-  entityId?: Prisma.IntFilter<"Value"> | number
-  attributeId?: Prisma.IntFilter<"Value"> | number
-  stringVal?: Prisma.StringFilter<"Value"> | string
-  numberVal?: Prisma.FloatNullableFilter<"Value"> | number | null
-  boolVal?: Prisma.BoolNullableFilter<"Value"> | boolean | null
-  dateVal?: Prisma.DateTimeNullableFilter<"Value"> | Date | string | null
+  ent?: Prisma.IntFilter<"Value"> | number
+  att?: Prisma.IntFilter<"Value"> | number
+  strVal?: Prisma.StringFilter<"Value"> | string
+  numVal?: Prisma.FloatNullableFilter<"Value"> | number | null
+  dtVal?: Prisma.DateTimeNullableFilter<"Value"> | Date | string | null
+  blbVal?: Prisma.BytesNullableFilter<"Value"> | runtime.Bytes | null
+  createdAt?: Prisma.DateTimeNullableFilter<"Value"> | Date | string | null
+  updatedAt?: Prisma.DateTimeNullableFilter<"Value"> | Date | string | null
+  deletedAt?: Prisma.DateTimeNullableFilter<"Value"> | Date | string | null
   entity?: Prisma.XOR<Prisma.EntityScalarRelationFilter, Prisma.EntityWhereInput>
   attribute?: Prisma.XOR<Prisma.AttributeScalarRelationFilter, Prisma.AttributeWhereInput>
 }
@@ -259,42 +283,51 @@ export type ValueWhereInput = {
 export type ValueOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   ts?: Prisma.SortOrder
-  entityId?: Prisma.SortOrder
-  attributeId?: Prisma.SortOrder
-  stringVal?: Prisma.SortOrder
-  numberVal?: Prisma.SortOrderInput | Prisma.SortOrder
-  boolVal?: Prisma.SortOrderInput | Prisma.SortOrder
-  dateVal?: Prisma.SortOrderInput | Prisma.SortOrder
+  ent?: Prisma.SortOrder
+  att?: Prisma.SortOrder
+  strVal?: Prisma.SortOrder
+  numVal?: Prisma.SortOrderInput | Prisma.SortOrder
+  dtVal?: Prisma.SortOrderInput | Prisma.SortOrder
+  blbVal?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   entity?: Prisma.EntityOrderByWithRelationInput
   attribute?: Prisma.AttributeOrderByWithRelationInput
 }
 
 export type ValueWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  entityId_attributeId_ts?: Prisma.ValueEntityIdAttributeIdTsCompoundUniqueInput
+  ent_att_ts?: Prisma.ValueEntAttTsCompoundUniqueInput
   AND?: Prisma.ValueWhereInput | Prisma.ValueWhereInput[]
   OR?: Prisma.ValueWhereInput[]
   NOT?: Prisma.ValueWhereInput | Prisma.ValueWhereInput[]
   ts?: Prisma.DateTimeFilter<"Value"> | Date | string
-  entityId?: Prisma.IntFilter<"Value"> | number
-  attributeId?: Prisma.IntFilter<"Value"> | number
-  stringVal?: Prisma.StringFilter<"Value"> | string
-  numberVal?: Prisma.FloatNullableFilter<"Value"> | number | null
-  boolVal?: Prisma.BoolNullableFilter<"Value"> | boolean | null
-  dateVal?: Prisma.DateTimeNullableFilter<"Value"> | Date | string | null
+  ent?: Prisma.IntFilter<"Value"> | number
+  att?: Prisma.IntFilter<"Value"> | number
+  strVal?: Prisma.StringFilter<"Value"> | string
+  numVal?: Prisma.FloatNullableFilter<"Value"> | number | null
+  dtVal?: Prisma.DateTimeNullableFilter<"Value"> | Date | string | null
+  blbVal?: Prisma.BytesNullableFilter<"Value"> | runtime.Bytes | null
+  createdAt?: Prisma.DateTimeNullableFilter<"Value"> | Date | string | null
+  updatedAt?: Prisma.DateTimeNullableFilter<"Value"> | Date | string | null
+  deletedAt?: Prisma.DateTimeNullableFilter<"Value"> | Date | string | null
   entity?: Prisma.XOR<Prisma.EntityScalarRelationFilter, Prisma.EntityWhereInput>
   attribute?: Prisma.XOR<Prisma.AttributeScalarRelationFilter, Prisma.AttributeWhereInput>
-}, "id" | "entityId_attributeId_ts">
+}, "id" | "ent_att_ts">
 
 export type ValueOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   ts?: Prisma.SortOrder
-  entityId?: Prisma.SortOrder
-  attributeId?: Prisma.SortOrder
-  stringVal?: Prisma.SortOrder
-  numberVal?: Prisma.SortOrderInput | Prisma.SortOrder
-  boolVal?: Prisma.SortOrderInput | Prisma.SortOrder
-  dateVal?: Prisma.SortOrderInput | Prisma.SortOrder
+  ent?: Prisma.SortOrder
+  att?: Prisma.SortOrder
+  strVal?: Prisma.SortOrder
+  numVal?: Prisma.SortOrderInput | Prisma.SortOrder
+  dtVal?: Prisma.SortOrderInput | Prisma.SortOrder
+  blbVal?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ValueCountOrderByAggregateInput
   _avg?: Prisma.ValueAvgOrderByAggregateInput
   _max?: Prisma.ValueMaxOrderByAggregateInput
@@ -308,20 +341,26 @@ export type ValueScalarWhereWithAggregatesInput = {
   NOT?: Prisma.ValueScalarWhereWithAggregatesInput | Prisma.ValueScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Value"> | number
   ts?: Prisma.DateTimeWithAggregatesFilter<"Value"> | Date | string
-  entityId?: Prisma.IntWithAggregatesFilter<"Value"> | number
-  attributeId?: Prisma.IntWithAggregatesFilter<"Value"> | number
-  stringVal?: Prisma.StringWithAggregatesFilter<"Value"> | string
-  numberVal?: Prisma.FloatNullableWithAggregatesFilter<"Value"> | number | null
-  boolVal?: Prisma.BoolNullableWithAggregatesFilter<"Value"> | boolean | null
-  dateVal?: Prisma.DateTimeNullableWithAggregatesFilter<"Value"> | Date | string | null
+  ent?: Prisma.IntWithAggregatesFilter<"Value"> | number
+  att?: Prisma.IntWithAggregatesFilter<"Value"> | number
+  strVal?: Prisma.StringWithAggregatesFilter<"Value"> | string
+  numVal?: Prisma.FloatNullableWithAggregatesFilter<"Value"> | number | null
+  dtVal?: Prisma.DateTimeNullableWithAggregatesFilter<"Value"> | Date | string | null
+  blbVal?: Prisma.BytesNullableWithAggregatesFilter<"Value"> | runtime.Bytes | null
+  createdAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Value"> | Date | string | null
+  updatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Value"> | Date | string | null
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Value"> | Date | string | null
 }
 
 export type ValueCreateInput = {
   ts: Date | string
-  stringVal: string
-  numberVal?: number | null
-  boolVal?: boolean | null
-  dateVal?: Date | string | null
+  strVal: string
+  numVal?: number | null
+  dtVal?: Date | string | null
+  blbVal?: runtime.Bytes | null
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
+  deletedAt?: Date | string | null
   entity: Prisma.EntityCreateNestedOneWithoutValuesInput
   attribute: Prisma.AttributeCreateNestedOneWithoutValueInput
 }
@@ -329,20 +368,26 @@ export type ValueCreateInput = {
 export type ValueUncheckedCreateInput = {
   id?: number
   ts: Date | string
-  entityId: number
-  attributeId: number
-  stringVal: string
-  numberVal?: number | null
-  boolVal?: boolean | null
-  dateVal?: Date | string | null
+  ent: number
+  att: number
+  strVal: string
+  numVal?: number | null
+  dtVal?: Date | string | null
+  blbVal?: runtime.Bytes | null
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
+  deletedAt?: Date | string | null
 }
 
 export type ValueUpdateInput = {
   ts?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  stringVal?: Prisma.StringFieldUpdateOperationsInput | string
-  numberVal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  boolVal?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  dateVal?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  strVal?: Prisma.StringFieldUpdateOperationsInput | string
+  numVal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  dtVal?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  blbVal?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   entity?: Prisma.EntityUpdateOneRequiredWithoutValuesNestedInput
   attribute?: Prisma.AttributeUpdateOneRequiredWithoutValueNestedInput
 }
@@ -350,42 +395,54 @@ export type ValueUpdateInput = {
 export type ValueUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   ts?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  entityId?: Prisma.IntFieldUpdateOperationsInput | number
-  attributeId?: Prisma.IntFieldUpdateOperationsInput | number
-  stringVal?: Prisma.StringFieldUpdateOperationsInput | string
-  numberVal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  boolVal?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  dateVal?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  ent?: Prisma.IntFieldUpdateOperationsInput | number
+  att?: Prisma.IntFieldUpdateOperationsInput | number
+  strVal?: Prisma.StringFieldUpdateOperationsInput | string
+  numVal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  dtVal?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  blbVal?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ValueCreateManyInput = {
   id?: number
   ts: Date | string
-  entityId: number
-  attributeId: number
-  stringVal: string
-  numberVal?: number | null
-  boolVal?: boolean | null
-  dateVal?: Date | string | null
+  ent: number
+  att: number
+  strVal: string
+  numVal?: number | null
+  dtVal?: Date | string | null
+  blbVal?: runtime.Bytes | null
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
+  deletedAt?: Date | string | null
 }
 
 export type ValueUpdateManyMutationInput = {
   ts?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  stringVal?: Prisma.StringFieldUpdateOperationsInput | string
-  numberVal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  boolVal?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  dateVal?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  strVal?: Prisma.StringFieldUpdateOperationsInput | string
+  numVal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  dtVal?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  blbVal?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ValueUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   ts?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  entityId?: Prisma.IntFieldUpdateOperationsInput | number
-  attributeId?: Prisma.IntFieldUpdateOperationsInput | number
-  stringVal?: Prisma.StringFieldUpdateOperationsInput | string
-  numberVal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  boolVal?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  dateVal?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  ent?: Prisma.IntFieldUpdateOperationsInput | number
+  att?: Prisma.IntFieldUpdateOperationsInput | number
+  strVal?: Prisma.StringFieldUpdateOperationsInput | string
+  numVal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  dtVal?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  blbVal?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ValueListRelationFilter = {
@@ -398,57 +455,66 @@ export type ValueOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type ValueEntityIdAttributeIdTsCompoundUniqueInput = {
-  entityId: number
-  attributeId: number
+export type ValueEntAttTsCompoundUniqueInput = {
+  ent: number
+  att: number
   ts: Date | string
 }
 
 export type ValueCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   ts?: Prisma.SortOrder
-  entityId?: Prisma.SortOrder
-  attributeId?: Prisma.SortOrder
-  stringVal?: Prisma.SortOrder
-  numberVal?: Prisma.SortOrder
-  boolVal?: Prisma.SortOrder
-  dateVal?: Prisma.SortOrder
+  ent?: Prisma.SortOrder
+  att?: Prisma.SortOrder
+  strVal?: Prisma.SortOrder
+  numVal?: Prisma.SortOrder
+  dtVal?: Prisma.SortOrder
+  blbVal?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type ValueAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  entityId?: Prisma.SortOrder
-  attributeId?: Prisma.SortOrder
-  numberVal?: Prisma.SortOrder
+  ent?: Prisma.SortOrder
+  att?: Prisma.SortOrder
+  numVal?: Prisma.SortOrder
 }
 
 export type ValueMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   ts?: Prisma.SortOrder
-  entityId?: Prisma.SortOrder
-  attributeId?: Prisma.SortOrder
-  stringVal?: Prisma.SortOrder
-  numberVal?: Prisma.SortOrder
-  boolVal?: Prisma.SortOrder
-  dateVal?: Prisma.SortOrder
+  ent?: Prisma.SortOrder
+  att?: Prisma.SortOrder
+  strVal?: Prisma.SortOrder
+  numVal?: Prisma.SortOrder
+  dtVal?: Prisma.SortOrder
+  blbVal?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type ValueMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   ts?: Prisma.SortOrder
-  entityId?: Prisma.SortOrder
-  attributeId?: Prisma.SortOrder
-  stringVal?: Prisma.SortOrder
-  numberVal?: Prisma.SortOrder
-  boolVal?: Prisma.SortOrder
-  dateVal?: Prisma.SortOrder
+  ent?: Prisma.SortOrder
+  att?: Prisma.SortOrder
+  strVal?: Prisma.SortOrder
+  numVal?: Prisma.SortOrder
+  dtVal?: Prisma.SortOrder
+  blbVal?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type ValueSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  entityId?: Prisma.SortOrder
-  attributeId?: Prisma.SortOrder
-  numberVal?: Prisma.SortOrder
+  ent?: Prisma.SortOrder
+  att?: Prisma.SortOrder
+  numVal?: Prisma.SortOrder
 }
 
 export type ValueCreateNestedManyWithoutEntityInput = {
@@ -543,31 +609,37 @@ export type NullableFloatFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type NullableBoolFieldUpdateOperationsInput = {
-  set?: boolean | null
-}
-
 export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
 }
 
+export type NullableBytesFieldUpdateOperationsInput = {
+  set?: runtime.Bytes | null
+}
+
 export type ValueCreateWithoutEntityInput = {
   ts: Date | string
-  stringVal: string
-  numberVal?: number | null
-  boolVal?: boolean | null
-  dateVal?: Date | string | null
+  strVal: string
+  numVal?: number | null
+  dtVal?: Date | string | null
+  blbVal?: runtime.Bytes | null
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
+  deletedAt?: Date | string | null
   attribute: Prisma.AttributeCreateNestedOneWithoutValueInput
 }
 
 export type ValueUncheckedCreateWithoutEntityInput = {
   id?: number
   ts: Date | string
-  attributeId: number
-  stringVal: string
-  numberVal?: number | null
-  boolVal?: boolean | null
-  dateVal?: Date | string | null
+  att: number
+  strVal: string
+  numVal?: number | null
+  dtVal?: Date | string | null
+  blbVal?: runtime.Bytes | null
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
+  deletedAt?: Date | string | null
 }
 
 export type ValueCreateOrConnectWithoutEntityInput = {
@@ -602,31 +674,40 @@ export type ValueScalarWhereInput = {
   NOT?: Prisma.ValueScalarWhereInput | Prisma.ValueScalarWhereInput[]
   id?: Prisma.IntFilter<"Value"> | number
   ts?: Prisma.DateTimeFilter<"Value"> | Date | string
-  entityId?: Prisma.IntFilter<"Value"> | number
-  attributeId?: Prisma.IntFilter<"Value"> | number
-  stringVal?: Prisma.StringFilter<"Value"> | string
-  numberVal?: Prisma.FloatNullableFilter<"Value"> | number | null
-  boolVal?: Prisma.BoolNullableFilter<"Value"> | boolean | null
-  dateVal?: Prisma.DateTimeNullableFilter<"Value"> | Date | string | null
+  ent?: Prisma.IntFilter<"Value"> | number
+  att?: Prisma.IntFilter<"Value"> | number
+  strVal?: Prisma.StringFilter<"Value"> | string
+  numVal?: Prisma.FloatNullableFilter<"Value"> | number | null
+  dtVal?: Prisma.DateTimeNullableFilter<"Value"> | Date | string | null
+  blbVal?: Prisma.BytesNullableFilter<"Value"> | runtime.Bytes | null
+  createdAt?: Prisma.DateTimeNullableFilter<"Value"> | Date | string | null
+  updatedAt?: Prisma.DateTimeNullableFilter<"Value"> | Date | string | null
+  deletedAt?: Prisma.DateTimeNullableFilter<"Value"> | Date | string | null
 }
 
 export type ValueCreateWithoutAttributeInput = {
   ts: Date | string
-  stringVal: string
-  numberVal?: number | null
-  boolVal?: boolean | null
-  dateVal?: Date | string | null
+  strVal: string
+  numVal?: number | null
+  dtVal?: Date | string | null
+  blbVal?: runtime.Bytes | null
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
+  deletedAt?: Date | string | null
   entity: Prisma.EntityCreateNestedOneWithoutValuesInput
 }
 
 export type ValueUncheckedCreateWithoutAttributeInput = {
   id?: number
   ts: Date | string
-  entityId: number
-  stringVal: string
-  numberVal?: number | null
-  boolVal?: boolean | null
-  dateVal?: Date | string | null
+  ent: number
+  strVal: string
+  numVal?: number | null
+  dtVal?: Date | string | null
+  blbVal?: runtime.Bytes | null
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
+  deletedAt?: Date | string | null
 }
 
 export type ValueCreateOrConnectWithoutAttributeInput = {
@@ -658,79 +739,103 @@ export type ValueUpdateManyWithWhereWithoutAttributeInput = {
 export type ValueCreateManyEntityInput = {
   id?: number
   ts: Date | string
-  attributeId: number
-  stringVal: string
-  numberVal?: number | null
-  boolVal?: boolean | null
-  dateVal?: Date | string | null
+  att: number
+  strVal: string
+  numVal?: number | null
+  dtVal?: Date | string | null
+  blbVal?: runtime.Bytes | null
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
+  deletedAt?: Date | string | null
 }
 
 export type ValueUpdateWithoutEntityInput = {
   ts?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  stringVal?: Prisma.StringFieldUpdateOperationsInput | string
-  numberVal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  boolVal?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  dateVal?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  strVal?: Prisma.StringFieldUpdateOperationsInput | string
+  numVal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  dtVal?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  blbVal?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   attribute?: Prisma.AttributeUpdateOneRequiredWithoutValueNestedInput
 }
 
 export type ValueUncheckedUpdateWithoutEntityInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   ts?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  attributeId?: Prisma.IntFieldUpdateOperationsInput | number
-  stringVal?: Prisma.StringFieldUpdateOperationsInput | string
-  numberVal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  boolVal?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  dateVal?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  att?: Prisma.IntFieldUpdateOperationsInput | number
+  strVal?: Prisma.StringFieldUpdateOperationsInput | string
+  numVal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  dtVal?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  blbVal?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ValueUncheckedUpdateManyWithoutEntityInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   ts?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  attributeId?: Prisma.IntFieldUpdateOperationsInput | number
-  stringVal?: Prisma.StringFieldUpdateOperationsInput | string
-  numberVal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  boolVal?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  dateVal?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  att?: Prisma.IntFieldUpdateOperationsInput | number
+  strVal?: Prisma.StringFieldUpdateOperationsInput | string
+  numVal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  dtVal?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  blbVal?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ValueCreateManyAttributeInput = {
   id?: number
   ts: Date | string
-  entityId: number
-  stringVal: string
-  numberVal?: number | null
-  boolVal?: boolean | null
-  dateVal?: Date | string | null
+  ent: number
+  strVal: string
+  numVal?: number | null
+  dtVal?: Date | string | null
+  blbVal?: runtime.Bytes | null
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
+  deletedAt?: Date | string | null
 }
 
 export type ValueUpdateWithoutAttributeInput = {
   ts?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  stringVal?: Prisma.StringFieldUpdateOperationsInput | string
-  numberVal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  boolVal?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  dateVal?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  strVal?: Prisma.StringFieldUpdateOperationsInput | string
+  numVal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  dtVal?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  blbVal?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   entity?: Prisma.EntityUpdateOneRequiredWithoutValuesNestedInput
 }
 
 export type ValueUncheckedUpdateWithoutAttributeInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   ts?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  entityId?: Prisma.IntFieldUpdateOperationsInput | number
-  stringVal?: Prisma.StringFieldUpdateOperationsInput | string
-  numberVal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  boolVal?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  dateVal?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  ent?: Prisma.IntFieldUpdateOperationsInput | number
+  strVal?: Prisma.StringFieldUpdateOperationsInput | string
+  numVal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  dtVal?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  blbVal?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ValueUncheckedUpdateManyWithoutAttributeInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   ts?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  entityId?: Prisma.IntFieldUpdateOperationsInput | number
-  stringVal?: Prisma.StringFieldUpdateOperationsInput | string
-  numberVal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  boolVal?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  dateVal?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  ent?: Prisma.IntFieldUpdateOperationsInput | number
+  strVal?: Prisma.StringFieldUpdateOperationsInput | string
+  numVal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  dtVal?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  blbVal?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -738,12 +843,15 @@ export type ValueUncheckedUpdateManyWithoutAttributeInput = {
 export type ValueSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   ts?: boolean
-  entityId?: boolean
-  attributeId?: boolean
-  stringVal?: boolean
-  numberVal?: boolean
-  boolVal?: boolean
-  dateVal?: boolean
+  ent?: boolean
+  att?: boolean
+  strVal?: boolean
+  numVal?: boolean
+  dtVal?: boolean
+  blbVal?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  deletedAt?: boolean
   entity?: boolean | Prisma.EntityDefaultArgs<ExtArgs>
   attribute?: boolean | Prisma.AttributeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["value"]>
@@ -751,12 +859,15 @@ export type ValueSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 export type ValueSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   ts?: boolean
-  entityId?: boolean
-  attributeId?: boolean
-  stringVal?: boolean
-  numberVal?: boolean
-  boolVal?: boolean
-  dateVal?: boolean
+  ent?: boolean
+  att?: boolean
+  strVal?: boolean
+  numVal?: boolean
+  dtVal?: boolean
+  blbVal?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  deletedAt?: boolean
   entity?: boolean | Prisma.EntityDefaultArgs<ExtArgs>
   attribute?: boolean | Prisma.AttributeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["value"]>
@@ -764,12 +875,15 @@ export type ValueSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type ValueSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   ts?: boolean
-  entityId?: boolean
-  attributeId?: boolean
-  stringVal?: boolean
-  numberVal?: boolean
-  boolVal?: boolean
-  dateVal?: boolean
+  ent?: boolean
+  att?: boolean
+  strVal?: boolean
+  numVal?: boolean
+  dtVal?: boolean
+  blbVal?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  deletedAt?: boolean
   entity?: boolean | Prisma.EntityDefaultArgs<ExtArgs>
   attribute?: boolean | Prisma.AttributeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["value"]>
@@ -777,15 +891,18 @@ export type ValueSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type ValueSelectScalar = {
   id?: boolean
   ts?: boolean
-  entityId?: boolean
-  attributeId?: boolean
-  stringVal?: boolean
-  numberVal?: boolean
-  boolVal?: boolean
-  dateVal?: boolean
+  ent?: boolean
+  att?: boolean
+  strVal?: boolean
+  numVal?: boolean
+  dtVal?: boolean
+  blbVal?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  deletedAt?: boolean
 }
 
-export type ValueOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ts" | "entityId" | "attributeId" | "stringVal" | "numberVal" | "boolVal" | "dateVal", ExtArgs["result"]["value"]>
+export type ValueOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ts" | "ent" | "att" | "strVal" | "numVal" | "dtVal" | "blbVal" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["value"]>
 export type ValueInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   entity?: boolean | Prisma.EntityDefaultArgs<ExtArgs>
   attribute?: boolean | Prisma.AttributeDefaultArgs<ExtArgs>
@@ -808,12 +925,15 @@ export type $ValuePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     ts: Date
-    entityId: number
-    attributeId: number
-    stringVal: string
-    numberVal: number | null
-    boolVal: boolean | null
-    dateVal: Date | null
+    ent: number
+    att: number
+    strVal: string
+    numVal: number | null
+    dtVal: Date | null
+    blbVal: runtime.Bytes | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    deletedAt: Date | null
   }, ExtArgs["result"]["value"]>
   composites: {}
 }
@@ -1241,12 +1361,15 @@ export interface Prisma__ValueClient<T, Null = never, ExtArgs extends runtime.Ty
 export interface ValueFieldRefs {
   readonly id: Prisma.FieldRef<"Value", 'Int'>
   readonly ts: Prisma.FieldRef<"Value", 'DateTime'>
-  readonly entityId: Prisma.FieldRef<"Value", 'Int'>
-  readonly attributeId: Prisma.FieldRef<"Value", 'Int'>
-  readonly stringVal: Prisma.FieldRef<"Value", 'String'>
-  readonly numberVal: Prisma.FieldRef<"Value", 'Float'>
-  readonly boolVal: Prisma.FieldRef<"Value", 'Boolean'>
-  readonly dateVal: Prisma.FieldRef<"Value", 'DateTime'>
+  readonly ent: Prisma.FieldRef<"Value", 'Int'>
+  readonly att: Prisma.FieldRef<"Value", 'Int'>
+  readonly strVal: Prisma.FieldRef<"Value", 'String'>
+  readonly numVal: Prisma.FieldRef<"Value", 'Float'>
+  readonly dtVal: Prisma.FieldRef<"Value", 'DateTime'>
+  readonly blbVal: Prisma.FieldRef<"Value", 'Bytes'>
+  readonly createdAt: Prisma.FieldRef<"Value", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Value", 'DateTime'>
+  readonly deletedAt: Prisma.FieldRef<"Value", 'DateTime'>
 }
     
 
