@@ -209,6 +209,7 @@ export type RangeWhereInput = {
   min?: Prisma.FloatNullableFilter<"Range"> | number | null
   max?: Prisma.FloatNullableFilter<"Range"> | number | null
   attributes?: Prisma.AttributeListRelationFilter
+  columns?: Prisma.ColumnEListRelationFilter
 }
 
 export type RangeOrderByWithRelationInput = {
@@ -216,6 +217,7 @@ export type RangeOrderByWithRelationInput = {
   min?: Prisma.SortOrderInput | Prisma.SortOrder
   max?: Prisma.SortOrderInput | Prisma.SortOrder
   attributes?: Prisma.AttributeOrderByRelationAggregateInput
+  columns?: Prisma.ColumnEOrderByRelationAggregateInput
 }
 
 export type RangeWhereUniqueInput = Prisma.AtLeast<{
@@ -226,6 +228,7 @@ export type RangeWhereUniqueInput = Prisma.AtLeast<{
   min?: Prisma.FloatNullableFilter<"Range"> | number | null
   max?: Prisma.FloatNullableFilter<"Range"> | number | null
   attributes?: Prisma.AttributeListRelationFilter
+  columns?: Prisma.ColumnEListRelationFilter
 }, "id">
 
 export type RangeOrderByWithAggregationInput = {
@@ -252,6 +255,7 @@ export type RangeCreateInput = {
   min?: number | null
   max?: number | null
   attributes?: Prisma.AttributeCreateNestedManyWithoutRangeInput
+  columns?: Prisma.ColumnECreateNestedManyWithoutRangeInput
 }
 
 export type RangeUncheckedCreateInput = {
@@ -259,12 +263,14 @@ export type RangeUncheckedCreateInput = {
   min?: number | null
   max?: number | null
   attributes?: Prisma.AttributeUncheckedCreateNestedManyWithoutRangeInput
+  columns?: Prisma.ColumnEUncheckedCreateNestedManyWithoutRangeInput
 }
 
 export type RangeUpdateInput = {
   min?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   max?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   attributes?: Prisma.AttributeUpdateManyWithoutRangeNestedInput
+  columns?: Prisma.ColumnEUpdateManyWithoutRangeNestedInput
 }
 
 export type RangeUncheckedUpdateInput = {
@@ -272,6 +278,7 @@ export type RangeUncheckedUpdateInput = {
   min?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   max?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   attributes?: Prisma.AttributeUncheckedUpdateManyWithoutRangeNestedInput
+  columns?: Prisma.ColumnEUncheckedUpdateManyWithoutRangeNestedInput
 }
 
 export type RangeCreateManyInput = {
@@ -342,15 +349,33 @@ export type RangeUpdateOneWithoutAttributesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.RangeUpdateToOneWithWhereWithoutAttributesInput, Prisma.RangeUpdateWithoutAttributesInput>, Prisma.RangeUncheckedUpdateWithoutAttributesInput>
 }
 
+export type RangeCreateNestedOneWithoutColumnsInput = {
+  create?: Prisma.XOR<Prisma.RangeCreateWithoutColumnsInput, Prisma.RangeUncheckedCreateWithoutColumnsInput>
+  connectOrCreate?: Prisma.RangeCreateOrConnectWithoutColumnsInput
+  connect?: Prisma.RangeWhereUniqueInput
+}
+
+export type RangeUpdateOneWithoutColumnsNestedInput = {
+  create?: Prisma.XOR<Prisma.RangeCreateWithoutColumnsInput, Prisma.RangeUncheckedCreateWithoutColumnsInput>
+  connectOrCreate?: Prisma.RangeCreateOrConnectWithoutColumnsInput
+  upsert?: Prisma.RangeUpsertWithoutColumnsInput
+  disconnect?: Prisma.RangeWhereInput | boolean
+  delete?: Prisma.RangeWhereInput | boolean
+  connect?: Prisma.RangeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.RangeUpdateToOneWithWhereWithoutColumnsInput, Prisma.RangeUpdateWithoutColumnsInput>, Prisma.RangeUncheckedUpdateWithoutColumnsInput>
+}
+
 export type RangeCreateWithoutAttributesInput = {
   min?: number | null
   max?: number | null
+  columns?: Prisma.ColumnECreateNestedManyWithoutRangeInput
 }
 
 export type RangeUncheckedCreateWithoutAttributesInput = {
   id?: number
   min?: number | null
   max?: number | null
+  columns?: Prisma.ColumnEUncheckedCreateNestedManyWithoutRangeInput
 }
 
 export type RangeCreateOrConnectWithoutAttributesInput = {
@@ -372,12 +397,56 @@ export type RangeUpdateToOneWithWhereWithoutAttributesInput = {
 export type RangeUpdateWithoutAttributesInput = {
   min?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   max?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  columns?: Prisma.ColumnEUpdateManyWithoutRangeNestedInput
 }
 
 export type RangeUncheckedUpdateWithoutAttributesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   min?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   max?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  columns?: Prisma.ColumnEUncheckedUpdateManyWithoutRangeNestedInput
+}
+
+export type RangeCreateWithoutColumnsInput = {
+  min?: number | null
+  max?: number | null
+  attributes?: Prisma.AttributeCreateNestedManyWithoutRangeInput
+}
+
+export type RangeUncheckedCreateWithoutColumnsInput = {
+  id?: number
+  min?: number | null
+  max?: number | null
+  attributes?: Prisma.AttributeUncheckedCreateNestedManyWithoutRangeInput
+}
+
+export type RangeCreateOrConnectWithoutColumnsInput = {
+  where: Prisma.RangeWhereUniqueInput
+  create: Prisma.XOR<Prisma.RangeCreateWithoutColumnsInput, Prisma.RangeUncheckedCreateWithoutColumnsInput>
+}
+
+export type RangeUpsertWithoutColumnsInput = {
+  update: Prisma.XOR<Prisma.RangeUpdateWithoutColumnsInput, Prisma.RangeUncheckedUpdateWithoutColumnsInput>
+  create: Prisma.XOR<Prisma.RangeCreateWithoutColumnsInput, Prisma.RangeUncheckedCreateWithoutColumnsInput>
+  where?: Prisma.RangeWhereInput
+}
+
+export type RangeUpdateToOneWithWhereWithoutColumnsInput = {
+  where?: Prisma.RangeWhereInput
+  data: Prisma.XOR<Prisma.RangeUpdateWithoutColumnsInput, Prisma.RangeUncheckedUpdateWithoutColumnsInput>
+}
+
+export type RangeUpdateWithoutColumnsInput = {
+  min?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  max?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  attributes?: Prisma.AttributeUpdateManyWithoutRangeNestedInput
+}
+
+export type RangeUncheckedUpdateWithoutColumnsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  min?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  max?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  attributes?: Prisma.AttributeUncheckedUpdateManyWithoutRangeNestedInput
 }
 
 
@@ -387,10 +456,12 @@ export type RangeUncheckedUpdateWithoutAttributesInput = {
 
 export type RangeCountOutputType = {
   attributes: number
+  columns: number
 }
 
 export type RangeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   attributes?: boolean | RangeCountOutputTypeCountAttributesArgs
+  columns?: boolean | RangeCountOutputTypeCountColumnsArgs
 }
 
 /**
@@ -410,12 +481,20 @@ export type RangeCountOutputTypeCountAttributesArgs<ExtArgs extends runtime.Type
   where?: Prisma.AttributeWhereInput
 }
 
+/**
+ * RangeCountOutputType without action
+ */
+export type RangeCountOutputTypeCountColumnsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ColumnEWhereInput
+}
+
 
 export type RangeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   min?: boolean
   max?: boolean
   attributes?: boolean | Prisma.Range$attributesArgs<ExtArgs>
+  columns?: boolean | Prisma.Range$columnsArgs<ExtArgs>
   _count?: boolean | Prisma.RangeCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["range"]>
 
@@ -440,6 +519,7 @@ export type RangeSelectScalar = {
 export type RangeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "min" | "max", ExtArgs["result"]["range"]>
 export type RangeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   attributes?: boolean | Prisma.Range$attributesArgs<ExtArgs>
+  columns?: boolean | Prisma.Range$columnsArgs<ExtArgs>
   _count?: boolean | Prisma.RangeCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type RangeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -449,6 +529,7 @@ export type $RangePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   name: "Range"
   objects: {
     attributes: Prisma.$AttributePayload<ExtArgs>[]
+    columns: Prisma.$ColumnEPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -849,6 +930,7 @@ readonly fields: RangeFieldRefs;
 export interface Prisma__RangeClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   attributes<T extends Prisma.Range$attributesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Range$attributesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttributePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  columns<T extends Prisma.Range$columnsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Range$columnsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ColumnEPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1290,6 +1372,30 @@ export type Range$attributesArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.AttributeScalarFieldEnum | Prisma.AttributeScalarFieldEnum[]
+}
+
+/**
+ * Range.columns
+ */
+export type Range$columnsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ColumnE
+   */
+  select?: Prisma.ColumnESelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ColumnE
+   */
+  omit?: Prisma.ColumnEOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ColumnEInclude<ExtArgs> | null
+  where?: Prisma.ColumnEWhereInput
+  orderBy?: Prisma.ColumnEOrderByWithRelationInput | Prisma.ColumnEOrderByWithRelationInput[]
+  cursor?: Prisma.ColumnEWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ColumnEScalarFieldEnum | Prisma.ColumnEScalarFieldEnum[]
 }
 
 /**

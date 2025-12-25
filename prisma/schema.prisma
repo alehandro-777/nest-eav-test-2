@@ -61,6 +61,7 @@ model KVSet {
   name       String
   values     KV[]
   attributes Attribute[]
+  columns ColumnE[]
 }
 
 model KV {
@@ -78,12 +79,14 @@ model Range {
   min        Float?
   max        Float?
   attributes Attribute[]
+  columns ColumnE[]
 }
 
 model AttrType {
   id         Int         @id @default(autoincrement())
   name       String
   attributes Attribute[]
+  columns ColumnE[]
 }
 
 model Template {
@@ -97,4 +100,45 @@ model Query {
   name   String
   params String
   templates Template[]  //many-to-many
+}
+// --------- EAV TABLES --------------------------------------
+model TableE {
+  id     Int    @id @default(autoincrement())
+  name   String
+  columns ColumnE[]
+}
+
+model ColumnE {
+  id     Int    @id @default(autoincrement())
+  col    Int  
+  tab    Int 
+  key    String
+  name   String
+  typ    Int
+  ran    Int?
+  kvs    Int?
+
+  rows    RowEAV[]
+
+  type    AttrType @relation(fields: [typ], references: [id], onDelete: Cascade)
+  table   TableE   @relation(fields: [tab], references: [id], onDelete: Cascade)
+  range   Range?   @relation(fields: [ran], references: [id])
+  kVSet   KVSet?   @relation(fields: [kvs], references: [id])
+
+  @@unique([col, tab])
+}
+
+model RowEAV {
+  id     Int    @id @default(autoincrement())
+  row    Int    
+  col    Int
+
+  strVal      String
+  numVal      Float?
+  dtVal       DateTime?
+  blbVal      Bytes?      //PostGres @db.Bytea   //@db.LongBlob
+
+  column ColumnE @relation(fields: [col], references: [id], onDelete: Cascade) 
+  
+  @@unique([row, col])  
 }

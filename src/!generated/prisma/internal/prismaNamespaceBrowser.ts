@@ -59,7 +59,10 @@ export const ModelName = {
   Range: 'Range',
   AttrType: 'AttrType',
   Template: 'Template',
-  Query: 'Query'
+  Query: 'Query',
+  TableE: 'TableE',
+  ColumnE: 'ColumnE',
+  RowEAV: 'RowEAV'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -165,6 +168,41 @@ export const QueryScalarFieldEnum = {
 } as const
 
 export type QueryScalarFieldEnum = (typeof QueryScalarFieldEnum)[keyof typeof QueryScalarFieldEnum]
+
+
+export const TableEScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+} as const
+
+export type TableEScalarFieldEnum = (typeof TableEScalarFieldEnum)[keyof typeof TableEScalarFieldEnum]
+
+
+export const ColumnEScalarFieldEnum = {
+  id: 'id',
+  col: 'col',
+  tab: 'tab',
+  key: 'key',
+  name: 'name',
+  typ: 'typ',
+  ran: 'ran',
+  kvs: 'kvs'
+} as const
+
+export type ColumnEScalarFieldEnum = (typeof ColumnEScalarFieldEnum)[keyof typeof ColumnEScalarFieldEnum]
+
+
+export const RowEAVScalarFieldEnum = {
+  id: 'id',
+  row: 'row',
+  col: 'col',
+  strVal: 'strVal',
+  numVal: 'numVal',
+  dtVal: 'dtVal',
+  blbVal: 'blbVal'
+} as const
+
+export type RowEAVScalarFieldEnum = (typeof RowEAVScalarFieldEnum)[keyof typeof RowEAVScalarFieldEnum]
 
 
 export const SortOrder = {

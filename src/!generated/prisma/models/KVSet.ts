@@ -194,6 +194,7 @@ export type KVSetWhereInput = {
   name?: Prisma.StringFilter<"KVSet"> | string
   values?: Prisma.KVListRelationFilter
   attributes?: Prisma.AttributeListRelationFilter
+  columns?: Prisma.ColumnEListRelationFilter
 }
 
 export type KVSetOrderByWithRelationInput = {
@@ -201,6 +202,7 @@ export type KVSetOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   values?: Prisma.KVOrderByRelationAggregateInput
   attributes?: Prisma.AttributeOrderByRelationAggregateInput
+  columns?: Prisma.ColumnEOrderByRelationAggregateInput
 }
 
 export type KVSetWhereUniqueInput = Prisma.AtLeast<{
@@ -211,6 +213,7 @@ export type KVSetWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"KVSet"> | string
   values?: Prisma.KVListRelationFilter
   attributes?: Prisma.AttributeListRelationFilter
+  columns?: Prisma.ColumnEListRelationFilter
 }, "id">
 
 export type KVSetOrderByWithAggregationInput = {
@@ -235,6 +238,7 @@ export type KVSetCreateInput = {
   name: string
   values?: Prisma.KVCreateNestedManyWithoutSetInput
   attributes?: Prisma.AttributeCreateNestedManyWithoutKVSetInput
+  columns?: Prisma.ColumnECreateNestedManyWithoutKVSetInput
 }
 
 export type KVSetUncheckedCreateInput = {
@@ -242,12 +246,14 @@ export type KVSetUncheckedCreateInput = {
   name: string
   values?: Prisma.KVUncheckedCreateNestedManyWithoutSetInput
   attributes?: Prisma.AttributeUncheckedCreateNestedManyWithoutKVSetInput
+  columns?: Prisma.ColumnEUncheckedCreateNestedManyWithoutKVSetInput
 }
 
 export type KVSetUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   values?: Prisma.KVUpdateManyWithoutSetNestedInput
   attributes?: Prisma.AttributeUpdateManyWithoutKVSetNestedInput
+  columns?: Prisma.ColumnEUpdateManyWithoutKVSetNestedInput
 }
 
 export type KVSetUncheckedUpdateInput = {
@@ -255,6 +261,7 @@ export type KVSetUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   values?: Prisma.KVUncheckedUpdateManyWithoutSetNestedInput
   attributes?: Prisma.AttributeUncheckedUpdateManyWithoutKVSetNestedInput
+  columns?: Prisma.ColumnEUncheckedUpdateManyWithoutKVSetNestedInput
 }
 
 export type KVSetCreateManyInput = {
@@ -334,15 +341,33 @@ export type KVSetUpdateOneRequiredWithoutValuesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.KVSetUpdateToOneWithWhereWithoutValuesInput, Prisma.KVSetUpdateWithoutValuesInput>, Prisma.KVSetUncheckedUpdateWithoutValuesInput>
 }
 
+export type KVSetCreateNestedOneWithoutColumnsInput = {
+  create?: Prisma.XOR<Prisma.KVSetCreateWithoutColumnsInput, Prisma.KVSetUncheckedCreateWithoutColumnsInput>
+  connectOrCreate?: Prisma.KVSetCreateOrConnectWithoutColumnsInput
+  connect?: Prisma.KVSetWhereUniqueInput
+}
+
+export type KVSetUpdateOneWithoutColumnsNestedInput = {
+  create?: Prisma.XOR<Prisma.KVSetCreateWithoutColumnsInput, Prisma.KVSetUncheckedCreateWithoutColumnsInput>
+  connectOrCreate?: Prisma.KVSetCreateOrConnectWithoutColumnsInput
+  upsert?: Prisma.KVSetUpsertWithoutColumnsInput
+  disconnect?: Prisma.KVSetWhereInput | boolean
+  delete?: Prisma.KVSetWhereInput | boolean
+  connect?: Prisma.KVSetWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.KVSetUpdateToOneWithWhereWithoutColumnsInput, Prisma.KVSetUpdateWithoutColumnsInput>, Prisma.KVSetUncheckedUpdateWithoutColumnsInput>
+}
+
 export type KVSetCreateWithoutAttributesInput = {
   name: string
   values?: Prisma.KVCreateNestedManyWithoutSetInput
+  columns?: Prisma.ColumnECreateNestedManyWithoutKVSetInput
 }
 
 export type KVSetUncheckedCreateWithoutAttributesInput = {
   id?: number
   name: string
   values?: Prisma.KVUncheckedCreateNestedManyWithoutSetInput
+  columns?: Prisma.ColumnEUncheckedCreateNestedManyWithoutKVSetInput
 }
 
 export type KVSetCreateOrConnectWithoutAttributesInput = {
@@ -364,23 +389,27 @@ export type KVSetUpdateToOneWithWhereWithoutAttributesInput = {
 export type KVSetUpdateWithoutAttributesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   values?: Prisma.KVUpdateManyWithoutSetNestedInput
+  columns?: Prisma.ColumnEUpdateManyWithoutKVSetNestedInput
 }
 
 export type KVSetUncheckedUpdateWithoutAttributesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   values?: Prisma.KVUncheckedUpdateManyWithoutSetNestedInput
+  columns?: Prisma.ColumnEUncheckedUpdateManyWithoutKVSetNestedInput
 }
 
 export type KVSetCreateWithoutValuesInput = {
   name: string
   attributes?: Prisma.AttributeCreateNestedManyWithoutKVSetInput
+  columns?: Prisma.ColumnECreateNestedManyWithoutKVSetInput
 }
 
 export type KVSetUncheckedCreateWithoutValuesInput = {
   id?: number
   name: string
   attributes?: Prisma.AttributeUncheckedCreateNestedManyWithoutKVSetInput
+  columns?: Prisma.ColumnEUncheckedCreateNestedManyWithoutKVSetInput
 }
 
 export type KVSetCreateOrConnectWithoutValuesInput = {
@@ -402,11 +431,55 @@ export type KVSetUpdateToOneWithWhereWithoutValuesInput = {
 export type KVSetUpdateWithoutValuesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   attributes?: Prisma.AttributeUpdateManyWithoutKVSetNestedInput
+  columns?: Prisma.ColumnEUpdateManyWithoutKVSetNestedInput
 }
 
 export type KVSetUncheckedUpdateWithoutValuesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  attributes?: Prisma.AttributeUncheckedUpdateManyWithoutKVSetNestedInput
+  columns?: Prisma.ColumnEUncheckedUpdateManyWithoutKVSetNestedInput
+}
+
+export type KVSetCreateWithoutColumnsInput = {
+  name: string
+  values?: Prisma.KVCreateNestedManyWithoutSetInput
+  attributes?: Prisma.AttributeCreateNestedManyWithoutKVSetInput
+}
+
+export type KVSetUncheckedCreateWithoutColumnsInput = {
+  id?: number
+  name: string
+  values?: Prisma.KVUncheckedCreateNestedManyWithoutSetInput
+  attributes?: Prisma.AttributeUncheckedCreateNestedManyWithoutKVSetInput
+}
+
+export type KVSetCreateOrConnectWithoutColumnsInput = {
+  where: Prisma.KVSetWhereUniqueInput
+  create: Prisma.XOR<Prisma.KVSetCreateWithoutColumnsInput, Prisma.KVSetUncheckedCreateWithoutColumnsInput>
+}
+
+export type KVSetUpsertWithoutColumnsInput = {
+  update: Prisma.XOR<Prisma.KVSetUpdateWithoutColumnsInput, Prisma.KVSetUncheckedUpdateWithoutColumnsInput>
+  create: Prisma.XOR<Prisma.KVSetCreateWithoutColumnsInput, Prisma.KVSetUncheckedCreateWithoutColumnsInput>
+  where?: Prisma.KVSetWhereInput
+}
+
+export type KVSetUpdateToOneWithWhereWithoutColumnsInput = {
+  where?: Prisma.KVSetWhereInput
+  data: Prisma.XOR<Prisma.KVSetUpdateWithoutColumnsInput, Prisma.KVSetUncheckedUpdateWithoutColumnsInput>
+}
+
+export type KVSetUpdateWithoutColumnsInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  values?: Prisma.KVUpdateManyWithoutSetNestedInput
+  attributes?: Prisma.AttributeUpdateManyWithoutKVSetNestedInput
+}
+
+export type KVSetUncheckedUpdateWithoutColumnsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  values?: Prisma.KVUncheckedUpdateManyWithoutSetNestedInput
   attributes?: Prisma.AttributeUncheckedUpdateManyWithoutKVSetNestedInput
 }
 
@@ -418,11 +491,13 @@ export type KVSetUncheckedUpdateWithoutValuesInput = {
 export type KVSetCountOutputType = {
   values: number
   attributes: number
+  columns: number
 }
 
 export type KVSetCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   values?: boolean | KVSetCountOutputTypeCountValuesArgs
   attributes?: boolean | KVSetCountOutputTypeCountAttributesArgs
+  columns?: boolean | KVSetCountOutputTypeCountColumnsArgs
 }
 
 /**
@@ -449,12 +524,20 @@ export type KVSetCountOutputTypeCountAttributesArgs<ExtArgs extends runtime.Type
   where?: Prisma.AttributeWhereInput
 }
 
+/**
+ * KVSetCountOutputType without action
+ */
+export type KVSetCountOutputTypeCountColumnsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ColumnEWhereInput
+}
+
 
 export type KVSetSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   values?: boolean | Prisma.KVSet$valuesArgs<ExtArgs>
   attributes?: boolean | Prisma.KVSet$attributesArgs<ExtArgs>
+  columns?: boolean | Prisma.KVSet$columnsArgs<ExtArgs>
   _count?: boolean | Prisma.KVSetCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["kVSet"]>
 
@@ -477,6 +560,7 @@ export type KVSetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
 export type KVSetInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   values?: boolean | Prisma.KVSet$valuesArgs<ExtArgs>
   attributes?: boolean | Prisma.KVSet$attributesArgs<ExtArgs>
+  columns?: boolean | Prisma.KVSet$columnsArgs<ExtArgs>
   _count?: boolean | Prisma.KVSetCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type KVSetIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -487,6 +571,7 @@ export type $KVSetPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   objects: {
     values: Prisma.$KVPayload<ExtArgs>[]
     attributes: Prisma.$AttributePayload<ExtArgs>[]
+    columns: Prisma.$ColumnEPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -887,6 +972,7 @@ export interface Prisma__KVSetClient<T, Null = never, ExtArgs extends runtime.Ty
   readonly [Symbol.toStringTag]: "PrismaPromise"
   values<T extends Prisma.KVSet$valuesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.KVSet$valuesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$KVPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   attributes<T extends Prisma.KVSet$attributesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.KVSet$attributesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttributePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  columns<T extends Prisma.KVSet$columnsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.KVSet$columnsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ColumnEPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1351,6 +1437,30 @@ export type KVSet$attributesArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.AttributeScalarFieldEnum | Prisma.AttributeScalarFieldEnum[]
+}
+
+/**
+ * KVSet.columns
+ */
+export type KVSet$columnsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ColumnE
+   */
+  select?: Prisma.ColumnESelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ColumnE
+   */
+  omit?: Prisma.ColumnEOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ColumnEInclude<ExtArgs> | null
+  where?: Prisma.ColumnEWhereInput
+  orderBy?: Prisma.ColumnEOrderByWithRelationInput | Prisma.ColumnEOrderByWithRelationInput[]
+  cursor?: Prisma.ColumnEWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ColumnEScalarFieldEnum | Prisma.ColumnEScalarFieldEnum[]
 }
 
 /**

@@ -122,30 +122,59 @@ async function main() {
     where: { id: 1 },
     update: {},
     create: {
-      name: 'numeric',
+      name: 'text',
     },
   });
     const t2 = await prisma.attrType.upsert({
     where: { id: 2 },
     update: {},
     create: {
-      name: 'string',
+      name: 'numeric',
     },
   });
     const t3 = await prisma.attrType.upsert({
     where: { id: 3 },
     update: {},
     create: {
-      name: 'datetime',
+      name: 'date',
     },
   });
     const t4 = await prisma.attrType.upsert({
     where: { id: 4 },
     update: {},
     create: {
+      name: 'time',
+    },
+  });
+    const t5 = await prisma.attrType.upsert({
+    where: { id: 5 },
+    update: {},
+    create: {
+      name: 'datetime',
+    },
+  });
+    const t6 = await prisma.attrType.upsert({
+    where: { id: 6 },
+    update: {},
+    create: {
       name: 'bool',
     },
   });
+    const t7 = await prisma.attrType.upsert({
+    where: { id: 7 },
+    update: {},
+    create: {
+      name: 'dropdown',
+    },
+  });
+    const t8 = await prisma.attrType.upsert({
+    where: { id: 8 },
+    update: {},
+    create: {
+      name: 'blob',
+    },
+  });
+
 //----------------------------------------------------
   //  ----   KV SET
     const s1 = await prisma.kVSet.upsert({
@@ -273,12 +302,130 @@ async function main() {
       }
     }
   }
+//---------------------------------------------------------------------
+  const tb1 = await prisma.tableE.upsert({
+    where: { id: 1 },
+    update: {},
+    create: {
+      name: 'table1',
+    },
+  });
+  const tb2 = await prisma.tableE.upsert({
+    where: { id: 2 },
+    update: {},
+    create: {
+      name: 'table2',
+    },
+  });
+  const tb3 = await prisma.tableE.upsert({
+    where: { id: 3 },
+    update: {},
+    create: {
+      name: 'table3',
+    },
+  });
 
+  const col1 = await prisma.columnE.upsert({
+    where: { id: 1 },
+    update: {},
+    create: {
+      tab:1,
+      col:1,
+      key: "dt",
+      name: 'Дата',
+      typ:  5,
+    },
+  });
+  const col2 = await prisma.columnE.upsert({
+    where: { id: 2 },
+    update: {},
+    create: {
+      tab:1,
+      col:2,
+      ran:1,
+      key: "par1",
+      name: 'Параметр 1',
+      typ:  2,
+    },
+  });
+  const col3 = await prisma.columnE.upsert({
+    where: { id: 3 },
+    update: {},
+    create: {
+      tab:1,
+      col:3,
+      ran:1,
+      key: "par2",
+      name: 'Параметр 2',
+      typ:  2,
+    },
+  });
+  const col4 = await prisma.columnE.upsert({
+    where: { id: 4 },
+    update: {},
+    create: {
+      tab:1,
+      col:4,
+      //ran:1,
+      key: "par3",
+      name: 'Text 3',
+      typ:  1,
+    },
+  });
+  const col5 = await prisma.columnE.upsert({
+    where: { id: 5 },
+    update: {},
+    create: {
+      tab:1,
+      col:5,
+      kvs:1,
+      key: "par4",
+      name: 'DropBox 4',
+      typ:  7,
+    },
+  });
+  const col6 = await prisma.columnE.upsert({
+    where: { id: 6 },
+    update: {},
+    create: {
+      tab:1,
+      col:6,
+      //kvs:1,
+      key: "par5",
+      name: 'CheckBox 5',
+      typ:  6,
+    },
+  });
+
+  for (let k = 1; k < 100; k++) {
+    let ts = new Date("2025-01-01");
+        ts.setHours(ts.getHours() + k); // +1 час
+      for (let i = 1; i < 7; i++) {
+        let v = Math.random()*100;
+        //console.log(i,j,k)
+        const a2 = await prisma.rowEAV.upsert({
+          where: { row_col: {  // составной уникальный ключ
+                  col: i,
+                  row: k,
+                } },
+          update: {},
+          create: {
+            col: i,
+            row: k,
+            numVal: v,
+            strVal: v.toString(),
+            dtVal: ts,
+          },
+        });      
+      }
+  }
 
   //console.log(a1);
-}
+}// -- end main()
 
-// execute the main function
+
+
+//=== execute the main function =============================================================================================
 main()
   .catch((e) => {
     console.error(e);

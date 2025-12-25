@@ -193,12 +193,14 @@ export type AttrTypeWhereInput = {
   id?: Prisma.IntFilter<"AttrType"> | number
   name?: Prisma.StringFilter<"AttrType"> | string
   attributes?: Prisma.AttributeListRelationFilter
+  columns?: Prisma.ColumnEListRelationFilter
 }
 
 export type AttrTypeOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   attributes?: Prisma.AttributeOrderByRelationAggregateInput
+  columns?: Prisma.ColumnEOrderByRelationAggregateInput
 }
 
 export type AttrTypeWhereUniqueInput = Prisma.AtLeast<{
@@ -208,6 +210,7 @@ export type AttrTypeWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.AttrTypeWhereInput | Prisma.AttrTypeWhereInput[]
   name?: Prisma.StringFilter<"AttrType"> | string
   attributes?: Prisma.AttributeListRelationFilter
+  columns?: Prisma.ColumnEListRelationFilter
 }, "id">
 
 export type AttrTypeOrderByWithAggregationInput = {
@@ -231,23 +234,27 @@ export type AttrTypeScalarWhereWithAggregatesInput = {
 export type AttrTypeCreateInput = {
   name: string
   attributes?: Prisma.AttributeCreateNestedManyWithoutTypeInput
+  columns?: Prisma.ColumnECreateNestedManyWithoutTypeInput
 }
 
 export type AttrTypeUncheckedCreateInput = {
   id?: number
   name: string
   attributes?: Prisma.AttributeUncheckedCreateNestedManyWithoutTypeInput
+  columns?: Prisma.ColumnEUncheckedCreateNestedManyWithoutTypeInput
 }
 
 export type AttrTypeUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   attributes?: Prisma.AttributeUpdateManyWithoutTypeNestedInput
+  columns?: Prisma.ColumnEUpdateManyWithoutTypeNestedInput
 }
 
 export type AttrTypeUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   attributes?: Prisma.AttributeUncheckedUpdateManyWithoutTypeNestedInput
+  columns?: Prisma.ColumnEUncheckedUpdateManyWithoutTypeNestedInput
 }
 
 export type AttrTypeCreateManyInput = {
@@ -306,13 +313,29 @@ export type AttrTypeUpdateOneRequiredWithoutAttributesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.AttrTypeUpdateToOneWithWhereWithoutAttributesInput, Prisma.AttrTypeUpdateWithoutAttributesInput>, Prisma.AttrTypeUncheckedUpdateWithoutAttributesInput>
 }
 
+export type AttrTypeCreateNestedOneWithoutColumnsInput = {
+  create?: Prisma.XOR<Prisma.AttrTypeCreateWithoutColumnsInput, Prisma.AttrTypeUncheckedCreateWithoutColumnsInput>
+  connectOrCreate?: Prisma.AttrTypeCreateOrConnectWithoutColumnsInput
+  connect?: Prisma.AttrTypeWhereUniqueInput
+}
+
+export type AttrTypeUpdateOneRequiredWithoutColumnsNestedInput = {
+  create?: Prisma.XOR<Prisma.AttrTypeCreateWithoutColumnsInput, Prisma.AttrTypeUncheckedCreateWithoutColumnsInput>
+  connectOrCreate?: Prisma.AttrTypeCreateOrConnectWithoutColumnsInput
+  upsert?: Prisma.AttrTypeUpsertWithoutColumnsInput
+  connect?: Prisma.AttrTypeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AttrTypeUpdateToOneWithWhereWithoutColumnsInput, Prisma.AttrTypeUpdateWithoutColumnsInput>, Prisma.AttrTypeUncheckedUpdateWithoutColumnsInput>
+}
+
 export type AttrTypeCreateWithoutAttributesInput = {
   name: string
+  columns?: Prisma.ColumnECreateNestedManyWithoutTypeInput
 }
 
 export type AttrTypeUncheckedCreateWithoutAttributesInput = {
   id?: number
   name: string
+  columns?: Prisma.ColumnEUncheckedCreateNestedManyWithoutTypeInput
 }
 
 export type AttrTypeCreateOrConnectWithoutAttributesInput = {
@@ -333,11 +356,51 @@ export type AttrTypeUpdateToOneWithWhereWithoutAttributesInput = {
 
 export type AttrTypeUpdateWithoutAttributesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  columns?: Prisma.ColumnEUpdateManyWithoutTypeNestedInput
 }
 
 export type AttrTypeUncheckedUpdateWithoutAttributesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  columns?: Prisma.ColumnEUncheckedUpdateManyWithoutTypeNestedInput
+}
+
+export type AttrTypeCreateWithoutColumnsInput = {
+  name: string
+  attributes?: Prisma.AttributeCreateNestedManyWithoutTypeInput
+}
+
+export type AttrTypeUncheckedCreateWithoutColumnsInput = {
+  id?: number
+  name: string
+  attributes?: Prisma.AttributeUncheckedCreateNestedManyWithoutTypeInput
+}
+
+export type AttrTypeCreateOrConnectWithoutColumnsInput = {
+  where: Prisma.AttrTypeWhereUniqueInput
+  create: Prisma.XOR<Prisma.AttrTypeCreateWithoutColumnsInput, Prisma.AttrTypeUncheckedCreateWithoutColumnsInput>
+}
+
+export type AttrTypeUpsertWithoutColumnsInput = {
+  update: Prisma.XOR<Prisma.AttrTypeUpdateWithoutColumnsInput, Prisma.AttrTypeUncheckedUpdateWithoutColumnsInput>
+  create: Prisma.XOR<Prisma.AttrTypeCreateWithoutColumnsInput, Prisma.AttrTypeUncheckedCreateWithoutColumnsInput>
+  where?: Prisma.AttrTypeWhereInput
+}
+
+export type AttrTypeUpdateToOneWithWhereWithoutColumnsInput = {
+  where?: Prisma.AttrTypeWhereInput
+  data: Prisma.XOR<Prisma.AttrTypeUpdateWithoutColumnsInput, Prisma.AttrTypeUncheckedUpdateWithoutColumnsInput>
+}
+
+export type AttrTypeUpdateWithoutColumnsInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  attributes?: Prisma.AttributeUpdateManyWithoutTypeNestedInput
+}
+
+export type AttrTypeUncheckedUpdateWithoutColumnsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  attributes?: Prisma.AttributeUncheckedUpdateManyWithoutTypeNestedInput
 }
 
 
@@ -347,10 +410,12 @@ export type AttrTypeUncheckedUpdateWithoutAttributesInput = {
 
 export type AttrTypeCountOutputType = {
   attributes: number
+  columns: number
 }
 
 export type AttrTypeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   attributes?: boolean | AttrTypeCountOutputTypeCountAttributesArgs
+  columns?: boolean | AttrTypeCountOutputTypeCountColumnsArgs
 }
 
 /**
@@ -370,11 +435,19 @@ export type AttrTypeCountOutputTypeCountAttributesArgs<ExtArgs extends runtime.T
   where?: Prisma.AttributeWhereInput
 }
 
+/**
+ * AttrTypeCountOutputType without action
+ */
+export type AttrTypeCountOutputTypeCountColumnsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ColumnEWhereInput
+}
+
 
 export type AttrTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   attributes?: boolean | Prisma.AttrType$attributesArgs<ExtArgs>
+  columns?: boolean | Prisma.AttrType$columnsArgs<ExtArgs>
   _count?: boolean | Prisma.AttrTypeCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["attrType"]>
 
@@ -396,6 +469,7 @@ export type AttrTypeSelectScalar = {
 export type AttrTypeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name", ExtArgs["result"]["attrType"]>
 export type AttrTypeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   attributes?: boolean | Prisma.AttrType$attributesArgs<ExtArgs>
+  columns?: boolean | Prisma.AttrType$columnsArgs<ExtArgs>
   _count?: boolean | Prisma.AttrTypeCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type AttrTypeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -405,6 +479,7 @@ export type $AttrTypePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   name: "AttrType"
   objects: {
     attributes: Prisma.$AttributePayload<ExtArgs>[]
+    columns: Prisma.$ColumnEPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -804,6 +879,7 @@ readonly fields: AttrTypeFieldRefs;
 export interface Prisma__AttrTypeClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   attributes<T extends Prisma.AttrType$attributesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AttrType$attributesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttributePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  columns<T extends Prisma.AttrType$columnsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AttrType$columnsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ColumnEPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1244,6 +1320,30 @@ export type AttrType$attributesArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.AttributeScalarFieldEnum | Prisma.AttributeScalarFieldEnum[]
+}
+
+/**
+ * AttrType.columns
+ */
+export type AttrType$columnsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ColumnE
+   */
+  select?: Prisma.ColumnESelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ColumnE
+   */
+  omit?: Prisma.ColumnEOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ColumnEInclude<ExtArgs> | null
+  where?: Prisma.ColumnEWhereInput
+  orderBy?: Prisma.ColumnEOrderByWithRelationInput | Prisma.ColumnEOrderByWithRelationInput[]
+  cursor?: Prisma.ColumnEWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ColumnEScalarFieldEnum | Prisma.ColumnEScalarFieldEnum[]
 }
 
 /**

@@ -31,4 +31,5 @@ excel edit cells:
 5	datetime
 6	checkbox
 7	dropdown
+8	blob
 	

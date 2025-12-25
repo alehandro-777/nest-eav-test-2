@@ -88,6 +88,41 @@ CREATE TABLE "Query" (
 );
 
 -- CreateTable
+CREATE TABLE "TableE" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+
+    CONSTRAINT "TableE_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "ColumnE" (
+    "id" SERIAL NOT NULL,
+    "col" INTEGER NOT NULL,
+    "tab" INTEGER NOT NULL,
+    "key" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "typ" INTEGER NOT NULL,
+    "ran" INTEGER,
+    "kvs" INTEGER,
+
+    CONSTRAINT "ColumnE_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "RowEAV" (
+    "id" SERIAL NOT NULL,
+    "row" INTEGER NOT NULL,
+    "col" INTEGER NOT NULL,
+    "strVal" TEXT NOT NULL,
+    "numVal" DOUBLE PRECISION,
+    "dtVal" TIMESTAMP(3),
+    "blbVal" BYTEA,
+
+    CONSTRAINT "RowEAV_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "_QueryToTemplate" (
     "A" INTEGER NOT NULL,
     "B" INTEGER NOT NULL,
@@ -100,6 +135,12 @@ CREATE UNIQUE INDEX "Value_ent_att_ts_key" ON "Value"("ent", "att", "ts");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "KV_setId_key_key" ON "KV"("setId", "key");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "ColumnE_col_tab_key" ON "ColumnE"("col", "tab");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "RowEAV_row_col_key" ON "RowEAV"("row", "col");
 
 -- CreateIndex
 CREATE INDEX "_QueryToTemplate_B_index" ON "_QueryToTemplate"("B");
@@ -121,6 +162,21 @@ ALTER TABLE "Value" ADD CONSTRAINT "Value_att_fkey" FOREIGN KEY ("att") REFERENC
 
 -- AddForeignKey
 ALTER TABLE "KV" ADD CONSTRAINT "KV_setId_fkey" FOREIGN KEY ("setId") REFERENCES "KVSet"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ColumnE" ADD CONSTRAINT "ColumnE_typ_fkey" FOREIGN KEY ("typ") REFERENCES "AttrType"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ColumnE" ADD CONSTRAINT "ColumnE_tab_fkey" FOREIGN KEY ("tab") REFERENCES "TableE"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ColumnE" ADD CONSTRAINT "ColumnE_ran_fkey" FOREIGN KEY ("ran") REFERENCES "Range"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ColumnE" ADD CONSTRAINT "ColumnE_kvs_fkey" FOREIGN KEY ("kvs") REFERENCES "KVSet"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "RowEAV" ADD CONSTRAINT "RowEAV_col_fkey" FOREIGN KEY ("col") REFERENCES "ColumnE"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "_QueryToTemplate" ADD CONSTRAINT "_QueryToTemplate_A_fkey" FOREIGN KEY ("A") REFERENCES "Query"("id") ON DELETE CASCADE ON UPDATE CASCADE;

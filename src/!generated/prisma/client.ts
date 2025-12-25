@@ -82,3 +82,18 @@ export type Template = Prisma.TemplateModel
  * 
  */
 export type Query = Prisma.QueryModel
+/**
+ * Model TableE
+ * 
+ */
+export type TableE = Prisma.TableEModel
+/**
+ * Model ColumnE
+ * 
+ */
+export type ColumnE = Prisma.ColumnEModel
+/**
+ * Model RowEAV
+ * 
+ */
+export type RowEAV = Prisma.RowEAVModel
