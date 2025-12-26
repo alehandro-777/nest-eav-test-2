@@ -5,5 +5,6 @@ import { ColumnEController } from './column-e.controller';
 @Module({
   controllers: [ColumnEController],
   providers: [ColumnEService],
+  exports: [ColumnEService],
 })
 export class ColumnEModule {}

@@ -36,8 +36,24 @@ export class RowEavService {
       {
         where:{
           "col": { in: [1,2,3,4,5,6] },
+        },
+        include: {
+          column: true,
         }, 
         take:1000 
+    });
+  }
+
+  //find MAX row for col
+  query2(col: number)  {
+    return prisma.rowEAV.aggregate({
+      where: {
+        col: col,
+        //deletedAt: null,  // игнорировать удалённые
+      },
+      _max: {
+        row: true,
+      },
     });
   }
 

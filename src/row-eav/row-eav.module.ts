@@ -5,5 +5,6 @@ import { RowEavController } from './row-eav.controller';
 @Module({
   controllers: [RowEavController],
   providers: [RowEavService],
+  exports: [RowEavService],
 })
 export class RowEavModule {}

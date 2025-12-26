@@ -118,6 +118,9 @@ CREATE TABLE "RowEAV" (
     "numVal" DOUBLE PRECISION,
     "dtVal" TIMESTAMP(3),
     "blbVal" BYTEA,
+    "createdAt" TIMESTAMP(3),
+    "updatedAt" TIMESTAMP(3),
+    "deletedAt" TIMESTAMP(3),
 
     CONSTRAINT "RowEAV_pkey" PRIMARY KEY ("id")
 );

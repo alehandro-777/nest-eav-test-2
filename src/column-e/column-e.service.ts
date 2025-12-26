@@ -5,16 +5,17 @@ import { prisma } from '../prisma';
 
 @Injectable()
 export class ColumnEService {
+  
   create(createColumnEDto: CreateColumnEDto) {
     return 'This action adds a new columnE';
   }
 
   findAll() {
-    return `This action returns all columnE`;
+    return prisma.columnE.findMany({ include:{ kVSet:{include:{values:true}}, range:true }});
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} columnE`;
+    return prisma.columnE.findFirst({ where:{id:id}, include:{ kVSet:{include:{values:true}}, range:true }});
   }
 
   update(id: number, updateColumnEDto: UpdateColumnEDto) {

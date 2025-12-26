@@ -199,7 +199,10 @@ export const RowEAVScalarFieldEnum = {
   strVal: 'strVal',
   numVal: 'numVal',
   dtVal: 'dtVal',
-  blbVal: 'blbVal'
+  blbVal: 'blbVal',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
 } as const
 
 export type RowEAVScalarFieldEnum = (typeof RowEAVScalarFieldEnum)[keyof typeof RowEAVScalarFieldEnum]

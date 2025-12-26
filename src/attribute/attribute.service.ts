@@ -16,7 +16,7 @@ export class AttributeService {
   }
 
   findOne(id: number) {
-    return prisma.attribute.findFirst({ include:{ kVSet:{include:{values:true}}, range:true }});
+    return prisma.attribute.findFirst({where:{id:id}, include:{ kVSet:{include:{values:true}}, range:true }});
   }
 
   update(id: number, updateAttributeDto: UpdateAttributeDto) {

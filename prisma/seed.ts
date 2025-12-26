@@ -334,6 +334,8 @@ async function main() {
       key: "dt",
       name: 'Дата',
       typ:  5,
+      ran:1,
+      kvs:1,
     },
   });
   const col2 = await prisma.columnE.upsert({
@@ -343,6 +345,7 @@ async function main() {
       tab:1,
       col:2,
       ran:1,
+      kvs:1,
       key: "par1",
       name: 'Параметр 1',
       typ:  2,
@@ -354,6 +357,7 @@ async function main() {
     create: {
       tab:1,
       col:3,
+      kvs:1,
       ran:1,
       key: "par2",
       name: 'Параметр 2',
@@ -366,7 +370,8 @@ async function main() {
     create: {
       tab:1,
       col:4,
-      //ran:1,
+      kvs:1,
+      ran:1,
       key: "par3",
       name: 'Text 3',
       typ:  1,
@@ -390,7 +395,7 @@ async function main() {
     create: {
       tab:1,
       col:6,
-      //kvs:1,
+      kvs:1,
       key: "par5",
       name: 'CheckBox 5',
       typ:  6,
@@ -415,6 +420,7 @@ async function main() {
             numVal: v,
             strVal: v.toString(),
             dtVal: ts,
+            createdAt: new Date(),
           },
         });      
       }

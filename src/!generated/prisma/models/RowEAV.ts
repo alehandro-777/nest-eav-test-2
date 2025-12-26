@@ -48,6 +48,9 @@ export type RowEAVMinAggregateOutputType = {
   numVal: number | null
   dtVal: Date | null
   blbVal: runtime.Bytes | null
+  createdAt: Date | null
+  updatedAt: Date | null
+  deletedAt: Date | null
 }
 
 export type RowEAVMaxAggregateOutputType = {
@@ -58,6 +61,9 @@ export type RowEAVMaxAggregateOutputType = {
   numVal: number | null
   dtVal: Date | null
   blbVal: runtime.Bytes | null
+  createdAt: Date | null
+  updatedAt: Date | null
+  deletedAt: Date | null
 }
 
 export type RowEAVCountAggregateOutputType = {
@@ -68,6 +74,9 @@ export type RowEAVCountAggregateOutputType = {
   numVal: number
   dtVal: number
   blbVal: number
+  createdAt: number
+  updatedAt: number
+  deletedAt: number
   _all: number
 }
 
@@ -94,6 +103,9 @@ export type RowEAVMinAggregateInputType = {
   numVal?: true
   dtVal?: true
   blbVal?: true
+  createdAt?: true
+  updatedAt?: true
+  deletedAt?: true
 }
 
 export type RowEAVMaxAggregateInputType = {
@@ -104,6 +116,9 @@ export type RowEAVMaxAggregateInputType = {
   numVal?: true
   dtVal?: true
   blbVal?: true
+  createdAt?: true
+  updatedAt?: true
+  deletedAt?: true
 }
 
 export type RowEAVCountAggregateInputType = {
@@ -114,6 +129,9 @@ export type RowEAVCountAggregateInputType = {
   numVal?: true
   dtVal?: true
   blbVal?: true
+  createdAt?: true
+  updatedAt?: true
+  deletedAt?: true
   _all?: true
 }
 
@@ -211,6 +229,9 @@ export type RowEAVGroupByOutputType = {
   numVal: number | null
   dtVal: Date | null
   blbVal: runtime.Bytes | null
+  createdAt: Date | null
+  updatedAt: Date | null
+  deletedAt: Date | null
   _count: RowEAVCountAggregateOutputType | null
   _avg: RowEAVAvgAggregateOutputType | null
   _sum: RowEAVSumAggregateOutputType | null
@@ -244,6 +265,9 @@ export type RowEAVWhereInput = {
   numVal?: Prisma.FloatNullableFilter<"RowEAV"> | number | null
   dtVal?: Prisma.DateTimeNullableFilter<"RowEAV"> | Date | string | null
   blbVal?: Prisma.BytesNullableFilter<"RowEAV"> | runtime.Bytes | null
+  createdAt?: Prisma.DateTimeNullableFilter<"RowEAV"> | Date | string | null
+  updatedAt?: Prisma.DateTimeNullableFilter<"RowEAV"> | Date | string | null
+  deletedAt?: Prisma.DateTimeNullableFilter<"RowEAV"> | Date | string | null
   column?: Prisma.XOR<Prisma.ColumnEScalarRelationFilter, Prisma.ColumnEWhereInput>
 }
 
@@ -255,6 +279,9 @@ export type RowEAVOrderByWithRelationInput = {
   numVal?: Prisma.SortOrderInput | Prisma.SortOrder
   dtVal?: Prisma.SortOrderInput | Prisma.SortOrder
   blbVal?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   column?: Prisma.ColumnEOrderByWithRelationInput
 }
 
@@ -270,6 +297,9 @@ export type RowEAVWhereUniqueInput = Prisma.AtLeast<{
   numVal?: Prisma.FloatNullableFilter<"RowEAV"> | number | null
   dtVal?: Prisma.DateTimeNullableFilter<"RowEAV"> | Date | string | null
   blbVal?: Prisma.BytesNullableFilter<"RowEAV"> | runtime.Bytes | null
+  createdAt?: Prisma.DateTimeNullableFilter<"RowEAV"> | Date | string | null
+  updatedAt?: Prisma.DateTimeNullableFilter<"RowEAV"> | Date | string | null
+  deletedAt?: Prisma.DateTimeNullableFilter<"RowEAV"> | Date | string | null
   column?: Prisma.XOR<Prisma.ColumnEScalarRelationFilter, Prisma.ColumnEWhereInput>
 }, "id" | "row_col">
 
@@ -281,6 +311,9 @@ export type RowEAVOrderByWithAggregationInput = {
   numVal?: Prisma.SortOrderInput | Prisma.SortOrder
   dtVal?: Prisma.SortOrderInput | Prisma.SortOrder
   blbVal?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.RowEAVCountOrderByAggregateInput
   _avg?: Prisma.RowEAVAvgOrderByAggregateInput
   _max?: Prisma.RowEAVMaxOrderByAggregateInput
@@ -299,6 +332,9 @@ export type RowEAVScalarWhereWithAggregatesInput = {
   numVal?: Prisma.FloatNullableWithAggregatesFilter<"RowEAV"> | number | null
   dtVal?: Prisma.DateTimeNullableWithAggregatesFilter<"RowEAV"> | Date | string | null
   blbVal?: Prisma.BytesNullableWithAggregatesFilter<"RowEAV"> | runtime.Bytes | null
+  createdAt?: Prisma.DateTimeNullableWithAggregatesFilter<"RowEAV"> | Date | string | null
+  updatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"RowEAV"> | Date | string | null
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"RowEAV"> | Date | string | null
 }
 
 export type RowEAVCreateInput = {
@@ -307,6 +343,9 @@ export type RowEAVCreateInput = {
   numVal?: number | null
   dtVal?: Date | string | null
   blbVal?: runtime.Bytes | null
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
+  deletedAt?: Date | string | null
   column: Prisma.ColumnECreateNestedOneWithoutRowsInput
 }
 
@@ -318,6 +357,9 @@ export type RowEAVUncheckedCreateInput = {
   numVal?: number | null
   dtVal?: Date | string | null
   blbVal?: runtime.Bytes | null
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
+  deletedAt?: Date | string | null
 }
 
 export type RowEAVUpdateInput = {
@@ -326,6 +368,9 @@ export type RowEAVUpdateInput = {
   numVal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   dtVal?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   blbVal?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   column?: Prisma.ColumnEUpdateOneRequiredWithoutRowsNestedInput
 }
 
@@ -337,6 +382,9 @@ export type RowEAVUncheckedUpdateInput = {
   numVal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   dtVal?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   blbVal?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type RowEAVCreateManyInput = {
@@ -347,6 +395,9 @@ export type RowEAVCreateManyInput = {
   numVal?: number | null
   dtVal?: Date | string | null
   blbVal?: runtime.Bytes | null
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
+  deletedAt?: Date | string | null
 }
 
 export type RowEAVUpdateManyMutationInput = {
@@ -355,6 +406,9 @@ export type RowEAVUpdateManyMutationInput = {
   numVal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   dtVal?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   blbVal?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type RowEAVUncheckedUpdateManyInput = {
@@ -365,6 +419,9 @@ export type RowEAVUncheckedUpdateManyInput = {
   numVal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   dtVal?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   blbVal?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type RowEAVListRelationFilter = {
@@ -390,6 +447,9 @@ export type RowEAVCountOrderByAggregateInput = {
   numVal?: Prisma.SortOrder
   dtVal?: Prisma.SortOrder
   blbVal?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type RowEAVAvgOrderByAggregateInput = {
@@ -407,6 +467,9 @@ export type RowEAVMaxOrderByAggregateInput = {
   numVal?: Prisma.SortOrder
   dtVal?: Prisma.SortOrder
   blbVal?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type RowEAVMinOrderByAggregateInput = {
@@ -417,6 +480,9 @@ export type RowEAVMinOrderByAggregateInput = {
   numVal?: Prisma.SortOrder
   dtVal?: Prisma.SortOrder
   blbVal?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type RowEAVSumOrderByAggregateInput = {
@@ -474,6 +540,9 @@ export type RowEAVCreateWithoutColumnInput = {
   numVal?: number | null
   dtVal?: Date | string | null
   blbVal?: runtime.Bytes | null
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
+  deletedAt?: Date | string | null
 }
 
 export type RowEAVUncheckedCreateWithoutColumnInput = {
@@ -483,6 +552,9 @@ export type RowEAVUncheckedCreateWithoutColumnInput = {
   numVal?: number | null
   dtVal?: Date | string | null
   blbVal?: runtime.Bytes | null
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
+  deletedAt?: Date | string | null
 }
 
 export type RowEAVCreateOrConnectWithoutColumnInput = {
@@ -522,6 +594,9 @@ export type RowEAVScalarWhereInput = {
   numVal?: Prisma.FloatNullableFilter<"RowEAV"> | number | null
   dtVal?: Prisma.DateTimeNullableFilter<"RowEAV"> | Date | string | null
   blbVal?: Prisma.BytesNullableFilter<"RowEAV"> | runtime.Bytes | null
+  createdAt?: Prisma.DateTimeNullableFilter<"RowEAV"> | Date | string | null
+  updatedAt?: Prisma.DateTimeNullableFilter<"RowEAV"> | Date | string | null
+  deletedAt?: Prisma.DateTimeNullableFilter<"RowEAV"> | Date | string | null
 }
 
 export type RowEAVCreateManyColumnInput = {
@@ -531,6 +606,9 @@ export type RowEAVCreateManyColumnInput = {
   numVal?: number | null
   dtVal?: Date | string | null
   blbVal?: runtime.Bytes | null
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
+  deletedAt?: Date | string | null
 }
 
 export type RowEAVUpdateWithoutColumnInput = {
@@ -539,6 +617,9 @@ export type RowEAVUpdateWithoutColumnInput = {
   numVal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   dtVal?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   blbVal?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type RowEAVUncheckedUpdateWithoutColumnInput = {
@@ -548,6 +629,9 @@ export type RowEAVUncheckedUpdateWithoutColumnInput = {
   numVal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   dtVal?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   blbVal?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type RowEAVUncheckedUpdateManyWithoutColumnInput = {
@@ -557,6 +641,9 @@ export type RowEAVUncheckedUpdateManyWithoutColumnInput = {
   numVal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   dtVal?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   blbVal?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -569,6 +656,9 @@ export type RowEAVSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   numVal?: boolean
   dtVal?: boolean
   blbVal?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  deletedAt?: boolean
   column?: boolean | Prisma.ColumnEDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["rowEAV"]>
 
@@ -580,6 +670,9 @@ export type RowEAVSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   numVal?: boolean
   dtVal?: boolean
   blbVal?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  deletedAt?: boolean
   column?: boolean | Prisma.ColumnEDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["rowEAV"]>
 
@@ -591,6 +684,9 @@ export type RowEAVSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   numVal?: boolean
   dtVal?: boolean
   blbVal?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  deletedAt?: boolean
   column?: boolean | Prisma.ColumnEDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["rowEAV"]>
 
@@ -602,9 +698,12 @@ export type RowEAVSelectScalar = {
   numVal?: boolean
   dtVal?: boolean
   blbVal?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  deletedAt?: boolean
 }
 
-export type RowEAVOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "row" | "col" | "strVal" | "numVal" | "dtVal" | "blbVal", ExtArgs["result"]["rowEAV"]>
+export type RowEAVOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "row" | "col" | "strVal" | "numVal" | "dtVal" | "blbVal" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["rowEAV"]>
 export type RowEAVInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   column?: boolean | Prisma.ColumnEDefaultArgs<ExtArgs>
 }
@@ -628,6 +727,9 @@ export type $RowEAVPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     numVal: number | null
     dtVal: Date | null
     blbVal: runtime.Bytes | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    deletedAt: Date | null
   }, ExtArgs["result"]["rowEAV"]>
   composites: {}
 }
@@ -1059,6 +1161,9 @@ export interface RowEAVFieldRefs {
   readonly numVal: Prisma.FieldRef<"RowEAV", 'Float'>
   readonly dtVal: Prisma.FieldRef<"RowEAV", 'DateTime'>
   readonly blbVal: Prisma.FieldRef<"RowEAV", 'Bytes'>
+  readonly createdAt: Prisma.FieldRef<"RowEAV", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"RowEAV", 'DateTime'>
+  readonly deletedAt: Prisma.FieldRef<"RowEAV", 'DateTime'>
 }
     
 

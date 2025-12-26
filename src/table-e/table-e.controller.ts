@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { TableEService } from './table-e.service';
 import { CreateTableEDto } from './dto/create-table-e.dto';
 import { UpdateTableEDto } from './dto/update-table-e.dto';
@@ -12,12 +12,12 @@ export class TableEController {
     return this.tableEService.create(createTableEDto);
   }
 
-  @Get()
+  @Get('all')
   findAll() {
     return this.tableEService.findAll();
   }
 
-  @Get(':id')
+  @Get('one/:id')
   findOne(@Param('id') id: string) {
     return this.tableEService.findOne(+id);
   }
@@ -30,5 +30,18 @@ export class TableEController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.tableEService.remove(+id);
+  }
+
+  @Get('exec/:id')
+  exec(@Param('id') id: string,
+          @Query('ts') ts: string, 
+          @Query('from') from:string, 
+          @Query('to') to:string, ) {
+    return this.tableEService.exec(+id, ts, from, to,);
+  }
+
+  @Get('max/:id')
+  findMaxRow(@Param('id') id: string) {
+    return this.tableEService.findMaxRow(+id);
   }
 }

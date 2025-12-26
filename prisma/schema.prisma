@@ -138,6 +138,10 @@ model RowEAV {
   dtVal       DateTime?
   blbVal      Bytes?      //PostGres @db.Bytea   //@db.LongBlob
 
+  createdAt   DateTime?
+  updatedAt   DateTime?
+  deletedAt   DateTime?
+  
   column ColumnE @relation(fields: [col], references: [id], onDelete: Cascade) 
   
   @@unique([row, col])  
