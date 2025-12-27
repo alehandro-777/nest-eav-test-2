@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { RowEavService } from './row-eav.service';
 import { CreateRowEavDto } from './dto/create-row-eav.dto';
 import { UpdateRowEavDto } from './dto/update-row-eav.dto';
+import { DeleteRowEavDto } from './dto/delete-row-eav.dto';
 
 @Controller('row-eav')
 export class RowEavController {
@@ -22,9 +23,14 @@ export class RowEavController {
     return this.rowEavService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateRowEavDto: UpdateRowEavDto) {
-    return this.rowEavService.update(+id, updateRowEavDto);
+  @Patch()
+  update(@Body() updateRowEavDto: CreateRowEavDto[]) {
+    return this.rowEavService.update(updateRowEavDto);
+  }
+  
+  @Patch('delete')
+  softdelete(@Body() deleteValueDto: DeleteRowEavDto[]) {
+    return this.rowEavService.softPacketDelete(deleteValueDto);  //soft delete
   }
 
   @Delete(':id')

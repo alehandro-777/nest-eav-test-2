@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, Res } from '@nestjs/common';
 import { TableEService } from './table-e.service';
 import { CreateTableEDto } from './dto/create-table-e.dto';
 import { UpdateTableEDto } from './dto/update-table-e.dto';
+import type { Response } from 'express';
 
 @Controller('table-e')
 export class TableEController {
@@ -40,8 +41,29 @@ export class TableEController {
     return this.tableEService.exec(+id, ts, from, to,);
   }
 
+  @Get('download/:id')
+  async download( @Param('id') id: string, @Res() res: Response ) {
+
+    let f = await this.tableEService.download(+id);
+    
+    if (!f) return res.status(404).end();
+
+    res.setHeader("Content-Type", 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader("Content-Length", f.stat.size); // обязательно ?
+    res.setHeader("Content-Disposition", `attachment; filename='${f.name}'`);
+
+    f.readStream.pipe(res);
+
+    f.readStream.on('error', (err) => {
+      console.error(err);
+      res.status(500).end();
+    });
+
+  }
+  
   @Get('max/:id')
   findMaxRow(@Param('id') id: string) {
     return this.tableEService.findMaxRow(+id);
   }
+  
 }

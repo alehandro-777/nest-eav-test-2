@@ -403,6 +403,7 @@ export class TableEService {
     }
     return null;
   }
+
   replaceColumnsTotalsFormulas(sourceRow: ExcelJS.Row, fromRowId: number, rowwCount: number, ) {
     for (let colId = 1; colId <= sourceRow.cellCount; colId++) {
       const cell = sourceRow.getCell(colId);
@@ -415,5 +416,20 @@ export class TableEService {
     }
   }
 
+  async download(id: number) {
+    //const template = await this.findOne(id);
+    const template:any = {};  //temp test
+    template.name  ="table1";
+
+    if(!template) return null;
+
+    let fname = template.name + "_out" + ".xlsx";
+
+    const filePath = path.resolve(__dirname, '../json/'+fname); //temp
+    const stat = fs.statSync(filePath);
+    const readStream = fs.createReadStream(filePath);
+
+    return {readStream, stat, name: fname };
+  }
 
 }

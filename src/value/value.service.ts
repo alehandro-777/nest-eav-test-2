@@ -28,6 +28,7 @@ export class ValueService {
   findOne(id: number) {
     return `This action returns a #${id} value`;
   }
+  
   //packet update
   update(createValueDto: CreateValueDto[]) {
     return prisma.$transaction(createValueDto.map(value=> {
