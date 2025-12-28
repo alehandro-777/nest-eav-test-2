@@ -18,8 +18,27 @@ export class RowEavService {
     return `This action returns a #${id} rowEav`;
   }
 
-  update(updateRowEavDto: CreateRowEavDto[]) {
-        return prisma.$transaction(updateRowEavDto.map(value=> {
+  async update(updateRowEavDto: CreateRowEavDto[][]) {
+    const temp:CreateRowEavDto[] = [];
+
+    //1 проверить строки БЕЗ номера - это новые !
+    for (let i = 0; i < updateRowEavDto.length; i++) {
+      const row:CreateRowEavDto[] = updateRowEavDto[i];
+      for (let j = 0; j < row.length; j++) {
+        const cell = row[j];
+        //строки БЕЗ номера - это новые !
+        if (!cell.row) {
+          let res = await this.query2(cell.col);  //находим номер последней строки в таблице
+          let last = res._max.row || 0; //?? - переделать !! это нужно делать 1 раз для всей строки 
+          cell.row = last+1;
+          //console.log(cell)
+        }
+        temp.push(cell);
+      }
+    }
+    //обновить всю таблицу
+    let tr = prisma.$transaction(
+      temp.map(value=> {
         return prisma.rowEAV.upsert({
             where: {
               row_col: {                  // составной уникальный ключ
@@ -46,12 +65,15 @@ export class RowEavService {
               deletedAt:  null,         //при create сбрасыввается признак "удалено"
               updatedAt:  null,         //при create сбрасыввается признак "редактирование"
             },
-    });
+      });
     }));
+
+    return tr;
   }
 
   // soft delete !
   softPacketDelete(deleteValueDto: DeleteRowEavDto[]) {
+    //console.log(deleteValueDto)
     return prisma.$transaction(deleteValueDto.map(value=> {
         return prisma.rowEAV.update({
           where: {
@@ -71,22 +93,26 @@ export class RowEavService {
     return prisma.rowEAV.delete({ where: { id: id } });
   }
 
-  async exec() {
-      let res = await this.query1();
+  async exec(id:number, ts:string, from:string, to:string, ) {
+      let res = await this.query3(id, ts, from, to);
+      let rows = res.map(o=>o.row);
+      res = await this.query4(rows);
       let trans = this.transform1(res); 
       return Object.fromEntries(trans);
+      return res;
   }
 
   query1()  {
     return  prisma.rowEAV.findMany(
       {
         where:{
-          "col": { in: [1,2,3,4,5,6] },
+          col: { in: [1,2,3,4,5,6] },
+          deletedAt: null,
         },
         include: {
           column: true,
         }, 
-        take:1000 
+
     });
   }
 
@@ -102,6 +128,36 @@ export class RowEavService {
       },
     });
   }
+
+  query3(id:number, ts:string, from:string, to:string,)  {
+
+    let djs = new Date(ts);
+    let _from = new Date(from);
+    let _to = new Date(to);
+
+    return  prisma.rowEAV.findMany(
+      {
+        where:{
+          col: { in: [4] },
+          dtVal: { gte: _from, lt: _to  },
+          deletedAt: null,
+        },
+        select:{
+          row: true
+        }
+    });
+  }
+
+  query4(rows:number[])  {
+    return  prisma.rowEAV.findMany(
+      {
+        where:{
+          row: { in: rows },
+          deletedAt: null,
+        },
+    });
+  }
+
 
   transform1(eav: any[]): Map<string, any>  {
     return eav.reduce((map, currValue, currIndex) => {

@@ -86,14 +86,15 @@ export class TableEService {
   }
 
   async processQuery(id: number, ts:string, from:string, to:string) {
+    const tmp =  await this.rowServ.exec(id, ts, from, to);
 
+/*
     // TEST TEST
     const testData1Map = path.resolve(__dirname, '../json/table1.json');
     const data = JSON.parse(await readFile(testData1Map, 'utf8'));
     const ds0: Map<string, any> = new Map(Object.entries(data)); //temp test
-
-    return ds0;  //test test
-
+*/
+    return new Map(Object.entries(tmp));  //test test
   }
 
   async processJson(sheet: ExcelJS.Worksheet, ds: Map<string, any>, ts:string, from:string, to:string) {
