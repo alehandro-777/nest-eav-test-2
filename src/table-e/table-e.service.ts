@@ -286,7 +286,7 @@ export class TableEService {
         cell: Number.isFinite(tmpV) ? tmpV : "",  //all is via string
         range: att?.range,
         save: {
-          row:  dbVal.row, 
+          row:  dbVal?.row, 
           col:  bind.key, 
         },
       };
@@ -297,9 +297,9 @@ export class TableEService {
 
       const tmp = {
         type: "text", 
-        cell: dbVal.strVal, 
+        cell: dbVal?.strVal, 
         save: {
-          row:  dbVal.row, 
+          row:  dbVal?.row, 
           col:  bind.key,
         },
       };
@@ -310,9 +310,9 @@ export class TableEService {
 
       const tmp = {
         type: "date", 
-        cell: dbVal.strVal,
+        cell: dbVal?.strVal,
         save: {
-          row:  dbVal.row, 
+          row:  dbVal?.row, 
           col:  bind.key,
         },
       };
@@ -323,9 +323,9 @@ export class TableEService {
 
       const tmp = {
         type: "time", 
-        cell: dbVal.strVal, 
+        cell: dbVal?.strVal, 
         save: {
-          row:  dbVal.row, 
+          row:  dbVal?.row, 
           col:  bind.key,
         },
       };
@@ -336,9 +336,9 @@ export class TableEService {
 
       const tmp = {
         type: "datetime", 
-        cell: dbVal.strVal, //temp test
+        cell: dbVal?.strVal, //temp test
         save: {
-          row:  dbVal.row, 
+          row:  dbVal?.row, 
           col:  bind.key,
         },
       };
@@ -348,9 +348,9 @@ export class TableEService {
   async setCheckBoxCellValue(bind: any, dbVal: any, dbTs:any) {
       const tmp = {
         type: "checkbox", 
-        cell: dbVal.strVal === "true",  // странное преобразование ?
+        cell: dbVal?.strVal === "true",  // странное преобразование ?
         save: {
-          row:  dbVal.row, 
+          row:  dbVal?.row, 
           col:  bind.key,
         },
       };
@@ -370,10 +370,10 @@ export class TableEService {
 
       const tmp = {
         type: "dropdown", 
-        cell: dbVal.strVal,
+        cell: dbVal?.strVal,
         source: setKv,
         save: {
-          row:  dbVal.row, 
+          row:  dbVal?.row, 
           col:  bind.key,
         },
       };

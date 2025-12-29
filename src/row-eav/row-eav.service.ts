@@ -31,7 +31,7 @@ export class RowEavService {
           let res = await this.query2(cell.col);  //находим номер последней строки в таблице
           let last = res._max.row || 0; //?? - переделать !! это нужно делать 1 раз для всей строки 
           cell.row = last+1;
-          //console.log(cell)
+          console.log(cell)
         }
         temp.push(cell);
       }
