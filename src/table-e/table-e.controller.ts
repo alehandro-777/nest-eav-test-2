@@ -1,8 +1,9 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query, Res } from '@nestjs/common';
 import { TableEService } from './table-e.service';
 import { CreateTableEDto } from './dto/create-table-e.dto';
-import { UpdateTableEDto } from './dto/update-table-e.dto';
+
 import type { Response } from 'express';
+import { UpdateTableEDto } from './dto/update-table-e.dto';
 
 @Controller('table-e')
 export class TableEController {
@@ -31,6 +32,11 @@ export class TableEController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.tableEService.remove(+id);
+  }
+  
+  @Get('query/:id')
+  async query(@Param('id') id: string, @Query('ts') ts: string, @Query('from') from:string, @Query('to') to:string, ) {
+    return Object.fromEntries(await this.tableEService.query(+id, ts, from, to,));
   }
 
   @Get('exec/:id')
@@ -61,9 +67,5 @@ export class TableEController {
 
   }
   
-  @Get('max/:id')
-  findMaxRow(@Param('id') id: string) {
-    return this.tableEService.findMaxRow(+id);
-  }
   
 }

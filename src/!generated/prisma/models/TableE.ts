@@ -37,16 +37,19 @@ export type TableESumAggregateOutputType = {
 export type TableEMinAggregateOutputType = {
   id: number | null
   name: string | null
+  query: string | null
 }
 
 export type TableEMaxAggregateOutputType = {
   id: number | null
   name: string | null
+  query: string | null
 }
 
 export type TableECountAggregateOutputType = {
   id: number
   name: number
+  query: number
   _all: number
 }
 
@@ -62,16 +65,19 @@ export type TableESumAggregateInputType = {
 export type TableEMinAggregateInputType = {
   id?: true
   name?: true
+  query?: true
 }
 
 export type TableEMaxAggregateInputType = {
   id?: true
   name?: true
+  query?: true
 }
 
 export type TableECountAggregateInputType = {
   id?: true
   name?: true
+  query?: true
   _all?: true
 }
 
@@ -164,6 +170,7 @@ export type TableEGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 export type TableEGroupByOutputType = {
   id: number
   name: string
+  query: string
   _count: TableECountAggregateOutputType | null
   _avg: TableEAvgAggregateOutputType | null
   _sum: TableESumAggregateOutputType | null
@@ -192,13 +199,13 @@ export type TableEWhereInput = {
   NOT?: Prisma.TableEWhereInput | Prisma.TableEWhereInput[]
   id?: Prisma.IntFilter<"TableE"> | number
   name?: Prisma.StringFilter<"TableE"> | string
-  columns?: Prisma.ColumnEListRelationFilter
+  query?: Prisma.StringFilter<"TableE"> | string
 }
 
 export type TableEOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  columns?: Prisma.ColumnEOrderByRelationAggregateInput
+  query?: Prisma.SortOrder
 }
 
 export type TableEWhereUniqueInput = Prisma.AtLeast<{
@@ -207,12 +214,13 @@ export type TableEWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.TableEWhereInput[]
   NOT?: Prisma.TableEWhereInput | Prisma.TableEWhereInput[]
   name?: Prisma.StringFilter<"TableE"> | string
-  columns?: Prisma.ColumnEListRelationFilter
+  query?: Prisma.StringFilter<"TableE"> | string
 }, "id">
 
 export type TableEOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  query?: Prisma.SortOrder
   _count?: Prisma.TableECountOrderByAggregateInput
   _avg?: Prisma.TableEAvgOrderByAggregateInput
   _max?: Prisma.TableEMaxOrderByAggregateInput
@@ -226,47 +234,52 @@ export type TableEScalarWhereWithAggregatesInput = {
   NOT?: Prisma.TableEScalarWhereWithAggregatesInput | Prisma.TableEScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"TableE"> | number
   name?: Prisma.StringWithAggregatesFilter<"TableE"> | string
+  query?: Prisma.StringWithAggregatesFilter<"TableE"> | string
 }
 
 export type TableECreateInput = {
   name: string
-  columns?: Prisma.ColumnECreateNestedManyWithoutTableInput
+  query: string
 }
 
 export type TableEUncheckedCreateInput = {
   id?: number
   name: string
-  columns?: Prisma.ColumnEUncheckedCreateNestedManyWithoutTableInput
+  query: string
 }
 
 export type TableEUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  columns?: Prisma.ColumnEUpdateManyWithoutTableNestedInput
+  query?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type TableEUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  columns?: Prisma.ColumnEUncheckedUpdateManyWithoutTableNestedInput
+  query?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type TableECreateManyInput = {
   id?: number
   name: string
+  query: string
 }
 
 export type TableEUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  query?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type TableEUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  query?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type TableECountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  query?: Prisma.SortOrder
 }
 
 export type TableEAvgOrderByAggregateInput = {
@@ -276,139 +289,54 @@ export type TableEAvgOrderByAggregateInput = {
 export type TableEMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  query?: Prisma.SortOrder
 }
 
 export type TableEMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  query?: Prisma.SortOrder
 }
 
 export type TableESumOrderByAggregateInput = {
   id?: Prisma.SortOrder
 }
 
-export type TableEScalarRelationFilter = {
-  is?: Prisma.TableEWhereInput
-  isNot?: Prisma.TableEWhereInput
-}
-
-export type TableECreateNestedOneWithoutColumnsInput = {
-  create?: Prisma.XOR<Prisma.TableECreateWithoutColumnsInput, Prisma.TableEUncheckedCreateWithoutColumnsInput>
-  connectOrCreate?: Prisma.TableECreateOrConnectWithoutColumnsInput
-  connect?: Prisma.TableEWhereUniqueInput
-}
-
-export type TableEUpdateOneRequiredWithoutColumnsNestedInput = {
-  create?: Prisma.XOR<Prisma.TableECreateWithoutColumnsInput, Prisma.TableEUncheckedCreateWithoutColumnsInput>
-  connectOrCreate?: Prisma.TableECreateOrConnectWithoutColumnsInput
-  upsert?: Prisma.TableEUpsertWithoutColumnsInput
-  connect?: Prisma.TableEWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.TableEUpdateToOneWithWhereWithoutColumnsInput, Prisma.TableEUpdateWithoutColumnsInput>, Prisma.TableEUncheckedUpdateWithoutColumnsInput>
-}
-
-export type TableECreateWithoutColumnsInput = {
-  name: string
-}
-
-export type TableEUncheckedCreateWithoutColumnsInput = {
-  id?: number
-  name: string
-}
-
-export type TableECreateOrConnectWithoutColumnsInput = {
-  where: Prisma.TableEWhereUniqueInput
-  create: Prisma.XOR<Prisma.TableECreateWithoutColumnsInput, Prisma.TableEUncheckedCreateWithoutColumnsInput>
-}
-
-export type TableEUpsertWithoutColumnsInput = {
-  update: Prisma.XOR<Prisma.TableEUpdateWithoutColumnsInput, Prisma.TableEUncheckedUpdateWithoutColumnsInput>
-  create: Prisma.XOR<Prisma.TableECreateWithoutColumnsInput, Prisma.TableEUncheckedCreateWithoutColumnsInput>
-  where?: Prisma.TableEWhereInput
-}
-
-export type TableEUpdateToOneWithWhereWithoutColumnsInput = {
-  where?: Prisma.TableEWhereInput
-  data: Prisma.XOR<Prisma.TableEUpdateWithoutColumnsInput, Prisma.TableEUncheckedUpdateWithoutColumnsInput>
-}
-
-export type TableEUpdateWithoutColumnsInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-}
-
-export type TableEUncheckedUpdateWithoutColumnsInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-}
-
-
-/**
- * Count Type TableECountOutputType
- */
-
-export type TableECountOutputType = {
-  columns: number
-}
-
-export type TableECountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  columns?: boolean | TableECountOutputTypeCountColumnsArgs
-}
-
-/**
- * TableECountOutputType without action
- */
-export type TableECountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the TableECountOutputType
-   */
-  select?: Prisma.TableECountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * TableECountOutputType without action
- */
-export type TableECountOutputTypeCountColumnsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ColumnEWhereInput
-}
 
 
 export type TableESelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  columns?: boolean | Prisma.TableE$columnsArgs<ExtArgs>
-  _count?: boolean | Prisma.TableECountOutputTypeDefaultArgs<ExtArgs>
+  query?: boolean
 }, ExtArgs["result"]["tableE"]>
 
 export type TableESelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  query?: boolean
 }, ExtArgs["result"]["tableE"]>
 
 export type TableESelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  query?: boolean
 }, ExtArgs["result"]["tableE"]>
 
 export type TableESelectScalar = {
   id?: boolean
   name?: boolean
+  query?: boolean
 }
 
-export type TableEOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name", ExtArgs["result"]["tableE"]>
-export type TableEInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  columns?: boolean | Prisma.TableE$columnsArgs<ExtArgs>
-  _count?: boolean | Prisma.TableECountOutputTypeDefaultArgs<ExtArgs>
-}
-export type TableEIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type TableEIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type TableEOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "query", ExtArgs["result"]["tableE"]>
 
 export type $TableEPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "TableE"
-  objects: {
-    columns: Prisma.$ColumnEPayload<ExtArgs>[]
-  }
+  objects: {}
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string
+    query: string
   }, ExtArgs["result"]["tableE"]>
   composites: {}
 }
@@ -803,7 +731,6 @@ readonly fields: TableEFieldRefs;
  */
 export interface Prisma__TableEClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  columns<T extends Prisma.TableE$columnsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TableE$columnsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ColumnEPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -835,6 +762,7 @@ export interface Prisma__TableEClient<T, Null = never, ExtArgs extends runtime.T
 export interface TableEFieldRefs {
   readonly id: Prisma.FieldRef<"TableE", 'Int'>
   readonly name: Prisma.FieldRef<"TableE", 'String'>
+  readonly query: Prisma.FieldRef<"TableE", 'String'>
 }
     
 
@@ -851,10 +779,6 @@ export type TableEFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the TableE
    */
   omit?: Prisma.TableEOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.TableEInclude<ExtArgs> | null
   /**
    * Filter, which TableE to fetch.
    */
@@ -874,10 +798,6 @@ export type TableEFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.TableEOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.TableEInclude<ExtArgs> | null
-  /**
    * Filter, which TableE to fetch.
    */
   where: Prisma.TableEWhereUniqueInput
@@ -895,10 +815,6 @@ export type TableEFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the TableE
    */
   omit?: Prisma.TableEOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.TableEInclude<ExtArgs> | null
   /**
    * Filter, which TableE to fetch.
    */
@@ -948,10 +864,6 @@ export type TableEFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.
    */
   omit?: Prisma.TableEOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.TableEInclude<ExtArgs> | null
-  /**
    * Filter, which TableE to fetch.
    */
   where?: Prisma.TableEWhereInput
@@ -1000,10 +912,6 @@ export type TableEFindManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    */
   omit?: Prisma.TableEOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.TableEInclude<ExtArgs> | null
-  /**
    * Filter, which TableES to fetch.
    */
   where?: Prisma.TableEWhereInput
@@ -1046,10 +954,6 @@ export type TableECreateArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    * Omit specific fields from the TableE
    */
   omit?: Prisma.TableEOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.TableEInclude<ExtArgs> | null
   /**
    * The data needed to create a TableE.
    */
@@ -1098,10 +1002,6 @@ export type TableEUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    * Omit specific fields from the TableE
    */
   omit?: Prisma.TableEOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.TableEInclude<ExtArgs> | null
   /**
    * The data needed to update a TableE.
    */
@@ -1169,10 +1069,6 @@ export type TableEUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.TableEOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.TableEInclude<ExtArgs> | null
-  /**
    * The filter to search for the TableE to update in case it exists.
    */
   where: Prisma.TableEWhereUniqueInput
@@ -1199,10 +1095,6 @@ export type TableEDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.TableEOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.TableEInclude<ExtArgs> | null
-  /**
    * Filter which TableE to delete.
    */
   where: Prisma.TableEWhereUniqueInput
@@ -1223,30 +1115,6 @@ export type TableEDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
- * TableE.columns
- */
-export type TableE$columnsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ColumnE
-   */
-  select?: Prisma.ColumnESelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ColumnE
-   */
-  omit?: Prisma.ColumnEOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ColumnEInclude<ExtArgs> | null
-  where?: Prisma.ColumnEWhereInput
-  orderBy?: Prisma.ColumnEOrderByWithRelationInput | Prisma.ColumnEOrderByWithRelationInput[]
-  cursor?: Prisma.ColumnEWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ColumnEScalarFieldEnum | Prisma.ColumnEScalarFieldEnum[]
-}
-
-/**
  * TableE without action
  */
 export type TableEDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1258,8 +1126,4 @@ export type TableEDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the TableE
    */
   omit?: Prisma.TableEOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.TableEInclude<ExtArgs> | null
 }

@@ -308,6 +308,7 @@ async function main() {
     update: {},
     create: {
       name: 'table1',
+      query: 'query1'
     },
   });
   const tb2 = await prisma.tableE.upsert({
@@ -315,6 +316,7 @@ async function main() {
     update: {},
     create: {
       name: 'table2',
+      query: 'query2'
     },
   });
   const tb3 = await prisma.tableE.upsert({
@@ -322,16 +324,41 @@ async function main() {
     update: {},
     create: {
       name: 'table3',
+      query: 'query3'
     },
   });
 
+  // table 1 test fill
+  for (let k = 1; k < 1000; k++) {
+    let ts = new Date("2025-01-01");
+        ts.setHours(ts.getHours() + k); // +1 час
+  
+        let v = Math.random()*100;
+        //console.log(i,j,k)
+        const a2 = await prisma.table1.upsert({
+          where: { id:k },
+          update: {},
+          create: {
+            col2: v,
+            col3: v,
+            col4: v.toString(),
+            col1: ts,
+            col5: "Snring 1",
+            col6: "true",
+            createdAt: new Date(),
+          },
+        });      
+      
+  }
+  //end table 1 test fill
+  // table 1 columns
   const col1 = await prisma.columnE.upsert({
     where: { id: 1 },
     update: {},
     create: {
+      id:1,
       tab:1,
-      col:1,
-      key: "dt",
+      key: "col1",
       name: 'Дата',
       typ:  5,
       ran:1,
@@ -343,10 +370,10 @@ async function main() {
     update: {},
     create: {
       tab:1,
-      col:2,
+      id:2,
       ran:1,
       kvs:1,
-      key: "par1",
+      key: "col2",
       name: 'Параметр 1',
       typ:  2,
     },
@@ -356,10 +383,10 @@ async function main() {
     update: {},
     create: {
       tab:1,
-      col:3,
+      id:3,
       kvs:1,
       ran:1,
-      key: "par2",
+      key: "col3",
       name: 'Параметр 2',
       typ:  2,
     },
@@ -369,10 +396,10 @@ async function main() {
     update: {},
     create: {
       tab:1,
-      col:4,
+      id:4,
       kvs:1,
       ran:1,
-      key: "par3",
+      key: "col4",
       name: 'Text 3',
       typ:  1,
     },
@@ -382,9 +409,9 @@ async function main() {
     update: {},
     create: {
       tab:1,
-      col:5,
+      id:5,
       kvs:1,
-      key: "par4",
+      key: "col5",
       name: 'DropBox 4',
       typ:  7,
     },
@@ -394,37 +421,15 @@ async function main() {
     update: {},
     create: {
       tab:1,
-      col:6,
+      id:6,
       kvs:1,
-      key: "par5",
+      key: "col6",
       name: 'CheckBox 5',
       typ:  6,
     },
   });
+  //end table 1 columns
 
-  for (let k = 1; k < 100; k++) {
-    let ts = new Date("2025-01-01");
-        ts.setHours(ts.getHours() + k); // +1 час
-      for (let i = 1; i < 7; i++) {
-        let v = Math.random()*100;
-        //console.log(i,j,k)
-        const a2 = await prisma.rowEAV.upsert({
-          where: { row_col: {  // составной уникальный ключ
-                  col: i,
-                  row: k,
-                } },
-          update: {},
-          create: {
-            col: i,
-            row: k,
-            numVal: v,
-            strVal: v.toString(),
-            dtVal: ts,
-            createdAt: new Date(),
-          },
-        });      
-      }
-  }
 
   //console.log(a1);
 }// -- end main()

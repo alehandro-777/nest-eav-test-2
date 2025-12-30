@@ -62,7 +62,7 @@ export const ModelName = {
   Query: 'Query',
   TableE: 'TableE',
   ColumnE: 'ColumnE',
-  RowEAV: 'RowEAV'
+  Table1: 'Table1'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -172,7 +172,8 @@ export type QueryScalarFieldEnum = (typeof QueryScalarFieldEnum)[keyof typeof Qu
 
 export const TableEScalarFieldEnum = {
   id: 'id',
-  name: 'name'
+  name: 'name',
+  query: 'query'
 } as const
 
 export type TableEScalarFieldEnum = (typeof TableEScalarFieldEnum)[keyof typeof TableEScalarFieldEnum]
@@ -180,7 +181,6 @@ export type TableEScalarFieldEnum = (typeof TableEScalarFieldEnum)[keyof typeof 
 
 export const ColumnEScalarFieldEnum = {
   id: 'id',
-  col: 'col',
   tab: 'tab',
   key: 'key',
   name: 'name',
@@ -192,20 +192,20 @@ export const ColumnEScalarFieldEnum = {
 export type ColumnEScalarFieldEnum = (typeof ColumnEScalarFieldEnum)[keyof typeof ColumnEScalarFieldEnum]
 
 
-export const RowEAVScalarFieldEnum = {
+export const Table1ScalarFieldEnum = {
   id: 'id',
-  row: 'row',
-  col: 'col',
-  strVal: 'strVal',
-  numVal: 'numVal',
-  dtVal: 'dtVal',
-  blbVal: 'blbVal',
+  col1: 'col1',
+  col2: 'col2',
+  col3: 'col3',
+  col4: 'col4',
+  col5: 'col5',
+  col6: 'col6',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
 } as const
 
-export type RowEAVScalarFieldEnum = (typeof RowEAVScalarFieldEnum)[keyof typeof RowEAVScalarFieldEnum]
+export type Table1ScalarFieldEnum = (typeof Table1ScalarFieldEnum)[keyof typeof Table1ScalarFieldEnum]
 
 
 export const SortOrder = {

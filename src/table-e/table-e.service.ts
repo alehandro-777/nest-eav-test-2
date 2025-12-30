@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateTableEDto } from './dto/create-table-e.dto';
-import { UpdateTableEDto } from './dto/update-table-e.dto';
+
 import { prisma } from '../prisma';
 import fs from "fs";
 import { readFile } from 'fs/promises';
@@ -8,13 +8,15 @@ import * as path from 'path';
 import * as ExcelJS from 'exceljs';
 
 import { ColumnEService } from 'src/column-e/column-e.service';
-import { RowEavService } from 'src/row-eav/row-eav.service';
+import { TableQueryService } from './table-query.service';
+import { UpdateTableEDto } from './dto/update-table-e.dto';
+
 
 
 @Injectable()
 export class TableEService {
   
-  constructor(private colServ: ColumnEService, private rowServ: RowEavService) {}
+  constructor(private colServ: ColumnEService, private queryServ: TableQueryService) {}
 
   create(createTableEDto: CreateTableEDto) {
     return 'This action adds a new tableE';
@@ -28,9 +30,6 @@ export class TableEService {
     return prisma.tableE.findFirst(
       { 
         where:{id:id},
-        include: {
-          columns: true,
-        },
       } );
   }
 
@@ -42,21 +41,13 @@ export class TableEService {
     return `This action removes a #${id} tableE`;
   }
 
-  async findMaxRow(id: number) {
-    
-    const tab = await this.findOne(id);
-
-    if (!tab) {
-      throw new NotFoundException(`TableE with id=${id} not found`);
-    }
-
-    if(tab?.columns.length && tab?.columns.length > 0) {
-      let res = await this.rowServ.query2(tab.columns[0].id);
-      return res._max.row;
-    }
-    return 0; //нет записей
+  async query(id: number, ts:string, from:string, to:string, ) {
+    let res = await this.queryServ.findMany(id, ts, from, to)
+    return res;
   }
 
+
+  
   //---------------------------------------------------------------------------------------------------
   async exec(id: number, ts:string, from:string, to:string, ) {
     
@@ -86,15 +77,16 @@ export class TableEService {
   }
 
   async processQuery(id: number, ts:string, from:string, to:string) {
-    const tmp =  await this.rowServ.exec(id, ts, from, to);
+    const tmp =  await this.queryServ.findMany(id, ts, from, to);
 
 /*
     // TEST TEST
     const testData1Map = path.resolve(__dirname, '../json/table1.json');
     const data = JSON.parse(await readFile(testData1Map, 'utf8'));
     const ds0: Map<string, any> = new Map(Object.entries(data)); //temp test
+    return new Map(Object.entries(ds0));  //test test
 */
-    return new Map(Object.entries(tmp));  //test test
+    return tmp;
   }
 
   async processJson(sheet: ExcelJS.Worksheet, ds: Map<string, any>, ts:string, from:string, to:string) {
@@ -156,7 +148,7 @@ export class TableEService {
             id:  parts[1],  //row id
             key: parts[2],  //col id
             typ: parts[3],  //type for EDIT
-            ent: parts[4],  //not used
+            ent: parts[4],  //column # ?
             att: parts[5],  //not used         
     }
   }
@@ -275,18 +267,18 @@ export class TableEService {
 
     //console.log(bind)
 
-      const columnId = +bind.key;  //column DB
+      const columnId = +bind.ent;  //column DB
 
       const att = await this.colServ.findOne(columnId);
       let tmpV: string|number = "";
-      if (dbVal !== null && dbVal !== undefined) tmpV = Number(dbVal.numVal);
+      if (dbVal !== null && dbVal !== undefined) tmpV = Number(dbVal);
       //console.log("setNumberCellValue dbVal ", dbVal, tmpV)
       const tmp = {
         type: "numeric", 
         cell: Number.isFinite(tmpV) ? tmpV : "",  //all is via string
         range: att?.range,
         save: {
-          row:  dbVal?.row, 
+          row:  dbTs, 
           col:  bind.key, 
         },
       };
@@ -297,9 +289,9 @@ export class TableEService {
 
       const tmp = {
         type: "text", 
-        cell: dbVal?.strVal, 
+        cell: dbVal, 
         save: {
-          row:  dbVal?.row, 
+          row:  dbTs, 
           col:  bind.key,
         },
       };
@@ -310,9 +302,9 @@ export class TableEService {
 
       const tmp = {
         type: "date", 
-        cell: dbVal?.strVal,
+        cell: dbVal,
         save: {
-          row:  dbVal?.row, 
+          row:  dbTs, 
           col:  bind.key,
         },
       };
@@ -323,9 +315,9 @@ export class TableEService {
 
       const tmp = {
         type: "time", 
-        cell: dbVal?.strVal, 
+        cell: dbVal, 
         save: {
-          row:  dbVal?.row, 
+          row:  dbTs, 
           col:  bind.key,
         },
       };
@@ -336,9 +328,9 @@ export class TableEService {
 
       const tmp = {
         type: "datetime", 
-        cell: dbVal?.strVal, //temp test
+        cell: dbVal, //temp test
         save: {
-          row:  dbVal?.row, 
+          row:  dbTs, 
           col:  bind.key,
         },
       };
@@ -348,9 +340,9 @@ export class TableEService {
   async setCheckBoxCellValue(bind: any, dbVal: any, dbTs:any) {
       const tmp = {
         type: "checkbox", 
-        cell: dbVal?.strVal === "true",  // странное преобразование ?
+        cell: dbVal === "true",  // странное преобразование ?
         save: {
-          row:  dbVal?.row, 
+          row:  dbTs, 
           col:  bind.key,
         },
       };
@@ -359,7 +351,7 @@ export class TableEService {
   }
   async setDropBownCellValue(bind: any, dbVal: any, dbTs:any) {
 
-      const columnId = +bind.key;  //column froom DB
+      const columnId = +bind.ent;  //column froom DB
 
       const att = await this.colServ.findOne(columnId);
       let setKv: string[] = [];
@@ -370,10 +362,10 @@ export class TableEService {
 
       const tmp = {
         type: "dropdown", 
-        cell: dbVal?.strVal,
+        cell: dbVal,
         source: setKv,
         save: {
-          row:  dbVal?.row, 
+          row:  dbTs, 
           col:  bind.key,
         },
       };

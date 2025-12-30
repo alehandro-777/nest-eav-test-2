@@ -395,7 +395,7 @@ export const ModelName = {
   Query: 'Query',
   TableE: 'TableE',
   ColumnE: 'ColumnE',
-  RowEAV: 'RowEAV'
+  Table1: 'Table1'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -411,7 +411,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "entity" | "attribute" | "value" | "kVSet" | "kV" | "range" | "attrType" | "template" | "query" | "tableE" | "columnE" | "rowEAV"
+    modelProps: "entity" | "attribute" | "value" | "kVSet" | "kV" | "range" | "attrType" | "template" | "query" | "tableE" | "columnE" | "table1"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1229,77 +1229,77 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    RowEAV: {
-      payload: Prisma.$RowEAVPayload<ExtArgs>
-      fields: Prisma.RowEAVFieldRefs
+    Table1: {
+      payload: Prisma.$Table1Payload<ExtArgs>
+      fields: Prisma.Table1FieldRefs
       operations: {
         findUnique: {
-          args: Prisma.RowEAVFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RowEAVPayload> | null
+          args: Prisma.Table1FindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$Table1Payload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.RowEAVFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RowEAVPayload>
+          args: Prisma.Table1FindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$Table1Payload>
         }
         findFirst: {
-          args: Prisma.RowEAVFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RowEAVPayload> | null
+          args: Prisma.Table1FindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$Table1Payload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.RowEAVFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RowEAVPayload>
+          args: Prisma.Table1FindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$Table1Payload>
         }
         findMany: {
-          args: Prisma.RowEAVFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RowEAVPayload>[]
+          args: Prisma.Table1FindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$Table1Payload>[]
         }
         create: {
-          args: Prisma.RowEAVCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RowEAVPayload>
+          args: Prisma.Table1CreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$Table1Payload>
         }
         createMany: {
-          args: Prisma.RowEAVCreateManyArgs<ExtArgs>
+          args: Prisma.Table1CreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.RowEAVCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RowEAVPayload>[]
+          args: Prisma.Table1CreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$Table1Payload>[]
         }
         delete: {
-          args: Prisma.RowEAVDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RowEAVPayload>
+          args: Prisma.Table1DeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$Table1Payload>
         }
         update: {
-          args: Prisma.RowEAVUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RowEAVPayload>
+          args: Prisma.Table1UpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$Table1Payload>
         }
         deleteMany: {
-          args: Prisma.RowEAVDeleteManyArgs<ExtArgs>
+          args: Prisma.Table1DeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.RowEAVUpdateManyArgs<ExtArgs>
+          args: Prisma.Table1UpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.RowEAVUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RowEAVPayload>[]
+          args: Prisma.Table1UpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$Table1Payload>[]
         }
         upsert: {
-          args: Prisma.RowEAVUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RowEAVPayload>
+          args: Prisma.Table1UpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$Table1Payload>
         }
         aggregate: {
-          args: Prisma.RowEAVAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateRowEAV>
+          args: Prisma.Table1AggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTable1>
         }
         groupBy: {
-          args: Prisma.RowEAVGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.RowEAVGroupByOutputType>[]
+          args: Prisma.Table1GroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Table1GroupByOutputType>[]
         }
         count: {
-          args: Prisma.RowEAVCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.RowEAVCountAggregateOutputType> | number
+          args: Prisma.Table1CountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Table1CountAggregateOutputType> | number
         }
       }
     }
@@ -1433,7 +1433,8 @@ export type QueryScalarFieldEnum = (typeof QueryScalarFieldEnum)[keyof typeof Qu
 
 export const TableEScalarFieldEnum = {
   id: 'id',
-  name: 'name'
+  name: 'name',
+  query: 'query'
 } as const
 
 export type TableEScalarFieldEnum = (typeof TableEScalarFieldEnum)[keyof typeof TableEScalarFieldEnum]
@@ -1441,7 +1442,6 @@ export type TableEScalarFieldEnum = (typeof TableEScalarFieldEnum)[keyof typeof 
 
 export const ColumnEScalarFieldEnum = {
   id: 'id',
-  col: 'col',
   tab: 'tab',
   key: 'key',
   name: 'name',
@@ -1453,20 +1453,20 @@ export const ColumnEScalarFieldEnum = {
 export type ColumnEScalarFieldEnum = (typeof ColumnEScalarFieldEnum)[keyof typeof ColumnEScalarFieldEnum]
 
 
-export const RowEAVScalarFieldEnum = {
+export const Table1ScalarFieldEnum = {
   id: 'id',
-  row: 'row',
-  col: 'col',
-  strVal: 'strVal',
-  numVal: 'numVal',
-  dtVal: 'dtVal',
-  blbVal: 'blbVal',
+  col1: 'col1',
+  col2: 'col2',
+  col3: 'col3',
+  col4: 'col4',
+  col5: 'col5',
+  col6: 'col6',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
 } as const
 
-export type RowEAVScalarFieldEnum = (typeof RowEAVScalarFieldEnum)[keyof typeof RowEAVScalarFieldEnum]
+export type Table1ScalarFieldEnum = (typeof Table1ScalarFieldEnum)[keyof typeof Table1ScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1674,7 +1674,7 @@ export type GlobalOmitConfig = {
   query?: Prisma.QueryOmit
   tableE?: Prisma.TableEOmit
   columnE?: Prisma.ColumnEOmit
-  rowEAV?: Prisma.RowEAVOmit
+  table1?: Prisma.Table1Omit
 }
 
 /* Types for Logging */

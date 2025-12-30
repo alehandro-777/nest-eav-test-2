@@ -8,11 +8,11 @@ import { EntityModule } from './entity/entity.module';
 import { TemplateModule } from './template/template.module';
 import { TableEModule } from './table-e/table-e.module';
 import { ColumnEModule } from './column-e/column-e.module';
-import { RowEavModule } from './row-eav/row-eav.module';
+
 
 
 @Module({
-  imports: [ValueModule, QueryModule, AttributeModule, EntityModule, TemplateModule, TableEModule, ColumnEModule, RowEavModule],
+  imports: [ValueModule, QueryModule, AttributeModule, EntityModule, TemplateModule, TableEModule, ColumnEModule, ],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -91,6 +91,7 @@ CREATE TABLE "Query" (
 CREATE TABLE "TableE" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
+    "query" TEXT NOT NULL,
 
     CONSTRAINT "TableE_pkey" PRIMARY KEY ("id")
 );
@@ -98,7 +99,6 @@ CREATE TABLE "TableE" (
 -- CreateTable
 CREATE TABLE "ColumnE" (
     "id" SERIAL NOT NULL,
-    "col" INTEGER NOT NULL,
     "tab" INTEGER NOT NULL,
     "key" TEXT NOT NULL,
     "name" TEXT NOT NULL,
@@ -110,19 +110,19 @@ CREATE TABLE "ColumnE" (
 );
 
 -- CreateTable
-CREATE TABLE "RowEAV" (
+CREATE TABLE "Table1" (
     "id" SERIAL NOT NULL,
-    "row" INTEGER NOT NULL,
-    "col" INTEGER NOT NULL,
-    "strVal" TEXT NOT NULL,
-    "numVal" DOUBLE PRECISION,
-    "dtVal" TIMESTAMP(3),
-    "blbVal" BYTEA,
+    "col1" TIMESTAMP(3),
+    "col2" DOUBLE PRECISION,
+    "col3" DOUBLE PRECISION,
+    "col4" TEXT NOT NULL,
+    "col5" TEXT NOT NULL,
+    "col6" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3),
     "updatedAt" TIMESTAMP(3),
     "deletedAt" TIMESTAMP(3),
 
-    CONSTRAINT "RowEAV_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Table1_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -138,12 +138,6 @@ CREATE UNIQUE INDEX "Value_ent_att_ts_key" ON "Value"("ent", "att", "ts");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "KV_setId_key_key" ON "KV"("setId", "key");
-
--- CreateIndex
-CREATE UNIQUE INDEX "ColumnE_col_tab_key" ON "ColumnE"("col", "tab");
-
--- CreateIndex
-CREATE UNIQUE INDEX "RowEAV_row_col_key" ON "RowEAV"("row", "col");
 
 -- CreateIndex
 CREATE INDEX "_QueryToTemplate_B_index" ON "_QueryToTemplate"("B");
@@ -170,16 +164,13 @@ ALTER TABLE "KV" ADD CONSTRAINT "KV_setId_fkey" FOREIGN KEY ("setId") REFERENCES
 ALTER TABLE "ColumnE" ADD CONSTRAINT "ColumnE_typ_fkey" FOREIGN KEY ("typ") REFERENCES "AttrType"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "ColumnE" ADD CONSTRAINT "ColumnE_tab_fkey" FOREIGN KEY ("tab") REFERENCES "TableE"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "ColumnE" ADD CONSTRAINT "ColumnE_ran_fkey" FOREIGN KEY ("ran") REFERENCES "Range"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "ColumnE" ADD CONSTRAINT "ColumnE_kvs_fkey" FOREIGN KEY ("kvs") REFERENCES "KVSet"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "RowEAV" ADD CONSTRAINT "RowEAV_col_fkey" FOREIGN KEY ("col") REFERENCES "ColumnE"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "ColumnE" ADD CONSTRAINT "ColumnE_tab_fkey" FOREIGN KEY ("tab") REFERENCES "Table1"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "_QueryToTemplate" ADD CONSTRAINT "_QueryToTemplate_A_fkey" FOREIGN KEY ("A") REFERENCES "Query"("id") ON DELETE CASCADE ON UPDATE CASCADE;

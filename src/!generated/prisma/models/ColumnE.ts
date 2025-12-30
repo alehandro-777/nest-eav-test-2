@@ -28,7 +28,6 @@ export type AggregateColumnE = {
 
 export type ColumnEAvgAggregateOutputType = {
   id: number | null
-  col: number | null
   tab: number | null
   typ: number | null
   ran: number | null
@@ -37,7 +36,6 @@ export type ColumnEAvgAggregateOutputType = {
 
 export type ColumnESumAggregateOutputType = {
   id: number | null
-  col: number | null
   tab: number | null
   typ: number | null
   ran: number | null
@@ -46,7 +44,6 @@ export type ColumnESumAggregateOutputType = {
 
 export type ColumnEMinAggregateOutputType = {
   id: number | null
-  col: number | null
   tab: number | null
   key: string | null
   name: string | null
@@ -57,7 +54,6 @@ export type ColumnEMinAggregateOutputType = {
 
 export type ColumnEMaxAggregateOutputType = {
   id: number | null
-  col: number | null
   tab: number | null
   key: string | null
   name: string | null
@@ -68,7 +64,6 @@ export type ColumnEMaxAggregateOutputType = {
 
 export type ColumnECountAggregateOutputType = {
   id: number
-  col: number
   tab: number
   key: number
   name: number
@@ -81,7 +76,6 @@ export type ColumnECountAggregateOutputType = {
 
 export type ColumnEAvgAggregateInputType = {
   id?: true
-  col?: true
   tab?: true
   typ?: true
   ran?: true
@@ -90,7 +84,6 @@ export type ColumnEAvgAggregateInputType = {
 
 export type ColumnESumAggregateInputType = {
   id?: true
-  col?: true
   tab?: true
   typ?: true
   ran?: true
@@ -99,7 +92,6 @@ export type ColumnESumAggregateInputType = {
 
 export type ColumnEMinAggregateInputType = {
   id?: true
-  col?: true
   tab?: true
   key?: true
   name?: true
@@ -110,7 +102,6 @@ export type ColumnEMinAggregateInputType = {
 
 export type ColumnEMaxAggregateInputType = {
   id?: true
-  col?: true
   tab?: true
   key?: true
   name?: true
@@ -121,7 +112,6 @@ export type ColumnEMaxAggregateInputType = {
 
 export type ColumnECountAggregateInputType = {
   id?: true
-  col?: true
   tab?: true
   key?: true
   name?: true
@@ -219,7 +209,6 @@ export type ColumnEGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 
 export type ColumnEGroupByOutputType = {
   id: number
-  col: number
   tab: number
   key: string
   name: string
@@ -253,59 +242,51 @@ export type ColumnEWhereInput = {
   OR?: Prisma.ColumnEWhereInput[]
   NOT?: Prisma.ColumnEWhereInput | Prisma.ColumnEWhereInput[]
   id?: Prisma.IntFilter<"ColumnE"> | number
-  col?: Prisma.IntFilter<"ColumnE"> | number
   tab?: Prisma.IntFilter<"ColumnE"> | number
   key?: Prisma.StringFilter<"ColumnE"> | string
   name?: Prisma.StringFilter<"ColumnE"> | string
   typ?: Prisma.IntFilter<"ColumnE"> | number
   ran?: Prisma.IntNullableFilter<"ColumnE"> | number | null
   kvs?: Prisma.IntNullableFilter<"ColumnE"> | number | null
-  rows?: Prisma.RowEAVListRelationFilter
   type?: Prisma.XOR<Prisma.AttrTypeScalarRelationFilter, Prisma.AttrTypeWhereInput>
-  table?: Prisma.XOR<Prisma.TableEScalarRelationFilter, Prisma.TableEWhereInput>
   range?: Prisma.XOR<Prisma.RangeNullableScalarRelationFilter, Prisma.RangeWhereInput> | null
   kVSet?: Prisma.XOR<Prisma.KVSetNullableScalarRelationFilter, Prisma.KVSetWhereInput> | null
+  table?: Prisma.XOR<Prisma.Table1ScalarRelationFilter, Prisma.Table1WhereInput>
 }
 
 export type ColumnEOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  col?: Prisma.SortOrder
   tab?: Prisma.SortOrder
   key?: Prisma.SortOrder
   name?: Prisma.SortOrder
   typ?: Prisma.SortOrder
   ran?: Prisma.SortOrderInput | Prisma.SortOrder
   kvs?: Prisma.SortOrderInput | Prisma.SortOrder
-  rows?: Prisma.RowEAVOrderByRelationAggregateInput
   type?: Prisma.AttrTypeOrderByWithRelationInput
-  table?: Prisma.TableEOrderByWithRelationInput
   range?: Prisma.RangeOrderByWithRelationInput
   kVSet?: Prisma.KVSetOrderByWithRelationInput
+  table?: Prisma.Table1OrderByWithRelationInput
 }
 
 export type ColumnEWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  col_tab?: Prisma.ColumnEColTabCompoundUniqueInput
   AND?: Prisma.ColumnEWhereInput | Prisma.ColumnEWhereInput[]
   OR?: Prisma.ColumnEWhereInput[]
   NOT?: Prisma.ColumnEWhereInput | Prisma.ColumnEWhereInput[]
-  col?: Prisma.IntFilter<"ColumnE"> | number
   tab?: Prisma.IntFilter<"ColumnE"> | number
   key?: Prisma.StringFilter<"ColumnE"> | string
   name?: Prisma.StringFilter<"ColumnE"> | string
   typ?: Prisma.IntFilter<"ColumnE"> | number
   ran?: Prisma.IntNullableFilter<"ColumnE"> | number | null
   kvs?: Prisma.IntNullableFilter<"ColumnE"> | number | null
-  rows?: Prisma.RowEAVListRelationFilter
   type?: Prisma.XOR<Prisma.AttrTypeScalarRelationFilter, Prisma.AttrTypeWhereInput>
-  table?: Prisma.XOR<Prisma.TableEScalarRelationFilter, Prisma.TableEWhereInput>
   range?: Prisma.XOR<Prisma.RangeNullableScalarRelationFilter, Prisma.RangeWhereInput> | null
   kVSet?: Prisma.XOR<Prisma.KVSetNullableScalarRelationFilter, Prisma.KVSetWhereInput> | null
-}, "id" | "col_tab">
+  table?: Prisma.XOR<Prisma.Table1ScalarRelationFilter, Prisma.Table1WhereInput>
+}, "id">
 
 export type ColumnEOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  col?: Prisma.SortOrder
   tab?: Prisma.SortOrder
   key?: Prisma.SortOrder
   name?: Prisma.SortOrder
@@ -324,7 +305,6 @@ export type ColumnEScalarWhereWithAggregatesInput = {
   OR?: Prisma.ColumnEScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ColumnEScalarWhereWithAggregatesInput | Prisma.ColumnEScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"ColumnE"> | number
-  col?: Prisma.IntWithAggregatesFilter<"ColumnE"> | number
   tab?: Prisma.IntWithAggregatesFilter<"ColumnE"> | number
   key?: Prisma.StringWithAggregatesFilter<"ColumnE"> | string
   name?: Prisma.StringWithAggregatesFilter<"ColumnE"> | string
@@ -334,54 +314,45 @@ export type ColumnEScalarWhereWithAggregatesInput = {
 }
 
 export type ColumnECreateInput = {
-  col: number
   key: string
   name: string
-  rows?: Prisma.RowEAVCreateNestedManyWithoutColumnInput
   type: Prisma.AttrTypeCreateNestedOneWithoutColumnsInput
-  table: Prisma.TableECreateNestedOneWithoutColumnsInput
   range?: Prisma.RangeCreateNestedOneWithoutColumnsInput
   kVSet?: Prisma.KVSetCreateNestedOneWithoutColumnsInput
+  table: Prisma.Table1CreateNestedOneWithoutColumnsInput
 }
 
 export type ColumnEUncheckedCreateInput = {
   id?: number
-  col: number
   tab: number
   key: string
   name: string
   typ: number
   ran?: number | null
   kvs?: number | null
-  rows?: Prisma.RowEAVUncheckedCreateNestedManyWithoutColumnInput
 }
 
 export type ColumnEUpdateInput = {
-  col?: Prisma.IntFieldUpdateOperationsInput | number
   key?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  rows?: Prisma.RowEAVUpdateManyWithoutColumnNestedInput
   type?: Prisma.AttrTypeUpdateOneRequiredWithoutColumnsNestedInput
-  table?: Prisma.TableEUpdateOneRequiredWithoutColumnsNestedInput
   range?: Prisma.RangeUpdateOneWithoutColumnsNestedInput
   kVSet?: Prisma.KVSetUpdateOneWithoutColumnsNestedInput
+  table?: Prisma.Table1UpdateOneRequiredWithoutColumnsNestedInput
 }
 
 export type ColumnEUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  col?: Prisma.IntFieldUpdateOperationsInput | number
   tab?: Prisma.IntFieldUpdateOperationsInput | number
   key?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   typ?: Prisma.IntFieldUpdateOperationsInput | number
   ran?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   kvs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  rows?: Prisma.RowEAVUncheckedUpdateManyWithoutColumnNestedInput
 }
 
 export type ColumnECreateManyInput = {
   id?: number
-  col: number
   tab: number
   key: string
   name: string
@@ -391,14 +362,12 @@ export type ColumnECreateManyInput = {
 }
 
 export type ColumnEUpdateManyMutationInput = {
-  col?: Prisma.IntFieldUpdateOperationsInput | number
   key?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ColumnEUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  col?: Prisma.IntFieldUpdateOperationsInput | number
   tab?: Prisma.IntFieldUpdateOperationsInput | number
   key?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
@@ -417,14 +386,8 @@ export type ColumnEOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type ColumnEColTabCompoundUniqueInput = {
-  col: number
-  tab: number
-}
-
 export type ColumnECountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  col?: Prisma.SortOrder
   tab?: Prisma.SortOrder
   key?: Prisma.SortOrder
   name?: Prisma.SortOrder
@@ -435,7 +398,6 @@ export type ColumnECountOrderByAggregateInput = {
 
 export type ColumnEAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  col?: Prisma.SortOrder
   tab?: Prisma.SortOrder
   typ?: Prisma.SortOrder
   ran?: Prisma.SortOrder
@@ -444,7 +406,6 @@ export type ColumnEAvgOrderByAggregateInput = {
 
 export type ColumnEMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  col?: Prisma.SortOrder
   tab?: Prisma.SortOrder
   key?: Prisma.SortOrder
   name?: Prisma.SortOrder
@@ -455,7 +416,6 @@ export type ColumnEMaxOrderByAggregateInput = {
 
 export type ColumnEMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  col?: Prisma.SortOrder
   tab?: Prisma.SortOrder
   key?: Prisma.SortOrder
   name?: Prisma.SortOrder
@@ -466,16 +426,10 @@ export type ColumnEMinOrderByAggregateInput = {
 
 export type ColumnESumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  col?: Prisma.SortOrder
   tab?: Prisma.SortOrder
   typ?: Prisma.SortOrder
   ran?: Prisma.SortOrder
   kvs?: Prisma.SortOrder
-}
-
-export type ColumnEScalarRelationFilter = {
-  is?: Prisma.ColumnEWhereInput
-  isNot?: Prisma.ColumnEWhereInput
 }
 
 export type ColumnECreateNestedManyWithoutKVSetInput = {
@@ -646,39 +600,21 @@ export type ColumnEUncheckedUpdateManyWithoutTableNestedInput = {
   deleteMany?: Prisma.ColumnEScalarWhereInput | Prisma.ColumnEScalarWhereInput[]
 }
 
-export type ColumnECreateNestedOneWithoutRowsInput = {
-  create?: Prisma.XOR<Prisma.ColumnECreateWithoutRowsInput, Prisma.ColumnEUncheckedCreateWithoutRowsInput>
-  connectOrCreate?: Prisma.ColumnECreateOrConnectWithoutRowsInput
-  connect?: Prisma.ColumnEWhereUniqueInput
-}
-
-export type ColumnEUpdateOneRequiredWithoutRowsNestedInput = {
-  create?: Prisma.XOR<Prisma.ColumnECreateWithoutRowsInput, Prisma.ColumnEUncheckedCreateWithoutRowsInput>
-  connectOrCreate?: Prisma.ColumnECreateOrConnectWithoutRowsInput
-  upsert?: Prisma.ColumnEUpsertWithoutRowsInput
-  connect?: Prisma.ColumnEWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ColumnEUpdateToOneWithWhereWithoutRowsInput, Prisma.ColumnEUpdateWithoutRowsInput>, Prisma.ColumnEUncheckedUpdateWithoutRowsInput>
-}
-
 export type ColumnECreateWithoutKVSetInput = {
-  col: number
   key: string
   name: string
-  rows?: Prisma.RowEAVCreateNestedManyWithoutColumnInput
   type: Prisma.AttrTypeCreateNestedOneWithoutColumnsInput
-  table: Prisma.TableECreateNestedOneWithoutColumnsInput
   range?: Prisma.RangeCreateNestedOneWithoutColumnsInput
+  table: Prisma.Table1CreateNestedOneWithoutColumnsInput
 }
 
 export type ColumnEUncheckedCreateWithoutKVSetInput = {
   id?: number
-  col: number
   tab: number
   key: string
   name: string
   typ: number
   ran?: number | null
-  rows?: Prisma.RowEAVUncheckedCreateNestedManyWithoutColumnInput
 }
 
 export type ColumnECreateOrConnectWithoutKVSetInput = {
@@ -712,7 +648,6 @@ export type ColumnEScalarWhereInput = {
   OR?: Prisma.ColumnEScalarWhereInput[]
   NOT?: Prisma.ColumnEScalarWhereInput | Prisma.ColumnEScalarWhereInput[]
   id?: Prisma.IntFilter<"ColumnE"> | number
-  col?: Prisma.IntFilter<"ColumnE"> | number
   tab?: Prisma.IntFilter<"ColumnE"> | number
   key?: Prisma.StringFilter<"ColumnE"> | string
   name?: Prisma.StringFilter<"ColumnE"> | string
@@ -722,24 +657,20 @@ export type ColumnEScalarWhereInput = {
 }
 
 export type ColumnECreateWithoutRangeInput = {
-  col: number
   key: string
   name: string
-  rows?: Prisma.RowEAVCreateNestedManyWithoutColumnInput
   type: Prisma.AttrTypeCreateNestedOneWithoutColumnsInput
-  table: Prisma.TableECreateNestedOneWithoutColumnsInput
   kVSet?: Prisma.KVSetCreateNestedOneWithoutColumnsInput
+  table: Prisma.Table1CreateNestedOneWithoutColumnsInput
 }
 
 export type ColumnEUncheckedCreateWithoutRangeInput = {
   id?: number
-  col: number
   tab: number
   key: string
   name: string
   typ: number
   kvs?: number | null
-  rows?: Prisma.RowEAVUncheckedCreateNestedManyWithoutColumnInput
 }
 
 export type ColumnECreateOrConnectWithoutRangeInput = {
@@ -769,24 +700,20 @@ export type ColumnEUpdateManyWithWhereWithoutRangeInput = {
 }
 
 export type ColumnECreateWithoutTypeInput = {
-  col: number
   key: string
   name: string
-  rows?: Prisma.RowEAVCreateNestedManyWithoutColumnInput
-  table: Prisma.TableECreateNestedOneWithoutColumnsInput
   range?: Prisma.RangeCreateNestedOneWithoutColumnsInput
   kVSet?: Prisma.KVSetCreateNestedOneWithoutColumnsInput
+  table: Prisma.Table1CreateNestedOneWithoutColumnsInput
 }
 
 export type ColumnEUncheckedCreateWithoutTypeInput = {
   id?: number
-  col: number
   tab: number
   key: string
   name: string
   ran?: number | null
   kvs?: number | null
-  rows?: Prisma.RowEAVUncheckedCreateNestedManyWithoutColumnInput
 }
 
 export type ColumnECreateOrConnectWithoutTypeInput = {
@@ -816,10 +743,8 @@ export type ColumnEUpdateManyWithWhereWithoutTypeInput = {
 }
 
 export type ColumnECreateWithoutTableInput = {
-  col: number
   key: string
   name: string
-  rows?: Prisma.RowEAVCreateNestedManyWithoutColumnInput
   type: Prisma.AttrTypeCreateNestedOneWithoutColumnsInput
   range?: Prisma.RangeCreateNestedOneWithoutColumnsInput
   kVSet?: Prisma.KVSetCreateNestedOneWithoutColumnsInput
@@ -827,13 +752,11 @@ export type ColumnECreateWithoutTableInput = {
 
 export type ColumnEUncheckedCreateWithoutTableInput = {
   id?: number
-  col: number
   key: string
   name: string
   typ: number
   ran?: number | null
   kvs?: number | null
-  rows?: Prisma.RowEAVUncheckedCreateNestedManyWithoutColumnInput
 }
 
 export type ColumnECreateOrConnectWithoutTableInput = {
@@ -862,67 +785,8 @@ export type ColumnEUpdateManyWithWhereWithoutTableInput = {
   data: Prisma.XOR<Prisma.ColumnEUpdateManyMutationInput, Prisma.ColumnEUncheckedUpdateManyWithoutTableInput>
 }
 
-export type ColumnECreateWithoutRowsInput = {
-  col: number
-  key: string
-  name: string
-  type: Prisma.AttrTypeCreateNestedOneWithoutColumnsInput
-  table: Prisma.TableECreateNestedOneWithoutColumnsInput
-  range?: Prisma.RangeCreateNestedOneWithoutColumnsInput
-  kVSet?: Prisma.KVSetCreateNestedOneWithoutColumnsInput
-}
-
-export type ColumnEUncheckedCreateWithoutRowsInput = {
-  id?: number
-  col: number
-  tab: number
-  key: string
-  name: string
-  typ: number
-  ran?: number | null
-  kvs?: number | null
-}
-
-export type ColumnECreateOrConnectWithoutRowsInput = {
-  where: Prisma.ColumnEWhereUniqueInput
-  create: Prisma.XOR<Prisma.ColumnECreateWithoutRowsInput, Prisma.ColumnEUncheckedCreateWithoutRowsInput>
-}
-
-export type ColumnEUpsertWithoutRowsInput = {
-  update: Prisma.XOR<Prisma.ColumnEUpdateWithoutRowsInput, Prisma.ColumnEUncheckedUpdateWithoutRowsInput>
-  create: Prisma.XOR<Prisma.ColumnECreateWithoutRowsInput, Prisma.ColumnEUncheckedCreateWithoutRowsInput>
-  where?: Prisma.ColumnEWhereInput
-}
-
-export type ColumnEUpdateToOneWithWhereWithoutRowsInput = {
-  where?: Prisma.ColumnEWhereInput
-  data: Prisma.XOR<Prisma.ColumnEUpdateWithoutRowsInput, Prisma.ColumnEUncheckedUpdateWithoutRowsInput>
-}
-
-export type ColumnEUpdateWithoutRowsInput = {
-  col?: Prisma.IntFieldUpdateOperationsInput | number
-  key?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.AttrTypeUpdateOneRequiredWithoutColumnsNestedInput
-  table?: Prisma.TableEUpdateOneRequiredWithoutColumnsNestedInput
-  range?: Prisma.RangeUpdateOneWithoutColumnsNestedInput
-  kVSet?: Prisma.KVSetUpdateOneWithoutColumnsNestedInput
-}
-
-export type ColumnEUncheckedUpdateWithoutRowsInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  col?: Prisma.IntFieldUpdateOperationsInput | number
-  tab?: Prisma.IntFieldUpdateOperationsInput | number
-  key?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  typ?: Prisma.IntFieldUpdateOperationsInput | number
-  ran?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  kvs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-}
-
 export type ColumnECreateManyKVSetInput = {
   id?: number
-  col: number
   tab: number
   key: string
   name: string
@@ -931,29 +795,24 @@ export type ColumnECreateManyKVSetInput = {
 }
 
 export type ColumnEUpdateWithoutKVSetInput = {
-  col?: Prisma.IntFieldUpdateOperationsInput | number
   key?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  rows?: Prisma.RowEAVUpdateManyWithoutColumnNestedInput
   type?: Prisma.AttrTypeUpdateOneRequiredWithoutColumnsNestedInput
-  table?: Prisma.TableEUpdateOneRequiredWithoutColumnsNestedInput
   range?: Prisma.RangeUpdateOneWithoutColumnsNestedInput
+  table?: Prisma.Table1UpdateOneRequiredWithoutColumnsNestedInput
 }
 
 export type ColumnEUncheckedUpdateWithoutKVSetInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  col?: Prisma.IntFieldUpdateOperationsInput | number
   tab?: Prisma.IntFieldUpdateOperationsInput | number
   key?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   typ?: Prisma.IntFieldUpdateOperationsInput | number
   ran?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  rows?: Prisma.RowEAVUncheckedUpdateManyWithoutColumnNestedInput
 }
 
 export type ColumnEUncheckedUpdateManyWithoutKVSetInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  col?: Prisma.IntFieldUpdateOperationsInput | number
   tab?: Prisma.IntFieldUpdateOperationsInput | number
   key?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
@@ -963,7 +822,6 @@ export type ColumnEUncheckedUpdateManyWithoutKVSetInput = {
 
 export type ColumnECreateManyRangeInput = {
   id?: number
-  col: number
   tab: number
   key: string
   name: string
@@ -972,29 +830,24 @@ export type ColumnECreateManyRangeInput = {
 }
 
 export type ColumnEUpdateWithoutRangeInput = {
-  col?: Prisma.IntFieldUpdateOperationsInput | number
   key?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  rows?: Prisma.RowEAVUpdateManyWithoutColumnNestedInput
   type?: Prisma.AttrTypeUpdateOneRequiredWithoutColumnsNestedInput
-  table?: Prisma.TableEUpdateOneRequiredWithoutColumnsNestedInput
   kVSet?: Prisma.KVSetUpdateOneWithoutColumnsNestedInput
+  table?: Prisma.Table1UpdateOneRequiredWithoutColumnsNestedInput
 }
 
 export type ColumnEUncheckedUpdateWithoutRangeInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  col?: Prisma.IntFieldUpdateOperationsInput | number
   tab?: Prisma.IntFieldUpdateOperationsInput | number
   key?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   typ?: Prisma.IntFieldUpdateOperationsInput | number
   kvs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  rows?: Prisma.RowEAVUncheckedUpdateManyWithoutColumnNestedInput
 }
 
 export type ColumnEUncheckedUpdateManyWithoutRangeInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  col?: Prisma.IntFieldUpdateOperationsInput | number
   tab?: Prisma.IntFieldUpdateOperationsInput | number
   key?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1004,7 +857,6 @@ export type ColumnEUncheckedUpdateManyWithoutRangeInput = {
 
 export type ColumnECreateManyTypeInput = {
   id?: number
-  col: number
   tab: number
   key: string
   name: string
@@ -1013,29 +865,24 @@ export type ColumnECreateManyTypeInput = {
 }
 
 export type ColumnEUpdateWithoutTypeInput = {
-  col?: Prisma.IntFieldUpdateOperationsInput | number
   key?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  rows?: Prisma.RowEAVUpdateManyWithoutColumnNestedInput
-  table?: Prisma.TableEUpdateOneRequiredWithoutColumnsNestedInput
   range?: Prisma.RangeUpdateOneWithoutColumnsNestedInput
   kVSet?: Prisma.KVSetUpdateOneWithoutColumnsNestedInput
+  table?: Prisma.Table1UpdateOneRequiredWithoutColumnsNestedInput
 }
 
 export type ColumnEUncheckedUpdateWithoutTypeInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  col?: Prisma.IntFieldUpdateOperationsInput | number
   tab?: Prisma.IntFieldUpdateOperationsInput | number
   key?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   ran?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   kvs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  rows?: Prisma.RowEAVUncheckedUpdateManyWithoutColumnNestedInput
 }
 
 export type ColumnEUncheckedUpdateManyWithoutTypeInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  col?: Prisma.IntFieldUpdateOperationsInput | number
   tab?: Prisma.IntFieldUpdateOperationsInput | number
   key?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1045,7 +892,6 @@ export type ColumnEUncheckedUpdateManyWithoutTypeInput = {
 
 export type ColumnECreateManyTableInput = {
   id?: number
-  col: number
   key: string
   name: string
   typ: number
@@ -1054,10 +900,8 @@ export type ColumnECreateManyTableInput = {
 }
 
 export type ColumnEUpdateWithoutTableInput = {
-  col?: Prisma.IntFieldUpdateOperationsInput | number
   key?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  rows?: Prisma.RowEAVUpdateManyWithoutColumnNestedInput
   type?: Prisma.AttrTypeUpdateOneRequiredWithoutColumnsNestedInput
   range?: Prisma.RangeUpdateOneWithoutColumnsNestedInput
   kVSet?: Prisma.KVSetUpdateOneWithoutColumnsNestedInput
@@ -1065,18 +909,15 @@ export type ColumnEUpdateWithoutTableInput = {
 
 export type ColumnEUncheckedUpdateWithoutTableInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  col?: Prisma.IntFieldUpdateOperationsInput | number
   key?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   typ?: Prisma.IntFieldUpdateOperationsInput | number
   ran?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   kvs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  rows?: Prisma.RowEAVUncheckedUpdateManyWithoutColumnNestedInput
 }
 
 export type ColumnEUncheckedUpdateManyWithoutTableInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  col?: Prisma.IntFieldUpdateOperationsInput | number
   key?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   typ?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1085,56 +926,23 @@ export type ColumnEUncheckedUpdateManyWithoutTableInput = {
 }
 
 
-/**
- * Count Type ColumnECountOutputType
- */
-
-export type ColumnECountOutputType = {
-  rows: number
-}
-
-export type ColumnECountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  rows?: boolean | ColumnECountOutputTypeCountRowsArgs
-}
-
-/**
- * ColumnECountOutputType without action
- */
-export type ColumnECountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ColumnECountOutputType
-   */
-  select?: Prisma.ColumnECountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * ColumnECountOutputType without action
- */
-export type ColumnECountOutputTypeCountRowsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.RowEAVWhereInput
-}
-
 
 export type ColumnESelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  col?: boolean
   tab?: boolean
   key?: boolean
   name?: boolean
   typ?: boolean
   ran?: boolean
   kvs?: boolean
-  rows?: boolean | Prisma.ColumnE$rowsArgs<ExtArgs>
   type?: boolean | Prisma.AttrTypeDefaultArgs<ExtArgs>
-  table?: boolean | Prisma.TableEDefaultArgs<ExtArgs>
   range?: boolean | Prisma.ColumnE$rangeArgs<ExtArgs>
   kVSet?: boolean | Prisma.ColumnE$kVSetArgs<ExtArgs>
-  _count?: boolean | Prisma.ColumnECountOutputTypeDefaultArgs<ExtArgs>
+  table?: boolean | Prisma.Table1DefaultArgs<ExtArgs>
 }, ExtArgs["result"]["columnE"]>
 
 export type ColumnESelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  col?: boolean
   tab?: boolean
   key?: boolean
   name?: boolean
@@ -1142,14 +950,13 @@ export type ColumnESelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   ran?: boolean
   kvs?: boolean
   type?: boolean | Prisma.AttrTypeDefaultArgs<ExtArgs>
-  table?: boolean | Prisma.TableEDefaultArgs<ExtArgs>
   range?: boolean | Prisma.ColumnE$rangeArgs<ExtArgs>
   kVSet?: boolean | Prisma.ColumnE$kVSetArgs<ExtArgs>
+  table?: boolean | Prisma.Table1DefaultArgs<ExtArgs>
 }, ExtArgs["result"]["columnE"]>
 
 export type ColumnESelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  col?: boolean
   tab?: boolean
   key?: boolean
   name?: boolean
@@ -1157,14 +964,13 @@ export type ColumnESelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   ran?: boolean
   kvs?: boolean
   type?: boolean | Prisma.AttrTypeDefaultArgs<ExtArgs>
-  table?: boolean | Prisma.TableEDefaultArgs<ExtArgs>
   range?: boolean | Prisma.ColumnE$rangeArgs<ExtArgs>
   kVSet?: boolean | Prisma.ColumnE$kVSetArgs<ExtArgs>
+  table?: boolean | Prisma.Table1DefaultArgs<ExtArgs>
 }, ExtArgs["result"]["columnE"]>
 
 export type ColumnESelectScalar = {
   id?: boolean
-  col?: boolean
   tab?: boolean
   key?: boolean
   name?: boolean
@@ -1173,40 +979,36 @@ export type ColumnESelectScalar = {
   kvs?: boolean
 }
 
-export type ColumnEOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "col" | "tab" | "key" | "name" | "typ" | "ran" | "kvs", ExtArgs["result"]["columnE"]>
+export type ColumnEOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tab" | "key" | "name" | "typ" | "ran" | "kvs", ExtArgs["result"]["columnE"]>
 export type ColumnEInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  rows?: boolean | Prisma.ColumnE$rowsArgs<ExtArgs>
   type?: boolean | Prisma.AttrTypeDefaultArgs<ExtArgs>
-  table?: boolean | Prisma.TableEDefaultArgs<ExtArgs>
   range?: boolean | Prisma.ColumnE$rangeArgs<ExtArgs>
   kVSet?: boolean | Prisma.ColumnE$kVSetArgs<ExtArgs>
-  _count?: boolean | Prisma.ColumnECountOutputTypeDefaultArgs<ExtArgs>
+  table?: boolean | Prisma.Table1DefaultArgs<ExtArgs>
 }
 export type ColumnEIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   type?: boolean | Prisma.AttrTypeDefaultArgs<ExtArgs>
-  table?: boolean | Prisma.TableEDefaultArgs<ExtArgs>
   range?: boolean | Prisma.ColumnE$rangeArgs<ExtArgs>
   kVSet?: boolean | Prisma.ColumnE$kVSetArgs<ExtArgs>
+  table?: boolean | Prisma.Table1DefaultArgs<ExtArgs>
 }
 export type ColumnEIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   type?: boolean | Prisma.AttrTypeDefaultArgs<ExtArgs>
-  table?: boolean | Prisma.TableEDefaultArgs<ExtArgs>
   range?: boolean | Prisma.ColumnE$rangeArgs<ExtArgs>
   kVSet?: boolean | Prisma.ColumnE$kVSetArgs<ExtArgs>
+  table?: boolean | Prisma.Table1DefaultArgs<ExtArgs>
 }
 
 export type $ColumnEPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ColumnE"
   objects: {
-    rows: Prisma.$RowEAVPayload<ExtArgs>[]
     type: Prisma.$AttrTypePayload<ExtArgs>
-    table: Prisma.$TableEPayload<ExtArgs>
     range: Prisma.$RangePayload<ExtArgs> | null
     kVSet: Prisma.$KVSetPayload<ExtArgs> | null
+    table: Prisma.$Table1Payload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    col: number
     tab: number
     key: string
     name: string
@@ -1607,11 +1409,10 @@ readonly fields: ColumnEFieldRefs;
  */
 export interface Prisma__ColumnEClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  rows<T extends Prisma.ColumnE$rowsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ColumnE$rowsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RowEAVPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   type<T extends Prisma.AttrTypeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AttrTypeDefaultArgs<ExtArgs>>): Prisma.Prisma__AttrTypeClient<runtime.Types.Result.GetResult<Prisma.$AttrTypePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  table<T extends Prisma.TableEDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TableEDefaultArgs<ExtArgs>>): Prisma.Prisma__TableEClient<runtime.Types.Result.GetResult<Prisma.$TableEPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   range<T extends Prisma.ColumnE$rangeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ColumnE$rangeArgs<ExtArgs>>): Prisma.Prisma__RangeClient<runtime.Types.Result.GetResult<Prisma.$RangePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   kVSet<T extends Prisma.ColumnE$kVSetArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ColumnE$kVSetArgs<ExtArgs>>): Prisma.Prisma__KVSetClient<runtime.Types.Result.GetResult<Prisma.$KVSetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  table<T extends Prisma.Table1DefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Table1DefaultArgs<ExtArgs>>): Prisma.Prisma__Table1Client<runtime.Types.Result.GetResult<Prisma.$Table1Payload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1642,7 +1443,6 @@ export interface Prisma__ColumnEClient<T, Null = never, ExtArgs extends runtime.
  */
 export interface ColumnEFieldRefs {
   readonly id: Prisma.FieldRef<"ColumnE", 'Int'>
-  readonly col: Prisma.FieldRef<"ColumnE", 'Int'>
   readonly tab: Prisma.FieldRef<"ColumnE", 'Int'>
   readonly key: Prisma.FieldRef<"ColumnE", 'String'>
   readonly name: Prisma.FieldRef<"ColumnE", 'String'>
@@ -2042,30 +1842,6 @@ export type ColumnEDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Limit how many ColumnES to delete.
    */
   limit?: number
-}
-
-/**
- * ColumnE.rows
- */
-export type ColumnE$rowsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the RowEAV
-   */
-  select?: Prisma.RowEAVSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the RowEAV
-   */
-  omit?: Prisma.RowEAVOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.RowEAVInclude<ExtArgs> | null
-  where?: Prisma.RowEAVWhereInput
-  orderBy?: Prisma.RowEAVOrderByWithRelationInput | Prisma.RowEAVOrderByWithRelationInput[]
-  cursor?: Prisma.RowEAVWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.RowEAVScalarFieldEnum | Prisma.RowEAVScalarFieldEnum[]
 }
 
 /**

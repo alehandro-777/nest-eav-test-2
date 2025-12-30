@@ -73,7 +73,7 @@ export type TableE = Prisma.TableEModel
  */
 export type ColumnE = Prisma.ColumnEModel
 /**
- * Model RowEAV
+ * Model Table1
  * 
  */
-export type RowEAV = Prisma.RowEAVModel
+export type Table1 = Prisma.Table1Model

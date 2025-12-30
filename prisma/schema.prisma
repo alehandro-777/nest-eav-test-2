@@ -101,48 +101,43 @@ model Query {
   params String
   templates Template[]  //many-to-many
 }
-// --------- EAV TABLES --------------------------------------
+
+// --------- SIMPLE TABLES --------------------------------------
 model TableE {
   id     Int    @id @default(autoincrement())
   name   String
-  columns ColumnE[]
+  query  String
 }
 
 model ColumnE {
   id     Int    @id @default(autoincrement())
-  col    Int  
   tab    Int 
   key    String
   name   String
   typ    Int
   ran    Int?
   kvs    Int?
-
-  rows    RowEAV[]
-
+  
   type    AttrType @relation(fields: [typ], references: [id], onDelete: Cascade)
-  table   TableE   @relation(fields: [tab], references: [id], onDelete: Cascade)
   range   Range?   @relation(fields: [ran], references: [id])
   kVSet   KVSet?   @relation(fields: [kvs], references: [id])
 
-  @@unique([col, tab])
+  table   Table1   @relation(fields: [tab], references: [id], onDelete: Cascade)
 }
 
-model RowEAV {
+model Table1 {
   id     Int    @id @default(autoincrement())
-  row    Int    
-  col    Int
-
-  strVal      String
-  numVal      Float?
-  dtVal       DateTime?
-  blbVal      Bytes?      //PostGres @db.Bytea   //@db.LongBlob
-
+  //
+  col1      DateTime?
+  col2      Float?
+  col3      Float?
+  col4      String      //PostGres: Bytes,  @db.Bytea   //@db.LongBlob
+  col5      String
+  col6      String
+  //const fields
   createdAt   DateTime?
   updatedAt   DateTime?
   deletedAt   DateTime?
-  
-  column ColumnE @relation(fields: [col], references: [id], onDelete: Cascade) 
-  
-  @@unique([row, col])  
+
+  columns ColumnE[]  
 }
