@@ -1,5 +1,8 @@
 import { PartialType } from '@nestjs/swagger';
-import { CreateTableEDto } from './create-table-e.dto';
+import { CreateEdto } from './create-table-e.dto';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class UpdateTableEDto extends PartialType(CreateTableEDto) {}
+export class UpdateEdto extends PartialType(CreateEdto) {
+    id: number;
+}
+

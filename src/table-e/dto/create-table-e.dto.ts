@@ -1,16 +1,18 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateTableEDto {}
 
-export class CreateTable1 {
-    id: number;
-    col1: Date | null;
-    col2: number | null;
-    col3: number | null;
+export class CreateEdto {
+    col1: string;
+    col2: string;
+    col3: string;
     col4: string;
     col5: string;
     col6: string;
-    createdAt: Date | null;
-    updatedAt: Date | null;
-    deletedAt: Date | null;
+    col7: string;
+    col8: string;
+    col9: string;
+    col10: string;    
+    createdAt: Date;
+    updatedAt: Date;
+    deletedAt: Date;
 }

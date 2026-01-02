@@ -1,16 +1,16 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query, Res } from '@nestjs/common';
 import { TableEService } from './table-e.service';
-import { CreateTableEDto } from './dto/create-table-e.dto';
+import { CreateEdto } from './dto/create-table-e.dto';
 
 import type { Response } from 'express';
-import { UpdateTableEDto } from './dto/update-table-e.dto';
+import { UpdateEdto } from './dto/update-table-e.dto';
 
 @Controller('table-e')
 export class TableEController {
   constructor(private readonly tableEService: TableEService) {}
 
   @Post()
-  create(@Body() createTableEDto: CreateTableEDto) {
+  create(@Body() createTableEDto: CreateEdto) {
     return this.tableEService.create(createTableEDto);
   }
 
@@ -25,7 +25,7 @@ export class TableEController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTableEDto: UpdateTableEDto) {
+  update(@Param('id') id: string, @Body() updateTableEDto: UpdateEdto) {
     return this.tableEService.update(+id, updateTableEDto);
   }
 

@@ -222,9 +222,9 @@ export type Table1GroupByOutputType = {
   col1: Date | null
   col2: number | null
   col3: number | null
-  col4: string
-  col5: string
-  col6: string
+  col4: string | null
+  col5: string | null
+  col6: string | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -258,9 +258,9 @@ export type Table1WhereInput = {
   col1?: Prisma.DateTimeNullableFilter<"Table1"> | Date | string | null
   col2?: Prisma.FloatNullableFilter<"Table1"> | number | null
   col3?: Prisma.FloatNullableFilter<"Table1"> | number | null
-  col4?: Prisma.StringFilter<"Table1"> | string
-  col5?: Prisma.StringFilter<"Table1"> | string
-  col6?: Prisma.StringFilter<"Table1"> | string
+  col4?: Prisma.StringNullableFilter<"Table1"> | string | null
+  col5?: Prisma.StringNullableFilter<"Table1"> | string | null
+  col6?: Prisma.StringNullableFilter<"Table1"> | string | null
   createdAt?: Prisma.DateTimeNullableFilter<"Table1"> | Date | string | null
   updatedAt?: Prisma.DateTimeNullableFilter<"Table1"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"Table1"> | Date | string | null
@@ -272,9 +272,9 @@ export type Table1OrderByWithRelationInput = {
   col1?: Prisma.SortOrderInput | Prisma.SortOrder
   col2?: Prisma.SortOrderInput | Prisma.SortOrder
   col3?: Prisma.SortOrderInput | Prisma.SortOrder
-  col4?: Prisma.SortOrder
-  col5?: Prisma.SortOrder
-  col6?: Prisma.SortOrder
+  col4?: Prisma.SortOrderInput | Prisma.SortOrder
+  col5?: Prisma.SortOrderInput | Prisma.SortOrder
+  col6?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -289,9 +289,9 @@ export type Table1WhereUniqueInput = Prisma.AtLeast<{
   col1?: Prisma.DateTimeNullableFilter<"Table1"> | Date | string | null
   col2?: Prisma.FloatNullableFilter<"Table1"> | number | null
   col3?: Prisma.FloatNullableFilter<"Table1"> | number | null
-  col4?: Prisma.StringFilter<"Table1"> | string
-  col5?: Prisma.StringFilter<"Table1"> | string
-  col6?: Prisma.StringFilter<"Table1"> | string
+  col4?: Prisma.StringNullableFilter<"Table1"> | string | null
+  col5?: Prisma.StringNullableFilter<"Table1"> | string | null
+  col6?: Prisma.StringNullableFilter<"Table1"> | string | null
   createdAt?: Prisma.DateTimeNullableFilter<"Table1"> | Date | string | null
   updatedAt?: Prisma.DateTimeNullableFilter<"Table1"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"Table1"> | Date | string | null
@@ -303,9 +303,9 @@ export type Table1OrderByWithAggregationInput = {
   col1?: Prisma.SortOrderInput | Prisma.SortOrder
   col2?: Prisma.SortOrderInput | Prisma.SortOrder
   col3?: Prisma.SortOrderInput | Prisma.SortOrder
-  col4?: Prisma.SortOrder
-  col5?: Prisma.SortOrder
-  col6?: Prisma.SortOrder
+  col4?: Prisma.SortOrderInput | Prisma.SortOrder
+  col5?: Prisma.SortOrderInput | Prisma.SortOrder
+  col6?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -324,9 +324,9 @@ export type Table1ScalarWhereWithAggregatesInput = {
   col1?: Prisma.DateTimeNullableWithAggregatesFilter<"Table1"> | Date | string | null
   col2?: Prisma.FloatNullableWithAggregatesFilter<"Table1"> | number | null
   col3?: Prisma.FloatNullableWithAggregatesFilter<"Table1"> | number | null
-  col4?: Prisma.StringWithAggregatesFilter<"Table1"> | string
-  col5?: Prisma.StringWithAggregatesFilter<"Table1"> | string
-  col6?: Prisma.StringWithAggregatesFilter<"Table1"> | string
+  col4?: Prisma.StringNullableWithAggregatesFilter<"Table1"> | string | null
+  col5?: Prisma.StringNullableWithAggregatesFilter<"Table1"> | string | null
+  col6?: Prisma.StringNullableWithAggregatesFilter<"Table1"> | string | null
   createdAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Table1"> | Date | string | null
   updatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Table1"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Table1"> | Date | string | null
@@ -336,9 +336,9 @@ export type Table1CreateInput = {
   col1?: Date | string | null
   col2?: number | null
   col3?: number | null
-  col4: string
-  col5: string
-  col6: string
+  col4?: string | null
+  col5?: string | null
+  col6?: string | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -350,9 +350,9 @@ export type Table1UncheckedCreateInput = {
   col1?: Date | string | null
   col2?: number | null
   col3?: number | null
-  col4: string
-  col5: string
-  col6: string
+  col4?: string | null
+  col5?: string | null
+  col6?: string | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -363,9 +363,9 @@ export type Table1UpdateInput = {
   col1?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   col2?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   col3?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  col4?: Prisma.StringFieldUpdateOperationsInput | string
-  col5?: Prisma.StringFieldUpdateOperationsInput | string
-  col6?: Prisma.StringFieldUpdateOperationsInput | string
+  col4?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  col5?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  col6?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -377,9 +377,9 @@ export type Table1UncheckedUpdateInput = {
   col1?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   col2?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   col3?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  col4?: Prisma.StringFieldUpdateOperationsInput | string
-  col5?: Prisma.StringFieldUpdateOperationsInput | string
-  col6?: Prisma.StringFieldUpdateOperationsInput | string
+  col4?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  col5?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  col6?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -391,9 +391,9 @@ export type Table1CreateManyInput = {
   col1?: Date | string | null
   col2?: number | null
   col3?: number | null
-  col4: string
-  col5: string
-  col6: string
+  col4?: string | null
+  col5?: string | null
+  col6?: string | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -403,9 +403,9 @@ export type Table1UpdateManyMutationInput = {
   col1?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   col2?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   col3?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  col4?: Prisma.StringFieldUpdateOperationsInput | string
-  col5?: Prisma.StringFieldUpdateOperationsInput | string
-  col6?: Prisma.StringFieldUpdateOperationsInput | string
+  col4?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  col5?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  col6?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -416,9 +416,9 @@ export type Table1UncheckedUpdateManyInput = {
   col1?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   col2?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   col3?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  col4?: Prisma.StringFieldUpdateOperationsInput | string
-  col5?: Prisma.StringFieldUpdateOperationsInput | string
-  col6?: Prisma.StringFieldUpdateOperationsInput | string
+  col4?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  col5?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  col6?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -494,13 +494,17 @@ export type Table1UpdateOneRequiredWithoutColumnsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.Table1UpdateToOneWithWhereWithoutColumnsInput, Prisma.Table1UpdateWithoutColumnsInput>, Prisma.Table1UncheckedUpdateWithoutColumnsInput>
 }
 
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
 export type Table1CreateWithoutColumnsInput = {
   col1?: Date | string | null
   col2?: number | null
   col3?: number | null
-  col4: string
-  col5: string
-  col6: string
+  col4?: string | null
+  col5?: string | null
+  col6?: string | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -511,9 +515,9 @@ export type Table1UncheckedCreateWithoutColumnsInput = {
   col1?: Date | string | null
   col2?: number | null
   col3?: number | null
-  col4: string
-  col5: string
-  col6: string
+  col4?: string | null
+  col5?: string | null
+  col6?: string | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -539,9 +543,9 @@ export type Table1UpdateWithoutColumnsInput = {
   col1?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   col2?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   col3?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  col4?: Prisma.StringFieldUpdateOperationsInput | string
-  col5?: Prisma.StringFieldUpdateOperationsInput | string
-  col6?: Prisma.StringFieldUpdateOperationsInput | string
+  col4?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  col5?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  col6?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -552,9 +556,9 @@ export type Table1UncheckedUpdateWithoutColumnsInput = {
   col1?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   col2?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   col3?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  col4?: Prisma.StringFieldUpdateOperationsInput | string
-  col5?: Prisma.StringFieldUpdateOperationsInput | string
-  col6?: Prisma.StringFieldUpdateOperationsInput | string
+  col4?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  col5?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  col6?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -663,9 +667,9 @@ export type $Table1Payload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     col1: Date | null
     col2: number | null
     col3: number | null
-    col4: string
-    col5: string
-    col6: string
+    col4: string | null
+    col5: string | null
+    col6: string | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
@@ -1321,7 +1325,7 @@ export type Table1CreateArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   /**
    * The data needed to create a Table1.
    */
-  data: Prisma.XOR<Prisma.Table1CreateInput, Prisma.Table1UncheckedCreateInput>
+  data?: Prisma.XOR<Prisma.Table1CreateInput, Prisma.Table1UncheckedCreateInput>
 }
 
 /**

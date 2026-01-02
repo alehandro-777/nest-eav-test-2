@@ -1,5 +1,4 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateTableEDto } from './dto/create-table-e.dto';
 
 import { prisma } from '../prisma';
 import fs from "fs";
@@ -9,8 +8,8 @@ import * as ExcelJS from 'exceljs';
 
 import { ColumnEService } from 'src/column-e/column-e.service';
 import { TableQueryService } from './table-query.service';
-import { UpdateTableEDto } from './dto/update-table-e.dto';
-
+import { UpdateEdto } from './dto/update-table-e.dto';
+import { CreateEdto } from './dto/create-table-e.dto';
 
 
 @Injectable()
@@ -18,7 +17,7 @@ export class TableEService {
   
   constructor(private colServ: ColumnEService, private queryServ: TableQueryService) {}
 
-  create(createTableEDto: CreateTableEDto) {
+  create(createTableEDto: CreateEdto) {
     return 'This action adds a new tableE';
   }
 
@@ -33,7 +32,7 @@ export class TableEService {
       } );
   }
 
-  update(id: number, updateTableEDto: UpdateTableEDto) {
+  update(id: number, updateTableEDto: UpdateEdto) {
     return `This action updates a #${id} tableE`;
   }
 
