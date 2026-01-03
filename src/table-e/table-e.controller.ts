@@ -4,6 +4,7 @@ import { CreateEdto } from './dto/create-table-e.dto';
 
 import type { Response } from 'express';
 import { UpdateEdto } from './dto/update-table-e.dto';
+import { DeleteEdto } from './dto/delete-table-e.dto';
 
 @Controller('table-e')
 export class TableEController {
@@ -24,12 +25,22 @@ export class TableEController {
     return this.tableEService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Patch('one/:id')
   update(@Param('id') id: string, @Body() updateTableEDto: UpdateEdto) {
     return this.tableEService.update(+id, updateTableEDto);
   }
 
-  @Delete(':id')
+  @Patch('rows/:id')
+  upsert(@Param('id') id: string, @Body() updateTableEDto: UpdateEdto[]) {
+    return this.tableEService.upsert(+id, updateTableEDto); //TODO
+  }
+
+  @Patch('delete/:id')
+  soft(@Param('id') id: string, @Body() updateTableEDto: DeleteEdto[]) {
+    return this.tableEService.softDelete(+id, updateTableEDto);
+  }
+
+  @Delete('one/:id')
   remove(@Param('id') id: string) {
     return this.tableEService.remove(+id);
   }

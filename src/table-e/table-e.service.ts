@@ -5,17 +5,18 @@ import fs from "fs";
 import { readFile } from 'fs/promises';
 import * as path from 'path';
 import * as ExcelJS from 'exceljs';
-
+import { DateService } from 'src/table-e/date.service';
 import { ColumnEService } from 'src/column-e/column-e.service';
 import { TableQueryService } from './table-query.service';
 import { UpdateEdto } from './dto/update-table-e.dto';
 import { CreateEdto } from './dto/create-table-e.dto';
+import { DeleteEdto } from './dto/delete-table-e.dto';
 
 
 @Injectable()
 export class TableEService {
   
-  constructor(private colServ: ColumnEService, private queryServ: TableQueryService) {}
+  constructor(private colServ: ColumnEService, private queryServ: TableQueryService, private dtService:DateService) {}
 
   create(createTableEDto: CreateEdto) {
     return 'This action adds a new tableE';
@@ -44,6 +45,14 @@ export class TableEService {
     let res = await this.queryServ.findMany(id, ts, from, to)
     return res;
   }
+
+  upsert(id: number, upsertRowDto: UpdateEdto[])  {
+    return this.queryServ.upsert(id, upsertRowDto);
+  }
+  softDelete(id: number, deleteRowDto: DeleteEdto[])  {
+    return this.queryServ.softDelete(id, deleteRowDto);
+  }
+  
 
 
   
@@ -211,7 +220,7 @@ export class TableEService {
     } 
       const fieldKey = bind.key;
       let dbVal = null;
-      let dbTs = ts;
+      let dbTs = 0;
       //dsKeyRow[0] - Map key, [1] - Value
       if (dsKeyRow && dsKeyRow[1] && dsKeyRow[1][fieldKey]) {
         //dsKeyRow[0] - Map key, [1] - Value
@@ -252,29 +261,20 @@ export class TableEService {
   }
 
   setDevaultValue(dbVal: any) {
-    
-    if (dbVal === null || dbVal === undefined) return "";
-
-    const tmpV = Number(dbVal);
-    //console.log("setDevaultValue dbVal, ",dbVal,tmpV)
-    let tmp = Number.isFinite(tmpV) ? tmpV : dbVal;  //all is via string
     //console.log(dbVal, tmpV)
-    return tmp;
+    return dbVal;
   }
 
   async setNumberCellValue(bind: any, dbVal: any, dbTs:any) {
-
     //console.log(bind)
 
       const columnId = +bind.ent;  //column DB
 
       const att = await this.colServ.findOne(columnId);
-      let tmpV: string|number = "";
-      if (dbVal !== null && dbVal !== undefined) tmpV = Number(dbVal);
       //console.log("setNumberCellValue dbVal ", dbVal, tmpV)
       const tmp = {
         type: "numeric", 
-        cell: Number.isFinite(tmpV) ? tmpV : "",  //all is via string
+        cell: dbVal,
         range: att?.range,
         save: {
           row:  dbTs, 
@@ -301,7 +301,7 @@ export class TableEService {
 
       const tmp = {
         type: "date", 
-        cell: dbVal,
+        cell: this.dtService.format(dbVal, "dd.MM.yyyy"),
         save: {
           row:  dbTs, 
           col:  bind.key,
@@ -314,7 +314,7 @@ export class TableEService {
 
       const tmp = {
         type: "time", 
-        cell: dbVal, 
+        cell: this.dtService.format(dbVal, "HH:mm"), 
         save: {
           row:  dbTs, 
           col:  bind.key,
@@ -327,7 +327,7 @@ export class TableEService {
 
       const tmp = {
         type: "datetime", 
-        cell: dbVal, //temp test
+        cell: this.dtService.format(dbVal, "dd.MM.yyyy HH:mm"),
         save: {
           row:  dbTs, 
           col:  bind.key,
